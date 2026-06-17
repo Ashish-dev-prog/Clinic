@@ -1523,3 +1523,66 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* Dark Mode Overrides for page-specific components */
+[data-theme="dark"] .floating-booking-card {
+  background: rgba(30, 41, 59, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="dark"] .banner-clinic-info {
+  background: rgba(30, 41, 59, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Booking Slots in Dark Mode */
+[data-theme="dark"] .slot-box.booked {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #64748B !important;
+}
+
+[data-theme="dark"] .slot-box.almost-full {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  border-color: rgba(245, 158, 11, 0.3) !important;
+  color: #FBBF24 !important;
+}
+
+[data-theme="dark"] .slot-box.almost-full:hover {
+  background-color: rgba(245, 158, 11, 0.25) !important;
+  border-color: #F59E0B !important;
+}
+
+[data-theme="dark"] .slot-box.closed {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
+  color: #F87171 !important;
+}
+
+/* Queue Progress Bar in Dark Mode */
+[data-theme="dark"] .queue-progress-bar {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Hero Mock Map Preview in Dark Mode */
+[data-theme="dark"] .map-preview-container {
+  background-color: #0B0F19 !important;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.05) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 2px, transparent 2px) !important;
+}
+
+[data-theme="dark"] .map-block-green {
+  background-color: rgba(34, 197, 94, 0.15) !important;
+  border-color: #22C55E !important;
+}
+
+[data-theme="dark"] .map-block-park {
+  background-color: rgba(6, 78, 59, 0.3) !important;
+  border-color: #059669 !important;
+}
+
+[data-theme="dark"] .map-river {
+  background-color: #1E3A8A !important;
+}
+

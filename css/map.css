@@ -506,3 +506,10 @@
     height: 50%;
   }
 }
+
+/* Dark Mode Overrides for map page elements */
+[data-theme="dark"] .map-popup-card {
+  background: rgba(30, 41, 59, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
