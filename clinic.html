@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Appointment — Clinic Profile | PawCare</title>
+  <meta name="description" content="View clinic details, doctors, patient ratings, and book exact appointment slots visually.">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/page-specific.css">
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="logo" id="nav-logo">
+      <i class="fa-solid fa-house-chimney-medical"></i> PawCare
+    </a>
+    <nav class="nav-links" id="navbar-links">
+      <a href="index.html">Home</a>
+      <a href="find.html" class="active">Find Clinic</a>
+      <a href="dashboard.html">Pet Care</a>
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="find.html" class="btn btn-primary" id="find-near-me-btn">
+        <i class="fa-solid fa-location-crosshairs"></i> Find Near Me
+      </a>
+      <button class="btn btn-emergency" id="emergency-btn">
+        <i class="fa-solid fa-triangle-exclamation"></i> EMERGENCY
+      </button>
+      <button class="mobile-nav-toggle" id="mobile-toggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Clinic Profile Header Section -->
+  <div class="container" style="margin-top: 2rem;">
+    <div class="clinic-banner-hero" id="profile-banner">
+      
+      <!-- Overlapping Clinic Info Card -->
+      <div class="banner-clinic-info">
+        <div style="display: flex; gap: 1.25rem; align-items: center;">
+          <div style="width: 70px; height: 70px; background-color: var(--light-teal-bg); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
+            <i class="fa-solid fa-house-chimney-medical" id="profile-clinic-icon" style="font-size: 2.25rem; color: var(--primary-teal)"></i>
+          </div>
+          <div>
+            <h1 id="profile-title" style="font-size: 1.75rem; margin-bottom: 0.25rem;">Metro Care General Clinic</h1>
+            <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+              <span class="badge badge-teal" id="profile-type-badge">General Medicine</span>
+              <span id="profile-rating-span" style="font-size: 0.85rem; font-weight: 600; color: var(--text-grey);">
+                <i class="fa-solid fa-star" style="color: var(--warning-yellow)"></i> 4.8 (342 reviews)
+              </span>
+              <span class="badge badge-success" id="profile-status">Open • Available Today</span>
+            </div>
+            <p id="profile-address" style="font-size: 0.85rem; color: var(--text-grey); margin-top: 0.25rem;"><i class="fa-solid fa-location-dot"></i> B-42, Connaught Place, New Delhi</p>
+          </div>
+        </div>
+        
+        <div style="display: flex; gap: 0.75rem;">
+          <button class="btn btn-secondary" id="share-clinic-btn" title="Share Clinic Profile"><i class="fa-solid fa-share-nodes"></i> Share</button>
+          <button class="btn btn-primary" onclick="window.location.href='tel:+919812345670'" style="padding: 0.75rem;"><i class="fa-solid fa-phone"></i> Call</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Profile Content Switcher Section -->
+  <main class="container section-padding" style="padding-top: 1rem;">
+    <div class="clinic-profile-layout">
+      
+      <!-- LEFT COLUMN: Content Tabs (60%) -->
+      <section>
+        
+        <!-- Tab Links -->
+        <nav class="tab-nav-bar">
+          <button class="tab-btn" data-tab="overview">Overview</button>
+          <button class="tab-btn" data-tab="doctors">Doctors</button>
+          <button class="tab-btn active" data-tab="slots">Slots Booking</button>
+          <button class="tab-btn" data-tab="reviews">Reviews</button>
+          <button class="tab-btn" data-tab="location">Location</button>
+        </nav>
+
+        <!-- Tab 1: Overview Panel -->
+        <div class="tab-content-panel" id="overview-tab">
+          <div style="margin-bottom: 2rem;">
+            <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem;">About Clinic</h3>
+            <p id="about-text" style="color: var(--text-grey); line-height: 1.7;"></p>
+          </div>
+
+          <div style="margin-bottom: 2rem;">
+            <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem;">Services Provided</h3>
+            <div class="clinic-tags" id="services-list-container">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div style="margin-bottom: 2rem;">
+            <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem;">Facilities</h3>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;" id="facilities-list-container">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div>
+            <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem;">Working Hours</h3>
+            <table style="width: 100%; border-collapse: collapse; border: 1px solid var(--border-color); text-align: left;">
+              <thead>
+                <tr style="background-color: var(--light-grey); font-weight: 600;">
+                  <th style="padding: 0.75rem 1rem; border: 1px solid var(--border-color);">Day</th>
+                  <th style="padding: 0.75rem 1rem; border: 1px solid var(--border-color);">Timings</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 0.75rem 1rem; border: 1px solid var(--border-color); font-weight: 500;">Monday - Saturday</td>
+                  <td style="padding: 0.75rem 1rem; border: 1px solid var(--border-color); color: var(--text-grey);">9:00 AM - 8:00 PM</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.75rem 1rem; border: 1px solid var(--border-color); font-weight: 500;">Sunday</td>
+                  <td style="padding: 0.75rem 1rem; border: 1px solid var(--border-color); color: var(--text-grey);">10:00 AM - 2:00 PM</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.75rem 1rem; border: 1px solid var(--border-color); font-weight: 500;">Emergency ER Services</td>
+                  <td style="padding: 0.75rem 1rem; border: 1px solid var(--border-color); color: var(--emergency-red); font-weight: 600;">24 Hours Open</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 2: Doctors Panel -->
+        <div class="tab-content-panel" id="doctors-tab">
+          <h3 style="font-size: 1.35rem; margin-bottom: 1.25rem;">Specialist Doctors</h3>
+          <div class="doctors-list" id="doctors-list-container">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- Tab 3: Slots Booking (RedBus Style - Active by default) -->
+        <div class="tab-content-panel active" id="slots-tab">
+          
+          <div class="slots-container-card">
+            <h3 style="font-size: 1.35rem; margin-bottom: 1rem;">Select Appointment Date</h3>
+            
+            <!-- Date list scroller -->
+            <div class="date-picker-row" id="date-picker-row">
+              <!-- Generated via JS -->
+            </div>
+
+            <h3 style="font-size: 1.35rem; margin-bottom: 1rem; margin-top: 1rem;">Choose Time Period</h3>
+            <!-- Period filter buttons -->
+            <div class="period-tabs">
+              <button class="period-tab-btn active" data-period="morning"><i class="fa-solid fa-mug-saucer"></i> Morning</button>
+              <button class="period-tab-btn" data-period="afternoon"><i class="fa-solid fa-sun"></i> Afternoon</button>
+              <button class="period-tab-btn" data-period="evening"><i class="fa-solid fa-moon"></i> Evening</button>
+            </div>
+
+            <!-- Slots visual grid -->
+            <div class="slot-grid-layout" id="slots-grid-container">
+              <!-- Rendered via JS -->
+            </div>
+
+            <!-- Legend strip -->
+            <div style="display: flex; gap: 1.5rem; font-size: 0.8rem; font-weight: 600; flex-wrap: wrap; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+              <div style="display: flex; align-items: center; gap: 0.4rem;">
+                <div style="width: 12px; height: 12px; border: 1px solid rgba(13, 148, 136, 0.3); border-radius: 3px;"></div>
+                <span style="color: var(--primary-teal)">Available</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.4rem;">
+                <div style="width: 12px; height: 12px; background-color: #F1F5F9; border-radius: 3px;"></div>
+                <span style="color: #94A3B8; text-decoration: line-through;">Booked</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.4rem;">
+                <div style="width: 12px; height: 12px; background-color: #FFFBEB; border: 1px solid #FCD34D; border-radius: 3px;"></div>
+                <span style="color: #D97706">Almost Full (1 left)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.4rem;">
+                <div style="width: 12px; height: 12px; background-color: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 3px;"></div>
+                <span style="color: #DC2626">Closed</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Tab 4: Reviews Panel -->
+        <div class="tab-content-panel" id="reviews-tab">
+          <h3 style="font-size: 1.35rem; margin-bottom: 1.5rem;">Patient Reviews</h3>
+          
+          <!-- Rating stats breakdown chart -->
+          <div style="display: flex; gap: 3rem; align-items: center; margin-bottom: 3rem; background-color: var(--light-grey); padding: 2rem; border-radius: var(--radius-lg);">
+            <div style="text-align: center;">
+              <h2 style="font-size: 3.5rem; font-family: var(--font-stats); color: var(--primary-teal);">4.8</h2>
+              <div style="color: var(--warning-yellow); margin-bottom: 0.25rem;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+              <span style="font-size: 0.8rem; color: var(--text-grey);">342 reviews</span>
+            </div>
+            
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 0.5rem;">
+              <!-- 5 Star -->
+              <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; font-weight: 500;">
+                <span style="width: 45px;">5 Star</span>
+                <div style="flex: 1; height: 8px; background-color: #E2E8F0; border-radius: 4px; overflow: hidden;">
+                  <div style="width: 82%; height: 100%; background-color: var(--primary-teal);"></div>
+                </div>
+                <span style="width: 35px; text-align: right;">82%</span>
+              </div>
+              <!-- 4 Star -->
+              <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; font-weight: 500;">
+                <span style="width: 45px;">4 Star</span>
+                <div style="flex: 1; height: 8px; background-color: #E2E8F0; border-radius: 4px; overflow: hidden;">
+                  <div style="width: 12%; height: 100%; background-color: var(--primary-teal);"></div>
+                </div>
+                <span style="width: 35px; text-align: right;">12%</span>
+              </div>
+              <!-- 3 Star -->
+              <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; font-weight: 500;">
+                <span style="width: 45px;">3 Star</span>
+                <div style="flex: 1; height: 8px; background-color: #E2E8F0; border-radius: 4px; overflow: hidden;">
+                  <div style="width: 4%; height: 100%; background-color: var(--primary-teal);"></div>
+                </div>
+                <span style="width: 35px; text-align: right;">4%</span>
+              </div>
+              <!-- 2 Star -->
+              <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; font-weight: 500;">
+                <span style="width: 45px;">2 Star</span>
+                <div style="flex: 1; height: 8px; background-color: #E2E8F0; border-radius: 4px; overflow: hidden;">
+                  <div style="width: 1%; height: 100%; background-color: var(--primary-teal);"></div>
+                </div>
+                <span style="width: 35px; text-align: right;">1%</span>
+              </div>
+              <!-- 1 Star -->
+              <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; font-weight: 500;">
+                <span style="width: 45px;">1 Star</span>
+                <div style="flex: 1; height: 8px; background-color: #E2E8F0; border-radius: 4px; overflow: hidden;">
+                  <div style="width: 1%; height: 100%; background-color: var(--primary-teal);"></div>
+                </div>
+                <span style="width: 35px; text-align: right;">1%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reviews Cards -->
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <h4 style="font-size: 1rem;">Meera Vasudevan</h4>
+                <span style="font-size: 0.8rem; color: var(--text-grey);">12 June 2026</span>
+              </div>
+              <div style="color: var(--warning-yellow); font-size: 0.8rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+              <p style="color: var(--text-grey); font-size: 0.9rem;">"Dr. Arvind Mehta is incredibly patient and answered all my health queries with great clarity. Booking system was completely visual and smooth."</p>
+            </div>
+            
+            <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <h4 style="font-size: 1rem;">Rohan Sen</h4>
+                <span style="font-size: 0.8rem; color: var(--text-grey);">3 June 2026</span>
+              </div>
+              <div style="color: var(--warning-yellow); font-size: 0.8rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+              <p style="color: var(--text-grey); font-size: 0.9rem;">"Very clean facilities. The appointment estimation said wait time would be ~20 mins, I reached there and was called in exactly 18 mins. Highly recommended!"</p>
+            </div>
+
+            <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <h4 style="font-size: 1rem;">Karthik A.</h4>
+                <span style="font-size: 0.8rem; color: var(--text-grey);">28 May 2026</span>
+              </div>
+              <div style="color: var(--warning-yellow); font-size: 0.8rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+              <p style="color: var(--text-grey); font-size: 0.9rem;">"I took my pet here (since they do vet bookings in the evenings as well). Dr. Ananya was fantastic with my cat. Visual queue tracking took off all my anxiety."</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 5: Location Panel -->
+        <div class="tab-content-panel" id="location-tab">
+          <h3 style="font-size: 1.35rem; margin-bottom: 1rem;">Clinic Map Location</h3>
+          <p style="color: var(--text-grey); font-size: 0.9rem; margin-bottom: 1.5rem;"><i class="fa-solid fa-location-dot"></i> B-42, Connaught Place, Inner Circle, Opp. Metro Gate 3, New Delhi</p>
+          
+          <!-- Interactive map canvas inside profile -->
+          <div id="mini-map-canvas" style="height: 320px; border-radius: var(--radius-md); border: 1px solid var(--border-color); z-index: 1;"></div>
+        </div>
+
+      </section>
+
+      <!-- RIGHT COLUMN: Sticky Reservation Sidebar (40%) -->
+      <aside>
+        <div class="sticky-sidebar-card">
+          <h3>Booking Summary</h3>
+          
+          <!-- Doctor Dropdown Selector -->
+          <div class="form-field" style="margin-bottom: 1.5rem;">
+            <label for="doctor-select">Choose Doctor specialty:</label>
+            <select id="doctor-select" style="background-color: var(--white);">
+              <!-- Populated via JS -->
+            </select>
+          </div>
+
+          <!-- Selection details block -->
+          <div id="booking-summary-widget">
+            <!-- Updated dynamically via JS -->
+          </div>
+
+          <button id="proceed-booking-btn" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem; padding: 1rem;" disabled>
+            Proceed to Patient Details <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <i class="fa-solid fa-house-chimney-medical"></i> PawCare
+        </a>
+        <p>We are making clinic visits frictionless. Search human and veterinary clinics, view exact doctor availability, book appointments visually, and skip wait lists.</p>
+        <div class="social-links">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Discover</h4>
+        <ul>
+          <li><a href="find.html">Find General Clinics</a></li>
+          <li><a href="find.html?type=pet">Find Pet Vets</a></li>
+          <li><a href="find.html?type=dental">Dental Care Near Me</a></li>
+          <li><a href="find.html?type=eye">Eye Specialists</a></li>
+          <li><a href="find.html?type=skin">Skin & Hair Clinics</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Clinic Portal Login</a></li>
+          <li><a href="#">Emergency Help Guide</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Stay Updated</h4>
+        <p>Subscribe to our newsletter for health tips and clinic updates.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!')">
+          <div class="newsletter-input-group">
+            <input type="email" placeholder="Your Email Address" required>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 PawCare Health Platform. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Security</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Leaflet Map Script CDN -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/clinic.js"></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard — Manage Tokens & Pet Profiles | PawCare</title>
+  <meta name="description" content="View your upcoming clinic token queues, past prescriptions, saved clinics, and vaccine schedules for your pets.">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/page-specific.css">
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="logo" id="nav-logo">
+      <i class="fa-solid fa-house-chimney-medical"></i> PawCare
+    </a>
+    <nav class="nav-links" id="navbar-links">
+      <a href="index.html">Home</a>
+      <a href="find.html">Find Clinic</a>
+      <a href="dashboard.html" class="active">Pet Care</a>
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="find.html" class="btn btn-primary" id="find-near-me-btn">
+        <i class="fa-solid fa-location-crosshairs"></i> Find Near Me
+      </a>
+      <button class="btn btn-emergency" id="emergency-btn">
+        <i class="fa-solid fa-triangle-exclamation"></i> EMERGENCY
+      </button>
+      <button class="mobile-nav-toggle" id="mobile-toggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="container section-padding" style="padding-top: 3rem;">
+    <div class="dashboard-grid-layout">
+      
+      <!-- LEFT SIDEBAR: User card & Tab navigation (25%) -->
+      <aside class="dashboard-sidebar scroll-reveal">
+        <div class="dashboard-user-card">
+          <div class="user-avatar-large">JD</div>
+          <h2 style="font-size: 1.35rem; margin-bottom: 0.15rem;">John Doe</h2>
+          <p style="font-size: 0.8rem; color: var(--text-grey); font-weight: 500;">Member since April 2026</p>
+        </div>
+
+        <nav class="dashboard-menu">
+          <button class="dashboard-menu-btn active" data-tab="upcoming">
+            <i class="fa-solid fa-calendar-check"></i> Upcoming Appointments
+          </button>
+          <button class="dashboard-menu-btn" data-tab="past">
+            <i class="fa-solid fa-clock-rotate-left"></i> Past Consultations
+          </button>
+          <button class="dashboard-menu-btn" data-tab="pet-profiles">
+            <i class="fa-solid fa-paw"></i> Pet Profiles
+          </button>
+          <button class="dashboard-menu-btn" data-tab="saved">
+            <i class="fa-solid fa-bookmark"></i> Saved Clinics
+          </button>
+          <button class="dashboard-menu-btn" data-tab="settings">
+            <i class="fa-solid fa-gears"></i> Settings
+          </button>
+        </nav>
+      </aside>
+
+      <!-- RIGHT PANEL: Dynamic Content Panels (75%) -->
+      <section class="scroll-reveal" style="background-color: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-sm); min-height: 480px;">
+        
+        <!-- Panel 1: Upcoming Appointments -->
+        <div class="dashboard-panel active" id="panel-upcoming">
+          <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Upcoming Consultations</h3>
+          <div id="upcoming-appointments-list">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- Panel 2: Past Appointments -->
+        <div class="dashboard-panel" id="panel-past">
+          <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Medical Visit History</h3>
+          <div id="past-appointments-list">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- Panel 3: Pet Profiles (Vaccine grid & Add Pet Card) -->
+        <div class="dashboard-panel" id="panel-pet-profiles">
+          <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Companion Pet Profiles</h3>
+          <div class="pet-profiles-grid" id="pet-profiles-grid">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- Panel 4: Saved Clinics -->
+        <div class="dashboard-panel" id="panel-saved">
+          <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Bookmarked Clinics</h3>
+          <div class="clinics-grid" id="saved-clinics-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- Panel 5: Settings -->
+        <div class="dashboard-panel" id="panel-settings">
+          <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Profile & Account Settings</h3>
+          <form onsubmit="event.preventDefault(); showToast('Settings saved successfully!')">
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="set-name">Full Name</label>
+                <input type="text" id="set-name" value="John Doe" required>
+              </div>
+              <div class="form-field">
+                <label for="set-phone">Phone Number</label>
+                <input type="tel" id="set-phone" value="+91 98765 43210" required>
+              </div>
+              <div class="form-field form-group-full">
+                <label for="set-email">Email Address</label>
+                <input type="email" id="set-email" value="johndoe@email.com" required>
+              </div>
+              <div class="form-field form-group-full">
+                <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-dark);">Communication Preferences</h4>
+                <label class="check-item">
+                  <input type="checkbox" checked>
+                  <span>Receive WhatsApp reminders on token status queue changes.</span>
+                </label>
+                <label class="check-item" style="margin-top: 0.5rem;">
+                  <input type="checkbox" checked>
+                  <span>Email notifications for booking confirmations and receipts.</span>
+                </label>
+              </div>
+              <div class="form-group-full" style="margin-top: 1rem;">
+                <button type="submit" class="btn btn-primary" style="padding: 0.75rem 2rem;">Save Changes</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- Add Pet Profile Modal -->
+  <div id="add-pet-modal" class="overlay">
+    <div class="overlay-card" style="border-color: #8B5CF6; max-width: 500px; text-align: left; padding: 2.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.5rem; color: #8B5CF6; margin: 0;"><i class="fa-solid fa-paw"></i> Add Pet Profile</h2>
+        <button id="close-pet-modal" style="background: none; border: none; font-size: 1.5rem; color: var(--text-grey); cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form id="add-pet-details-form">
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div class="form-field">
+            <label for="new-pet-name">Pet's Name</label>
+            <input type="text" id="new-pet-name" placeholder="Coco" required>
+          </div>
+          <div class="form-field">
+            <label for="new-pet-species">Pet Species</label>
+            <select id="new-pet-species" required>
+              <option value="all">Choose Species</option>
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+              <option value="rabbit">Rabbit</option>
+              <option value="bird">Bird</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="new-pet-breed">Breed Type</label>
+            <input type="text" id="new-pet-breed" placeholder="Beagle / Persian Cat" required>
+          </div>
+          <div class="form-field">
+            <label for="new-pet-age">Pet Age</label>
+            <input type="text" id="new-pet-age" placeholder="e.g. 1 Year / 4 Months" required>
+          </div>
+          <div class="form-field">
+            <label for="new-pet-vaccine">Vaccine Card Status</label>
+            <select id="new-pet-vaccine">
+              <option value="healthy">Up-to-Date (Healthy)</option>
+              <option value="due">Vaccines Due Soon</option>
+              <option value="overdue">Overdue Vaccines Alert</option>
+            </select>
+          </div>
+          
+          <button type="submit" class="btn" style="background-color: #8B5CF6; color: var(--white); border: none; font-weight: 700; padding: 1rem; width: 100%; margin-top: 1rem;">
+            Create Pet Profile
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <i class="fa-solid fa-house-chimney-medical"></i> PawCare
+        </a>
+        <p>We are making clinic visits frictionless. Search human and veterinary clinics, view exact doctor availability, book appointments visually, and skip wait lists.</p>
+        <div class="social-links">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Discover</h4>
+        <ul>
+          <li><a href="find.html">Find General Clinics</a></li>
+          <li><a href="find.html?type=pet">Find Pet Vets</a></li>
+          <li><a href="find.html?type=dental">Dental Care Near Me</a></li>
+          <li><a href="find.html?type=eye">Eye Specialists</a></li>
+          <li><a href="find.html?type=skin">Skin & Hair Clinics</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Clinic Portal Login</a></li>
+          <li><a href="#">Emergency Help Guide</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Stay Updated</h4>
+        <p>Subscribe to our newsletter for health tips and clinic updates.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!')">
+          <div class="newsletter-input-group">
+            <input type="email" placeholder="Your Email Address" required>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 PawCare Health Platform. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Security</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

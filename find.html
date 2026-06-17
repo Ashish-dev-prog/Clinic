@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map Discovery — Find Clinics Nearby | PawCare</title>
+  <meta name="description" content="Search human and pet veterinary clinics near you using our interactive map. Filter by distance, ratings, and open status.">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/page-specific.css">
+  <link rel="stylesheet" href="css/map.css">
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="logo" id="nav-logo">
+      <i class="fa-solid fa-house-chimney-medical"></i> PawCare
+    </a>
+    <nav class="nav-links" id="navbar-links">
+      <a href="index.html">Home</a>
+      <a href="find.html" class="active">Find Clinic</a>
+      <a href="dashboard.html">Pet Care</a>
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="find.html" class="btn btn-primary" id="find-near-me-btn">
+        <i class="fa-solid fa-location-crosshairs"></i> Find Near Me
+      </a>
+      <button class="btn btn-emergency" id="emergency-btn">
+        <i class="fa-solid fa-triangle-exclamation"></i> EMERGENCY
+      </button>
+      <button class="mobile-nav-toggle" id="mobile-toggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Split Map Panel Layout -->
+  <main class="map-page-layout">
+    
+    <!-- LEFT PANEL: Search, Filter & List Sidebar (40%) -->
+    <section class="map-sidebar">
+      <div class="sidebar-header">
+        
+        <!-- Search Input -->
+        <div class="sidebar-search-group">
+          <i class="fa-solid fa-location-crosshairs"></i>
+          <input type="text" id="map-search-input" placeholder="Search clinic name or doctor specialty...">
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="filter-tabs-row">
+          <div class="filter-tab active" data-type="all">All</div>
+          <div class="filter-tab" data-type="general"><i class="fa-solid fa-stethoscope"></i> General</div>
+          <div class="filter-tab" data-type="pet"><i class="fa-solid fa-paw"></i> Pet (Vet)</div>
+          <div class="filter-tab" data-type="dental"><i class="fa-solid fa-tooth"></i> Dental</div>
+          <div class="filter-tab" data-type="eye"><i class="fa-solid fa-eye"></i> Eye</div>
+          <div class="filter-tab" data-type="skin"><i class="fa-solid fa-hand-holding-medical"></i> Skin</div>
+          <div class="filter-tab emergency-filter" data-type="emergency"><i class="fa-solid fa-truck-medical"></i> Emergency</div>
+        </div>
+
+        <!-- Slider Group -->
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span>Search Distance Range</span>
+            <span id="distance-value-label">10.0 km</span>
+          </div>
+          <input type="range" id="distance-slider" class="range-slider-input" min="0.5" max="10" step="0.5" value="10">
+        </div>
+
+        <!-- Sort and Count Header -->
+        <div class="sort-select-row">
+          <span id="clinic-count-label" style="font-weight: 600; color: var(--text-grey);">Showing 11 clinics</span>
+          <div>
+            <label for="sort-select" style="color: var(--text-grey); font-weight: 500; margin-right: 0.25rem;">Sort by:</label>
+            <select id="sort-select">
+              <option value="nearest">Nearest</option>
+              <option value="rating">Highest Rated</option>
+              <option value="available">Available Now</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Clinic List -->
+      <div class="sidebar-list-container" id="sidebar-clinic-list">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL: Leaflet Map Layout (60%) -->
+    <section class="map-main" style="position: relative;">
+      
+      <!-- Leaflet Target Canvas -->
+      <div id="map-canvas" style="width: 100%; height: 100%; z-index: 1;"></div>
+
+      <!-- Map Type Selector (Satellite / Map) -->
+      <div class="map-type-toggle" style="z-index: 1000;">
+        <button class="map-type-btn active" id="toggle-map-view">Map</button>
+        <button class="map-type-btn" id="toggle-sat-view">Satellite</button>
+      </div>
+
+      <!-- Map Controls Overlay -->
+      <div class="map-controls" style="z-index: 1000;">
+        <button class="control-btn" id="zoom-in-btn" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+        <button class="control-btn" id="zoom-out-btn" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+        <button class="control-btn" id="my-location-btn" title="Center on My Location"><i class="fa-solid fa-location-crosshairs"></i></button>
+      </div>
+
+      <!-- Interactive Popup Info Card overlay -->
+      <div class="map-popup-card" id="map-popup-card" style="z-index: 1001;">
+        <button class="popup-close"><i class="fa-solid fa-xmark"></i></button>
+        <h4 class="popup-title">City Care Hospital</h4>
+        <div class="popup-details" style="display: flex; justify-content: space-between; margin-top: 0.25rem;">
+          <span class="popup-dist">0.8 km</span>
+          <span class="popup-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+        </div>
+        <div style="font-size: 0.8rem; margin-bottom: 0.75rem; font-weight: 500;">
+          Next slot: <span class="popup-slot-val" style="color: var(--primary-teal); font-weight: 600;">Immediate</span>
+        </div>
+        <button class="btn btn-primary popup-book-btn" style="width: 100%; padding: 0.5rem; font-size: 0.85rem; border-radius: var(--radius-sm);">Book Appointment</button>
+      </div>
+
+      <!-- Legend -->
+      <div class="map-legend" style="z-index: 1000;">
+        <div class="legend-item">
+          <div class="legend-color color-open"></div>
+          <span>Open</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color color-busy"></div>
+          <span>Busy</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color color-closed"></div>
+          <span>Closed</span>
+        </div>
+        <div class="legend-item">
+          <i class="fa-solid fa-truck-medical" style="color: var(--emergency-red)"></i>
+          <span>Emergency ER</span>
+        </div>
+      </div>
+      
+    </section>
+  </main>
+
+  <!-- Scripts -->
+  <!-- Leaflet Map Script CDN -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/find.js"></script>
+</body>
+</html>

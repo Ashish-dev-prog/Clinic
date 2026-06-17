@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Confirmed — Token Tracker | PawCare</title>
+  <meta name="description" content="Your appointment has been successfully booked. Track your token queue place in real-time.">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/page-specific.css">
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="logo" id="nav-logo">
+      <i class="fa-solid fa-house-chimney-medical"></i> PawCare
+    </a>
+    <nav class="nav-links" id="navbar-links">
+      <a href="index.html">Home</a>
+      <a href="find.html" class="active">Find Clinic</a>
+      <a href="dashboard.html">Pet Care</a>
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="find.html" class="btn btn-primary" id="find-near-me-btn">
+        <i class="fa-solid fa-location-crosshairs"></i> Find Near Me
+      </a>
+      <button class="btn btn-emergency" id="emergency-btn">
+        <i class="fa-solid fa-triangle-exclamation"></i> EMERGENCY
+      </button>
+      <button class="mobile-nav-toggle" id="mobile-toggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="container section-padding" style="padding-top: 3rem;">
+    
+    <div class="confirmation-card scroll-reveal">
+      
+      <!-- SVG Checkmark Drawing Animation -->
+      <svg class="success-checkmark-svg" viewBox="0 0 52 52">
+        <circle cx="26" cy="26" r="25" fill="none"/>
+        <path fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+      </svg>
+
+      <h1 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--text-dark);">Appointment Confirmed!</h1>
+      <p style="color: var(--text-grey); font-size: 0.95rem; margin-bottom: 1.5rem;">Your queue spot has been successfully reserved. Arrive on time.</p>
+
+      <!-- Token Highlight Box -->
+      <div class="token-highlight-box" id="token-highlight-box">
+        <span>YOUR QUEUE TOKEN</span>
+        <h2 id="token-number-display">#07</h2>
+      </div>
+
+      <!-- Booking details card list -->
+      <div style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; text-align: left; background-color: var(--light-grey); margin-bottom: 2rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.9rem;">
+          <div>
+            <span style="color: var(--text-grey); font-size: 0.8rem; font-weight: 500;">CLINIC</span>
+            <p style="font-weight: 700; margin-top: 0.15rem;" id="summary-clinic">Metro Care General Clinic</p>
+          </div>
+          <div>
+            <span style="color: var(--text-grey); font-size: 0.8rem; font-weight: 500;">SPECIALIST</span>
+            <p style="font-weight: 700; margin-top: 0.15rem;" id="summary-doctor">Dr. Arvind Mehta</p>
+          </div>
+          <div style="grid-column: span 2; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+            <span style="color: var(--text-grey); font-size: 0.8rem; font-weight: 500;">DATE & TIME SLOT</span>
+            <p style="font-weight: 700; margin-top: 0.15rem;" id="summary-datetime">Thursday, 18 June at 10:30 AM</p>
+          </div>
+          <div style="border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+            <span style="color: var(--text-grey); font-size: 0.8rem; font-weight: 500;">PATIENT</span>
+            <p style="font-weight: 700; margin-top: 0.15rem;" id="summary-patient">John Doe</p>
+          </div>
+          <div style="border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+            <span style="color: var(--text-grey); font-size: 0.8rem; font-weight: 500;">PAYMENT STATUS</span>
+            <div style="margin-top: 0.15rem;">
+              <span id="summary-payment" class="badge badge-success">Paid Online (Verified)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Queue tracker timelines -->
+      <div class="queue-tracker-box">
+        <h3>
+          <span>Live Queue Progress</span>
+          <span class="live-indicator" id="tracker-live-indicator">LIVE FEED</span>
+        </h3>
+        
+        <!-- Timeline progress tracking -->
+        <div class="queue-progress-bar">
+          <div class="queue-progress-fill"></div>
+        </div>
+        <div class="queue-progress-nodes">
+          <div class="queue-progress-node completed" id="progress-node-ahead">
+            <span>Patients Ahead</span>
+          </div>
+          <div class="queue-progress-node active" id="progress-node-you">
+            <span style="font-weight: 700;">You (#07)</span>
+          </div>
+          <div class="queue-progress-node" id="progress-node-doc">
+            <span>Consulting</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; text-align: center; border-top: 1px dashed var(--border-color); padding-top: 1rem;">
+          <h4 id="queue-ahead-label" style="font-size: 1.15rem; color: var(--primary-teal); margin-bottom: 0.25rem;">3 patients ahead of you</h4>
+          <p id="queue-est-label" style="font-size: 0.9rem; font-weight: 600; color: var(--text-dark);">Estimated wait: ~35 minutes</p>
+          <span id="tracker-last-updated-text" style="font-size: 0.75rem; color: var(--text-grey); display: block; margin-top: 0.5rem;">Last updated: just now</span>
+        </div>
+      </div>
+
+      <!-- Mock QR code card -->
+      <div style="border: 1px dashed var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; display: flex; align-items: center; gap: 1.5rem; text-align: left; margin-bottom: 2.5rem;">
+        
+        <!-- CSS Styled QR mock block -->
+        <div style="width: 80px; height: 80px; background-color: var(--white); border: 2px solid var(--text-dark); border-radius: 4px; padding: 0.35rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; position: relative;">
+          <!-- Corner anchors -->
+          <div style="border: 3px solid var(--text-dark); background-color: transparent;"></div>
+          <div style="border: 1px dashed var(--text-grey);"></div>
+          <div style="border: 1px dashed var(--text-grey);"></div>
+          <div style="border: 3px solid var(--text-dark); background-color: transparent;"></div>
+          
+          <div style="border: 1px dashed var(--text-grey);"></div>
+          <div style="background-color: var(--text-dark);"></div>
+          <div style="background-color: var(--text-dark);"></div>
+          <div style="border: 1px dashed var(--text-grey);"></div>
+          
+          <div style="border: 1px dashed var(--text-grey);"></div>
+          <div style="background-color: var(--text-dark);"></div>
+          <div style="border: 1px dashed var(--text-grey);"></div>
+          <div style="background-color: var(--text-dark);"></div>
+          
+          <div style="border: 3px solid var(--text-dark); background-color: transparent;"></div>
+          <div style="border: 1px dashed var(--text-grey);"></div>
+          <div style="background-color: var(--text-dark);"></div>
+          <div style="background-color: var(--text-dark);"></div>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem;">Self Check-in QR Code</h4>
+          <p style="font-size: 0.8rem; color: var(--text-grey); line-height: 1.4;">Show this QR scan code at the clinic reception terminal to self check-in and notify the doctor of your arrival.</p>
+        </div>
+      </div>
+
+      <!-- Action items buttons -->
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <button id="add-calendar-btn" class="btn btn-secondary"><i class="fa-solid fa-calendar-plus"></i> Add to Calendar</button>
+          <button id="get-directions-btn" class="btn btn-secondary"><i class="fa-solid fa-map-location-dot"></i> Get Directions</button>
+        </div>
+        <button id="share-confirmed-btn" class="btn btn-outline-teal" style="width: 100%;"><i class="fa-solid fa-share-nodes"></i> Share Booking Reference</button>
+        <button id="cancel-appt-btn" class="btn" style="background-color: transparent; color: var(--emergency-red); border-color: transparent; text-decoration: underline; font-weight: 600; font-size: 0.9rem; padding: 0.5rem 1rem;">
+          Cancel Appointment Slot
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <i class="fa-solid fa-house-chimney-medical"></i> PawCare
+        </a>
+        <p>We are making clinic visits frictionless. Search human and veterinary clinics, view exact doctor availability, book appointments visually, and skip wait lists.</p>
+        <div class="social-links">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Discover</h4>
+        <ul>
+          <li><a href="find.html">Find General Clinics</a></li>
+          <li><a href="find.html?type=pet">Find Pet Vets</a></li>
+          <li><a href="find.html?type=dental">Dental Care Near Me</a></li>
+          <li><a href="find.html?type=eye">Eye Specialists</a></li>
+          <li><a href="find.html?type=skin">Skin & Hair Clinics</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Clinic Portal Login</a></li>
+          <li><a href="#">Emergency Help Guide</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Stay Updated</h4>
+        <p>Subscribe to our newsletter for health tips and clinic updates.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!')">
+          <div class="newsletter-input-group">
+            <input type="email" placeholder="Your Email Address" required>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 PawCare Health Platform. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Security</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/confirmed.js"></script>
+</body>
+</html>

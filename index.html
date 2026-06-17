@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PawCare — Find Clinics, Book Slots, Skip the Wait</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Discover nearby doctors, human clinics, and pet veterinary clinics. Book visual slots, track queue in real-time, and bypass clinic waiting times with PawCare.">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/page-specific.css">
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="logo" id="nav-logo">
+      <i class="fa-solid fa-house-chimney-medical"></i> PawCare
+    </a>
+    <nav class="nav-links" id="navbar-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="find.html">Find Clinic</a>
+      <a href="dashboard.html">Pet Care</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="find.html" class="btn btn-primary" id="find-near-me-btn">
+        <i class="fa-solid fa-location-crosshairs"></i> Find Near Me
+      </a>
+      <button class="btn btn-emergency" id="emergency-btn">
+        <i class="fa-solid fa-triangle-exclamation"></i> EMERGENCY
+      </button>
+      <button class="mobile-nav-toggle" id="mobile-toggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <div class="hero-left">
+        <h1>Find a Clinic.<br><span>Book a Slot.</span><br>Skip the Wait.</h1>
+        <p>Skip crowded waiting rooms. Locate verified human doctors and pet veterinary clinics near you. Book your exact slot and track your place in the live queue.</p>
+        
+        <!-- Search Panel -->
+        <form action="find.html" method="GET" class="search-panel" id="hero-search-form">
+          <div class="search-input-group">
+            <i class="fa-solid fa-location-dot"></i>
+            <input type="text" name="location" placeholder="Enter City or Area..." value="Connaught Place, Delhi" required>
+          </div>
+          <div class="search-input-group">
+            <i class="fa-solid fa-stethoscope"></i>
+            <select name="type" id="clinic-type-select">
+              <option value="all">Select Clinic Type</option>
+              <option value="general">General Clinic</option>
+              <option value="pet">Pet Care (Vet)</option>
+              <option value="dental">Dental Care</option>
+              <option value="eye">Eye Specialist</option>
+              <option value="skin">Skin & Hair</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-search" id="hero-search-submit">
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+          </button>
+        </form>
+      </div>
+
+      <!-- Hero Right: High Fidelity Banner Layout -->
+      <div class="hero-right animate-fade-in-up" style="animation-delay: 0.15s;">
+        <img src="images/hero_clinic.png" alt="PawCare hybrid human and vet clinic lobby illustration" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); border: 1px solid var(--border-color);" />
+
+        <!-- Floating Booking Alert Card -->
+        <div class="floating-booking-card" onclick="location.href='clinic.html?id=human-1'">
+          <div class="floating-avatar">
+            <i class="fa-solid fa-user-doctor"></i>
+          </div>
+          <div class="floating-info">
+            <h4>Dr. Sarah Vance</h4>
+            <p>Aero Dental • Next slot in 15m</p>
+            <span class="floating-badge"><i class="fa-solid fa-circle-check"></i> Book Instantly</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="section-padding scroll-reveal" id="how-it-works" style="background-color: var(--light-grey);">
+    <div class="container">
+      <div class="section-header">
+        <h2>How PawCare Works</h2>
+        <p>Book a medical checkup or a veterinary visit in three simple steps.</p>
+      </div>
+      
+      <div class="steps-grid">
+        <div class="steps-connector-line"></div>
+        
+        <!-- Step 1 -->
+        <div class="step-card">
+          <div class="step-icon">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </div>
+          <h3>1. Find Nearby Clinic</h3>
+          <p>Search by your location and filter by doctor specialty or veterinary support near you.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="step-icon">
+            <i class="fa-solid fa-calendar-days"></i>
+          </div>
+          <h3>2. Choose Your Slot</h3>
+          <p>View real-time slot grids. See available, booked, and busy slots instantly.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card">
+          <div class="step-icon">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <h3>3. Skip the Wait</h3>
+          <p>Get a digital token, track patients ahead of you live, and arrive exactly on time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Strip -->
+  <section class="stats-strip">
+    <div class="stats-container">
+      <div class="stat-item">
+        <span class="stat-number">500+</span>
+        <span class="stat-label">Clinics Listed</span>
+      </div>
+      <div class="stat-item" style="border-left: 1px solid rgba(255,255,255,0.2); border-right: 1px solid rgba(255,255,255,0.2); padding: 0 4rem;">
+        <span class="stat-number">50,000+</span>
+        <span class="stat-label">Appointments Booked</span>
+      </div>
+      <div class="stat-item" style="border-right: 1px solid rgba(255,255,255,0.2); padding-right: 4rem;">
+        <span class="stat-number">200+</span>
+        <span class="stat-label">Cities Covered</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">4.9/5</span>
+        <span class="stat-label">User Rating ⭐</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Clinics Section -->
+  <section class="section-padding scroll-reveal">
+    <div class="container">
+      <div class="section-header">
+        <h2>Featured Nearby Clinics</h2>
+        <p>Book appointments in top-rated clinics near you.</p>
+      </div>
+
+      <!-- Human / Pet Toggle Switch -->
+      <div class="clinic-toggle-area">
+        <div class="switch-container">
+          <div class="switch-label active" id="toggle-human-label">
+            <i class="fa-solid fa-user-doctor"></i> Human Clinics
+          </div>
+          <div class="switch-label" id="toggle-pet-label">
+            <i class="fa-solid fa-paw"></i> Pet Clinics (Vet)
+          </div>
+        </div>
+      </div>
+
+      <div class="clinics-container-wrapper">
+        <!-- SKELETON LOADER GRID -->
+        <div class="clinics-container hidden" id="clinics-skeleton-container">
+          <div class="clinics-grid">
+            <!-- 3 Skeleton Cards -->
+            <div class="clinic-card">
+              <div class="clinic-image-placeholder skeleton" style="height: 180px; width: 100%;"></div>
+              <div class="clinic-content">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.5rem;">
+                  <div class="skeleton" style="width: 40%; height: 16px;"></div>
+                  <div class="skeleton" style="width: 20%; height: 16px;"></div>
+                </div>
+                <div class="skeleton" style="width: 85%; height: 22px; margin-bottom: 0.75rem;"></div>
+                <div style="display:flex; gap:0.5rem; margin-bottom: 1rem;">
+                  <div class="skeleton" style="width: 30%; height: 18px;"></div>
+                  <div class="skeleton" style="width: 30%; height: 18px;"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+                  <div class="skeleton" style="width: 45%; height: 24px;"></div>
+                  <div class="skeleton" style="width: 35%; height: 38px;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="clinic-card">
+              <div class="clinic-image-placeholder skeleton" style="height: 180px; width: 100%;"></div>
+              <div class="clinic-content">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.5rem;">
+                  <div class="skeleton" style="width: 40%; height: 16px;"></div>
+                  <div class="skeleton" style="width: 20%; height: 16px;"></div>
+                </div>
+                <div class="skeleton" style="width: 85%; height: 22px; margin-bottom: 0.75rem;"></div>
+                <div style="display:flex; gap:0.5rem; margin-bottom: 1rem;">
+                  <div class="skeleton" style="width: 30%; height: 18px;"></div>
+                  <div class="skeleton" style="width: 30%; height: 18px;"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+                  <div class="skeleton" style="width: 45%; height: 24px;"></div>
+                  <div class="skeleton" style="width: 35%; height: 38px;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="clinic-card">
+              <div class="clinic-image-placeholder skeleton" style="height: 180px; width: 100%;"></div>
+              <div class="clinic-content">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.5rem;">
+                  <div class="skeleton" style="width: 40%; height: 16px;"></div>
+                  <div class="skeleton" style="width: 20%; height: 16px;"></div>
+                </div>
+                <div class="skeleton" style="width: 85%; height: 22px; margin-bottom: 0.75rem;"></div>
+                <div style="display:flex; gap:0.5rem; margin-bottom: 1rem;">
+                  <div class="skeleton" style="width: 30%; height: 18px;"></div>
+                  <div class="skeleton" style="width: 30%; height: 18px;"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+                  <div class="skeleton" style="width: 45%; height: 24px;"></div>
+                  <div class="skeleton" style="width: 35%; height: 38px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- HUMAN CLINICS GRID -->
+        <div class="clinics-container" id="human-clinics-container">
+          <div class="clinics-grid">
+            <!-- Clinic Card 1 -->
+            <div class="clinic-card">
+              <div class="clinic-image-placeholder">
+                <i class="fa-solid fa-hospital"></i>
+                <div class="distance-badge"><i class="fa-solid fa-location-dot"></i> 1.2 km</div>
+              </div>
+              <div class="clinic-content">
+                <div class="clinic-type-row">
+                  <span class="clinic-type">General Medicine</span>
+                  <div class="clinic-rating"><i class="fa-solid fa-star"></i> 4.8</div>
+                </div>
+                <h3 class="clinic-name">Metro Care General Clinic</h3>
+                <div class="clinic-tags">
+                  <span class="clinic-tag">Pediatrician</span>
+                  <span class="clinic-tag">Vaccination</span>
+                </div>
+                <div class="clinic-footer">
+                  <span class="badge badge-success">Open • Available</span>
+                  <a href="clinic.html?id=human-1" class="btn btn-outline-teal">Book Now</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Clinic Card 2 -->
+            <div class="clinic-card">
+              <div class="clinic-image-placeholder">
+                <i class="fa-solid fa-tooth"></i>
+                <div class="distance-badge"><i class="fa-solid fa-location-dot"></i> 2.4 km</div>
+              </div>
+              <div class="clinic-content">
+                <div class="clinic-type-row">
+                  <span class="clinic-type">Dental Care</span>
+                  <div class="clinic-rating"><i class="fa-solid fa-star"></i> 4.7</div>
+                </div>
+                <h3 class="clinic-name">Aero Dental Care Center</h3>
+                <div class="clinic-tags">
+                  <span class="clinic-tag">Root Canal</span>
+                  <span class="clinic-tag">Teeth Whitening</span>
+                </div>
+                <div class="clinic-footer">
+                  <span class="badge badge-warning">Busy • 20m Wait</span>
+                  <a href="clinic.html?id=human-2" class="btn btn-outline-teal">Book Now</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Clinic Card 3 -->
+            <div class="clinic-card">
+              <div class="clinic-image-placeholder">
+                <i class="fa-solid fa-hand-holding-medical"></i>
+                <div class="distance-badge"><i class="fa-solid fa-location-dot"></i> 3.1 km</div>
+              </div>
+              <div class="clinic-content">
+                <div class="clinic-type-row">
+                  <span class="clinic-type">Skin & Hair</span>
+                  <div class="clinic-rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                </div>
+                <h3 class="clinic-name">Skin & Cosmetology Hub</h3>
+                <div class="clinic-tags">
+                  <span class="clinic-tag">Dermatology</span>
+                  <span class="clinic-tag">Laser Therapy</span>
+                </div>
+                <div class="clinic-footer">
+                  <span class="badge badge-success">Open • Available</span>
+                  <a href="clinic.html?id=human-3" class="btn btn-outline-teal">Book Now</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Clinic Card 4 -->
+            <div class="clinic-card">
+              <div class="clinic-image-placeholder">
+                <i class="fa-solid fa-eye"></i>
+                <div class="distance-badge"><i class="fa-solid fa-location-dot"></i> 1.8 km</div>
+              </div>
+              <div class="clinic-content">
+                <div class="clinic-type-row">
+                  <span class="clinic-type">Eye Specialist</span>
+                  <div class="clinic-rating"><i class="fa-solid fa-star"></i> 4.6</div>
+                </div>
+                <h3 class="clinic-name">Vision Plus Eye Care</h3>
+                <div class="clinic-tags">
+                  <span class="clinic-tag">Ophthalmology</span>
+                  <span class="clinic-tag">Glasses</span>
+                </div>
+                <div class="clinic-footer">
+                  <span class="badge badge-danger">Closed</span>
+                  <a href="clinic.html?id=human-4" class="btn btn-outline-teal">Book Now</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Clinic Card 5 -->
+            <div class="clinic-card">
+              <div class="clinic-image-placeholder" style="background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%); color: var(--emergency-red)">
+                <i class="fa-solid fa-truck-medical"></i>
+                <div class="distance-badge"><i class="fa-solid fa-location-dot"></i> 0.8 km</div>
+              </div>
+              <div class="clinic-content">
+                <div class="clinic-type-row">
+                  <span class="clinic-type" style="color: var(--emergency-red)">ER & Hospital</span>
+                  <div class="clinic-rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                </div>
+                <h3 class="clinic-name">City Care Hospital & ER</h3>
+                <div class="clinic-tags">
+                  <span class="clinic-tag" style="background-color: #FEE2E2; color: var(--emergency-red)">24/7 Trauma</span>
+                  <span class="clinic-tag">ICU Support</span>
+                </div>
+                <div class="clinic-footer">
+                  <span class="badge badge-success">Open • ICU Available</span>
+                  <a href="clinic.html?id=human-5" class="btn btn-outline-teal">Book Now</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Clinic Card 6 -->
+            <div class="clinic-card">
+              <div class="clinic-image-placeholder">
+                <i class="fa-solid fa-bone"></i>
+                <div class="distance-badge"><i class="fa-solid fa-location-dot"></i> 2.9 km</div>
+              </div>
+              <div class="clinic-content">
+                <div class="clinic-type-row">
+                  <span class="clinic-type">Orthopedics</span>
+                  <div class="clinic-rating"><i class="fa-solid fa-star"></i> 4.5</div>
+                </div>
+                <h3 class="clinic-name">OrthoCare Joint Clinic</h3>
+                <div class="clinic-tags">
+                  <span class="clinic-tag">Physiotherapy</span>
+                  <span class="clinic-tag">Joint Pain</span>
+                </div>
+                <div class="clinic-footer">
+                  <span class="badge badge-warning">Busy • 15m Wait</span>
+                  <a href="clinic.html?id=human-6" class="btn btn-outline-teal">Book Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PET CLINICS GRID (Initially hidden) -->
+        <div class="clinics-container hidden" id="pet-clinics-container">
+          <div class="clinics-grid">
+            <!-- Pet Clinic Card 1 -->
+            <div class="clinic-card pet-hover">
+              <div class="clinic-image-placeholder pet-theme">
+                <i class="fa-solid fa-dog"></i>
+                <div class="distance-badge"><i class="fa-solid fa-location-dot"></i> 1.5 km</div>
+              </div>
+              <div class="clinic-content">
+                <div class="clinic-type-row">
+                  <span class="clinic-type pet-theme">Veterinary Care</span>
+                  <div class="clinic-rating"><i class="fa-solid fa-star"></i> 4.8</div>
+                </div>
+                <h3 class="clinic-name">Happy Tails Vet Clinic</h3>
+                <div class="clinic-tags">
+                  <span class="clinic-tag">Dog Friendly</span>
+                  <span class="clinic-tag">General Checkup</span>
+                </div>
+                <div class="clinic-footer">
+                  <span class="badge badge-success">Open • Available</span>
+                  <a href="clinic.html?id=pet-1" class="btn btn-outline-teal pet-text" style="border-color: #8B5CF6">Book Now</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pet Clinic Card 2 -->
+            <div class="clinic-card pet-hover">
+              <div class="clinic-image-placeholder pet-theme">
+                <i class="fa-solid fa-cat"></i>
+                <div class="distance-badge"><i class="fa-solid fa-location-dot"></i> 2.7 km</div>
+              </div>
+              <div class="clinic-content">
+                <div class="clinic-type-row">
+                  <span class="clinic-type pet-theme">Cat Specialist</span>
+                  <div class="clinic-rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                </div>
+                <h3 class="clinic-name">Feline Friends Specialist</h3>
+                <div class="clinic-tags">
+                  <span class="clinic-tag">Cat Specialist</span>
+                  <span class="clinic-tag">Rabies Vaccines</span>
+                </div>
+                <div class="clinic-footer">
+                  <span class="badge badge-success">Open • Available</span>
+                  <a href="clinic.html?id=pet-2" class="btn btn-outline-teal pet-text" style="border-color: #8B5CF6">Book Now</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pet Clinic Card 3 -->
+            <div class="clinic-card pet-hover">
+              <div class="clinic-image-placeholder pet-theme" style="background: linear-gradient(135deg, #F5F3FF 0%, #DDD6FE 100%); color: #8B5CF6">
+                <i class="fa-solid fa-shield-dog"></i>
+                <div class="distance-badge"><i class="fa-solid fa-location-dot"></i> 1.4 km</div>
+              </div>
+              <div class="clinic-content">
+                <div class="clinic-type-row">
+                  <span class="clinic-type pet-theme">Emergency Vet</span>
+                  <div class="clinic-rating"><i class="fa-solid fa-star"></i> 4.7</div>
+                </div>
+                <h3 class="clinic-name">PawCare 24/7 Vet Hospital</h3>
+                <div class="clinic-tags">
+                  <span class="clinic-tag" style="background-color: #EDE9FE; color: #8B5CF6">24hr Emergency</span>
+                  <span class="clinic-tag">Pet Surgery</span>
+                </div>
+                <div class="clinic-footer">
+                  <span class="badge badge-success">Open • 24/7 ICU</span>
+                  <a href="clinic.html?id=pet-3" class="btn btn-outline-teal pet-text" style="border-color: #8B5CF6">Book Now</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pet Clinic Card 4 -->
+            <div class="clinic-card pet-hover">
+              <div class="clinic-image-placeholder pet-theme">
+                <i class="fa-solid fa-otter"></i>
+                <div class="distance-badge"><i class="fa-solid fa-location-dot"></i> 3.8 km</div>
+              </div>
+              <div class="clinic-content">
+                <div class="clinic-type-row">
+                  <span class="clinic-type pet-theme">Exotic Pets</span>
+                  <div class="clinic-rating"><i class="fa-solid fa-star"></i> 4.6</div>
+                </div>
+                <h3 class="clinic-name">Exotic Pets Care Clinic</h3>
+                <div class="clinic-tags">
+                  <span class="clinic-tag">Rabbit Specialist</span>
+                  <span class="clinic-tag">Reptiles</span>
+                </div>
+                <div class="clinic-footer">
+                  <span class="badge badge-warning">Busy • 15m Wait</span>
+                  <a href="clinic.html?id=pet-4" class="btn btn-outline-teal pet-text" style="border-color: #8B5CF6">Book Now</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pet Clinic Card 5 -->
+            <div class="clinic-card pet-hover">
+              <div class="clinic-image-placeholder pet-theme">
+                <i class="fa-solid fa-paw"></i>
+                <div class="distance-badge"><i class="fa-solid fa-location-dot"></i> 2.2 km</div>
+              </div>
+              <div class="clinic-content">
+                <div class="clinic-type-row">
+                  <span class="clinic-type pet-theme">Pet Dentistry</span>
+                  <div class="clinic-rating"><i class="fa-solid fa-star"></i> 4.5</div>
+                </div>
+                <h3 class="clinic-name">Bark & Purr Dental Vet</h3>
+                <div class="clinic-tags">
+                  <span class="clinic-tag">Tooth Scaling</span>
+                  <span class="clinic-tag">Oral Hygiene</span>
+                </div>
+                <div class="clinic-footer">
+                  <span class="badge badge-danger">Closed</span>
+                  <a href="clinic.html?id=pet-5" class="btn btn-outline-teal pet-text" style="border-color: #8B5CF6">Book Now</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pet Clinic Card 6 -->
+            <div class="clinic-card pet-hover">
+              <div class="clinic-image-placeholder pet-theme">
+                <i class="fa-solid fa-crow"></i>
+                <div class="distance-badge"><i class="fa-solid fa-location-dot"></i> 4.1 km</div>
+              </div>
+              <div class="clinic-content">
+                <div class="clinic-type-row">
+                  <span class="clinic-type pet-theme">Avian Clinic</span>
+                  <div class="clinic-rating"><i class="fa-solid fa-star"></i> 4.7</div>
+                </div>
+                <h3 class="clinic-name">Feathered Friends Avian Clinic</h3>
+                <div class="clinic-tags">
+                  <span class="clinic-tag">Bird Specialist</span>
+                  <span class="clinic-tag">Parrots</span>
+                </div>
+                <div class="clinic-footer">
+                  <span class="badge badge-success">Open • Available</span>
+                  <a href="clinic.html?id=pet-6" class="btn btn-outline-teal pet-text" style="border-color: #8B5CF6">Book Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section with Carousel Slider -->
+  <section class="section-padding scroll-reveal" style="background-color: var(--light-grey);">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header">
+        <h2>What Our Users Say</h2>
+        <p>Real experiences from patients and pet owners using PawCare.</p>
+      </div>
+
+      <div class="testimonials-slider-viewport">
+        <div class="testimonials-slider-row" id="testimonial-slider-row">
+          <!-- Testimonial 1 -->
+          <div class="testimonial-slide-card">
+            <div class="testimonial-card" style="min-height: 240px; margin: 0 auto; max-width: 650px;">
+              <div>
+                <div class="testimonial-quote"><i class="fa-solid fa-quote-left"></i></div>
+                <p class="testimonial-text">"The RedBus style slot layout was a life saver. I booked my dental appointment at 10:30 AM, checked my token, and skipped the usual 1 hour queue entirely!"</p>
+              </div>
+              <div class="testimonial-user" style="margin-top: 1rem;">
+                <div class="user-avatar-initials">RK</div>
+                <div class="user-info">
+                  <h4>Rajesh Kumar</h4>
+                  <p>Patient at Aero Dental Care</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="testimonial-slide-card">
+            <div class="testimonial-card" style="min-height: 240px; margin: 0 auto; max-width: 650px;">
+              <div>
+                <div class="testimonial-quote"><i class="fa-solid fa-quote-left"></i></div>
+                <p class="testimonial-text">"Finding a bird specialist for my parrot is usually incredibly hard. PawCare allowed me to toggle pet mode, filter exotic clinics, and book a consultation instantly."</p>
+              </div>
+              <div class="testimonial-user" style="margin-top: 1rem;">
+                <div class="user-avatar-initials pet-avatar"><i class="fa-solid fa-crow"></i></div>
+                <div class="user-info">
+                  <h4>Priya Sharma</h4>
+                  <p>Pet Owner (Cockatiel)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="testimonial-slide-card">
+            <div class="testimonial-card" style="min-height: 240px; margin: 0 auto; max-width: 650px;">
+              <div>
+                <div class="testimonial-quote"><i class="fa-solid fa-quote-left"></i></div>
+                <p class="testimonial-text">"My golden retriever had a vaccine date due. I opened PawCare and booked a slot. The live queue showed 2 patients ahead, so I waited in the park instead of the lobby."</p>
+              </div>
+              <div class="testimonial-user" style="margin-top: 1rem;">
+                <div class="user-avatar-initials pet-avatar"><i class="fa-solid fa-dog"></i></div>
+                <div class="user-info">
+                  <h4>Aman Verma</h4>
+                  <p>Owner of Rocky (Retriever)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel Dot Navigation -->
+      <div class="slider-dots-container" id="slider-dots-box">
+        <span class="slider-dot active" onclick="gotoSlide(0)"></span>
+        <span class="slider-dot" onclick="gotoSlide(1)"></span>
+        <span class="slider-dot" onclick="gotoSlide(2)"></span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Accordion Section -->
+  <section class="section-padding scroll-reveal" id="faq" style="border-top: 1px solid var(--border-color); background-color: var(--white);">
+    <div class="container">
+      <div class="section-header">
+        <h2>Frequently Asked Questions</h2>
+        <p>Got questions about visual booking or token tracking? We have answers.</p>
+      </div>
+      <div class="faq-container">
+        <!-- FAQ 1 -->
+        <div class="faq-item active">
+          <div class="faq-header">
+            <h3>How does the live token queue tracking work?</h3>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-content">
+            <p>Once you book a slot, PawCare assigns you a digital token (e.g. #07). The confirmation screen shows how many patients are currently ahead of you, estimated wait times, and progress. The queue updates automatically as the doctor completes consultations.</p>
+          </div>
+        </div>
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <div class="faq-header">
+            <h3>Can I book appointments for both myself and my pet?</h3>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-content">
+            <p>Yes, absolutely! PawCare is a unified platform. You can toggle between Human Clinics and Pet Vets, and the booking details form will dynamically update to collect the correct diagnostic or veterinary details.</p>
+          </div>
+        </div>
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <div class="faq-header">
+            <h3>Is there an extra fee for visual booking?</h3>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-content">
+            <p>No. PawCare only charges a standard nominal GST and booking convenience fee (₹18.00) in addition to the doctor's standard consultation fee (₹200.00). You can choose to pay online or directly at the reception counter.</p>
+          </div>
+        </div>
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <div class="faq-header">
+            <h3>What should I do in case of a medical emergency?</h3>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-content">
+            <p>Click the red pulsing "EMERGENCY" button located in the navbar of any page. It will instantly calculate the nearest emergency hospital, dial vet dispatch networks, and provide direct phone links to secure immediate ER support.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-container">
+      <h2>List Your Clinic on PawCare</h2>
+      <p>Are you a doctor or a veterinary professional? Partner with PawCare to digitize your token system, reduce lobby crowding, and increase your appointments.</p>
+      <div class="cta-buttons">
+        <button class="btn btn-cta-white" onclick="showToast('Thank you for your interest! Medical registry is opening soon.')"><i class="fa-solid fa-stethoscope"></i> Join as Doctor</button>
+        <button class="btn btn-cta-outline" onclick="showToast('Thank you! Veterinary clinic registrations are opening soon.')"><i class="fa-solid fa-hospital-user"></i> Register Vet Clinic</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <i class="fa-solid fa-house-chimney-medical"></i> PawCare
+        </a>
+        <p>We are making clinic visits frictionless. Search human and veterinary clinics, view exact doctor availability, book appointments visually, and skip wait lists.</p>
+        <div class="social-links">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Discover</h4>
+        <ul>
+          <li><a href="find.html">Find General Clinics</a></li>
+          <li><a href="find.html?type=pet">Find Pet Vets</a></li>
+          <li><a href="find.html?type=dental">Dental Care Near Me</a></li>
+          <li><a href="find.html?type=eye">Eye Specialists</a></li>
+          <li><a href="find.html?type=skin">Skin & Hair Clinics</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Clinic Portal Login</a></li>
+          <li><a href="#">Emergency Help Guide</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Stay Updated</h4>
+        <p>Subscribe to our newsletter for health tips and clinic updates.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!')">
+          <div class="newsletter-input-group">
+            <input type="email" placeholder="Your Email Address" required>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 PawCare Health Platform. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Security</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleHuman = document.getElementById('toggle-human-label');
+      const togglePet = document.getElementById('toggle-pet-label');
+      const humanContainer = document.getElementById('human-clinics-container');
+      const petContainer = document.getElementById('pet-clinics-container');
+      const skeletonContainer = document.getElementById('clinics-skeleton-container');
+
+      toggleHuman.addEventListener('click', () => {
+        if (toggleHuman.classList.contains('active')) return;
+        toggleHuman.classList.add('active');
+        toggleHuman.classList.remove('pet-mode');
+        togglePet.classList.remove('active', 'pet-mode');
+        
+        // Switch visibility with skeleton shimmer
+        humanContainer.classList.add('hidden');
+        petContainer.classList.add('hidden');
+        skeletonContainer.classList.remove('hidden');
+        
+        setTimeout(() => {
+          skeletonContainer.classList.add('hidden');
+          humanContainer.classList.remove('hidden');
+        }, 600);
+      });
+
+      togglePet.addEventListener('click', () => {
+        if (togglePet.classList.contains('active')) return;
+        togglePet.classList.add('active', 'pet-mode');
+        toggleHuman.classList.remove('active');
+        
+        // Switch visibility with skeleton shimmer
+        humanContainer.classList.add('hidden');
+        petContainer.classList.add('hidden');
+        skeletonContainer.classList.remove('hidden');
+        
+        setTimeout(() => {
+          skeletonContainer.classList.add('hidden');
+          petContainer.classList.remove('hidden');
+        }, 600);
+      });
+    });
+
+    // Testimonials Carousel Slider Logic
+    let currentSlide = 0;
+    const sliderRow = document.getElementById('testimonial-slider-row');
+    const dots = document.querySelectorAll('#slider-dots-box .slider-dot');
+
+    window.gotoSlide = function(slideIndex) {
+      currentSlide = slideIndex;
+      if (sliderRow) {
+        sliderRow.style.transform = `translateX(-${slideIndex * 100}%)`;
+      }
+      dots.forEach((dot, idx) => {
+        if (idx === slideIndex) dot.classList.add('active');
+        else dot.classList.remove('active');
+      });
+    }
+
+    // Auto rotate every 5 seconds
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % 3;
+      gotoSlide(currentSlide);
+    }, 5000);
+  </script>
+</body>
+</html>
