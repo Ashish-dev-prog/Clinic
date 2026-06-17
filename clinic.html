@@ -1,381 +1,952 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book Appointment — Clinic Profile | PawCare</title>
-  <meta name="description" content="View clinic details, doctors, patient ratings, and book exact appointment slots visually.">
-  <!-- Fonts -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Leaflet Map CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/page-specific.css">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Book Appointment — Clinic Profile | PawCare</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <!-- FontAwesome for Leaflet/fallback icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Leaflet Map CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#006b5f",
+                      "primary-fixed-dim": "#4fdbc8",
+                      "error": "#ba1a1a",
+                      "inverse-surface": "#213145",
+                      "outline-variant": "#bbcac6",
+                      "primary-fixed": "#71f8e4",
+                      "on-tertiary": "#ffffff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-primary": "#ffffff",
+                      "surface-dim": "#cbdbf5",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "surface-container": "#e5eeff",
+                      "surface-bright": "#f8f9ff",
+                      "primary": "#006b5f",
+                      "surface-variant": "#d3e4fe",
+                      "on-primary-fixed-variant": "#005048",
+                      "tertiary": "#bc0b3b",
+                      "primary-container": "#14b8a6",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#fffbff",
+                      "on-surface": "#0b1c30",
+                      "secondary-fixed": "#e9ddff",
+                      "surface-container-highest": "#d3e4fe",
+                      "outline": "#6c7a77",
+                      "secondary": "#6b38d4",
+                      "on-surface-variant": "#3c4947",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed": "#ffdadb",
+                      "secondary-container": "#8455ef",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed": "#40000d",
+                      "on-tertiary-container": "#7a0022",
+                      "surface": "#f8f9ff",
+                      "on-primary-fixed": "#00201c",
+                      "on-tertiary-fixed-variant": "#92002a",
+                      "on-secondary-fixed": "#23005c",
+                      "background": "#f8f9ff",
+                      "on-background": "#0b1c30",
+                      "tertiary-container": "#ff7b88",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-primary": "#4fdbc8",
+                      "on-error-container": "#93000a",
+                      "on-primary-container": "#00423b",
+                      "surface-container-high": "#dce9ff",
+                      "tertiary-fixed-dim": "#ffb2b7",
+                      "surface-container-low": "#eff4ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "40px",
+                      "container-max": "1280px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "display-lg-mobile": ["Plus Jakarta Sans"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "body-lg": ["Inter"],
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/page-specific.css">
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 107, 95, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateY(-4px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .nav-item-hover:hover .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Dynamic styles matching clinic.js actions */
+        .tab-btn {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .tab-btn.active {
+            color: #006b5f;
+            font-weight: 700;
+        }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #006b5f;
+        }
+        .tab-content-panel {
+            display: none;
+        }
+        .tab-content-panel.active {
+            display: block;
+        }
+
+        /* Slots Grid System matching redBus styles */
+        .slot-grid-layout {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        @media(min-width: 640px) {
+            .slot-grid-layout {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        .slot-box {
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 1rem;
+            padding: 0.85rem 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.4);
+        }
+        .slot-box .time {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #0b1c30;
+        }
+        .slot-box .status-text {
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 0.15rem;
+            text-transform: uppercase;
+        }
+        .slot-box.available {
+            border-color: rgba(13, 148, 136, 0.3);
+            color: #14b8a6;
+        }
+        .slot-box.available:hover {
+            background-color: rgba(20, 184, 166, 0.08);
+            border-color: #14b8a6;
+        }
+        .slot-box.booked {
+            background-color: #f1f5f9;
+            border-color: #e2e8f0;
+            color: #94a3b8;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .slot-box.booked .time {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+        .slot-box.almost-full {
+            border-color: #fcd34d;
+            background-color: #fffbeb;
+            color: #d97706;
+        }
+        .slot-box.almost-full:hover {
+            background-color: #fef3c7;
+            border-color: #f59e0b;
+        }
+        .slot-box.closed {
+            border-color: #fca5a5;
+            background-color: #fef2f2;
+            color: #dc2626;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .slot-box.selected {
+            background-color: #006b5f !important;
+            border-color: #006b5f !important;
+            color: #ffffff !important;
+            box-shadow: 0 10px 15px -3px rgba(0, 107, 95, 0.2);
+        }
+        .slot-box.selected .time, .slot-box.selected .status-text {
+            color: #ffffff !important;
+        }
+
+        /* Horizontal Datepicker styling */
+        .date-selector-row {
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            padding-bottom: 0.75rem;
+        }
+        .date-item-btn {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            padding: 0.75rem 1.25rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            text-align: center;
+            min-width: 90px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            transition: all 0.2s ease;
+        }
+        .date-item-btn span.day {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6c7a77;
+            text-transform: uppercase;
+        }
+        .date-item-btn span.num {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0b1c30;
+        }
+        .date-item-btn:hover {
+            border-color: #006b5f;
+            background-color: rgba(0, 107, 95, 0.05);
+        }
+        .date-item-btn.active {
+            background-color: #006b5f;
+            border-color: #006b5f;
+        }
+        .date-item-btn.active span.day, .date-item-btn.active span.num {
+            color: #ffffff;
+        }
+
+        /* Period tabs */
+        .period-tabs {
+            display: flex;
+            gap: 0.75rem;
+        }
+        .period-tab-btn {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            color: #6c7a77;
+        }
+        .period-tab-btn.active {
+            background-color: rgba(0, 107, 95, 0.08);
+            border-color: #006b5f;
+            color: #006b5f;
+        }
+        
+        /* Skeleton shimmer */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(226, 232, 240, 0.5) 25%, rgba(203, 213, 225, 0.5) 50%, rgba(226, 232, 240, 0.5) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Date picker & slot hover transition micro-animations */
+        .date-item-btn {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        .date-item-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .date-item-btn:active {
+            transform: translateY(0) scale(0.97);
+        }
+        
+        .slot-box {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        .slot-box:hover:not(.booked):not(.closed) {
+            transform: translateY(-2.5px) scale(1.03);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .slot-box:active:not(.booked):not(.closed) {
+            transform: translateY(0) scale(0.97);
+        }
+
+        /* Pet theme variables override */
+        body.pet-mode-active .date-item-btn:hover {
+            border-color: #8B5CF6;
+            background-color: rgba(139, 92, 246, 0.05);
+        }
+        body.pet-mode-active .date-item-btn.active {
+            background-color: #8B5CF6;
+            border-color: #8B5CF6;
+        }
+        body.pet-mode-active .period-tab-btn.active {
+            background-color: rgba(139, 92, 246, 0.08);
+            border-color: #8B5CF6;
+            color: #8B5CF6;
+        }
+        body.pet-mode-active .slot-box.available {
+            border-color: rgba(139, 92, 246, 0.3);
+            color: #8B5CF6;
+        }
+        body.pet-mode-active .slot-box.available:hover {
+            background-color: rgba(139, 92, 246, 0.08);
+            border-color: #8B5CF6;
+        }
+        body.pet-mode-active .slot-box.selected {
+            background-color: #8B5CF6 !important;
+            border-color: #8B5CF6 !important;
+            box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.2) !important;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden flex flex-col">
+<!-- Background Layer -->
+<div class="fixed inset-0 -z-10 pointer-events-none">
+    <div class="absolute inset-0 w-full h-full opacity-40" style="display:block;">
+        <canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+        <script>
+        (function() {
+          const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+          function syncSize() {
+            const w = canvas.clientWidth  || 1280;
+            const h = canvas.clientHeight || 720;
+            if (canvas.width !== w || canvas.height !== h) {
+              canvas.width  = w;
+              canvas.height = h;
+            }
+          }
+          if (typeof ResizeObserver !== 'undefined') {
+            new ResizeObserver(syncSize).observe(canvas);
+          }
+          syncSize();
 
-  <!-- Sticky Navbar -->
-  <header class="navbar">
-    <a href="index.html" class="logo" id="nav-logo">
-      <i class="fa-solid fa-house-chimney-medical"></i> PawCare
-    </a>
-    <nav class="nav-links" id="navbar-links">
-      <a href="index.html">Home</a>
-      <a href="find.html" class="active">Find Clinic</a>
-      <a href="dashboard.html">Pet Care</a>
-      <a href="index.html#how-it-works">How It Works</a>
-      <a href="index.html#contact">Contact</a>
-    </nav>
-    <div class="nav-actions">
-      <a href="find.html" class="btn btn-primary" id="find-near-me-btn">
-        <i class="fa-solid fa-location-crosshairs"></i> Find Near Me
-      </a>
-      <button class="btn btn-emergency" id="emergency-btn">
-        <i class="fa-solid fa-triangle-exclamation"></i> EMERGENCY
-      </button>
-      <button class="mobile-nav-toggle" id="mobile-toggle">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+          const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+          if (!gl) return;
+          const vs = `attribute vec2 a_position;
+        varying vec2 v_texCoord;
+        void main() {
+          v_texCoord = a_position * 0.5 + 0.5;
+          gl_Position = vec4(a_position, 0.0, 1.0);
+        }`;
+          const fs = `precision highp float;
+        uniform float u_time;
+        uniform vec2 u_resolution;
+        uniform vec2 u_mouse;
+        varying vec2 v_texCoord;
+        float hash(vec2 p) {
+            p = fract(p * vec2(123.34, 456.21));
+            p += dot(p, p + 45.32);
+            return fract(p.x * p.y);
+        }
+        void main() {
+            vec2 uv = v_texCoord;
+            vec2 p1 = vec2(0.2 + 0.1 * sin(u_time * 0.5), 0.3 + 0.1 * cos(u_time * 0.4));
+            vec2 p2 = vec2(0.8 + 0.1 * cos(u_time * 0.3), 0.7 + 0.1 * sin(u_time * 0.6));
+            vec2 p3 = vec2(0.5 + 0.2 * sin(u_time * 0.7), 0.5 + 0.2 * cos(u_time * 0.5));
+            float d1 = length(uv - p1);
+            float d2 = length(uv - p2);
+            float d3 = length(uv - p3);
+            vec3 rose = vec3(1.0, 0.8, 0.85);
+            vec3 violet = vec3(0.9, 0.85, 1.0);
+            vec3 turquoise = vec3(0.8, 1.0, 0.95);
+            vec3 amber = vec3(1.0, 0.95, 0.8);
+            vec3 col = mix(rose, violet, smoothstep(0.0, 0.8, d1));
+            col = mix(col, turquoise, smoothstep(0.0, 0.8, d2));
+            col = mix(col, amber, smoothstep(0.0, 0.8, d3));
+            col += (hash(uv + u_time * 0.01) - 0.5) * 0.02;
+            gl_FragColor = vec4(col, 1.0);
+        }`;
+          function cs(type, src) {
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            return s;
+          }
+          const prog = gl.createProgram();
+          gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+          gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+          gl.linkProgram(prog);
+          gl.useProgram(prog);
+          const buf = gl.createBuffer();
+          gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+          gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+          const pos = gl.getAttribLocation(prog, 'a_position');
+          gl.enableVertexAttribArray(pos);
+          gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+          const uTime = gl.getUniformLocation(prog, 'u_time');
+          const uRes = gl.getUniformLocation(prog, 'u_resolution');
+          const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+          let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+          window.addEventListener('mousemove', (event) => {
+            const rect = canvas.getBoundingClientRect();
+            if (rect.width && rect.height) {
+              const nx = (event.clientX - rect.left) / rect.width;
+              const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+              mouse.x = nx * canvas.width;
+              mouse.y = ny * canvas.height;
+            }
+          });
+          function render(t) {
+            gl.viewport(0, 0, canvas.width, canvas.height);
+            if (uTime) gl.uniform1f(uTime, t * 0.001);
+            if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+            if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            requestAnimationFrame(render);
+          }
+          render(0);
+        })();
+        </script>
     </div>
-  </header>
+</div>
 
-  <!-- Clinic Profile Header Section -->
-  <div class="container" style="margin-top: 2rem;">
-    <div class="clinic-banner-hero" id="profile-banner">
+<!-- Top Navigation Bar -->
+<header class="navbar bg-white/60 dark:bg-inverse-surface/60 backdrop-blur-xl border-b border-white/40 dark:border-white/10 docked full-width top-0 sticky z-50 shadow-[0_20px_50px_rgba(0,107,95,0.05)]">
+    <div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+        <div class="flex items-center gap-8">
+            <a class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim" href="index.html">PawCare</a>
+            <nav class="hidden md:flex items-center gap-6">
+                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary hover:scale-105 transition-all" href="index.html">Home</a>
+                <a class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim border-b-2 border-primary pb-1" href="find.html">Find Clinic</a>
+                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary hover:scale-105 transition-all" href="book.html">Book</a>
+                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary hover:scale-105 transition-all" href="dashboard.html">Dashboard</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-4">
+            <button onclick="window.location.href='find.html'" class="hidden md:block font-label-md text-label-md px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/5 transition-colors">Find Near Me</button>
+            <button onclick="toggleModal('emergency-modal', true)" class="font-label-md text-label-md px-6 py-2 rounded-full bg-primary text-on-primary shadow-lg hover:scale-105 active:scale-95 transition-all">EMERGENCY</button>
+        </div>
+    </div>
+</header>
+
+<!-- Clinic Profile Header Section -->
+<div class="max-w-container-max mx-auto px-margin-desktop mt-8 w-full">
+    <div id="profile-banner" class="h-[360px] rounded-3xl relative overflow-hidden flex flex-col justify-end p-8 border border-white/40 shadow-2xl">
+      <!-- Dark bottom overlay gradient for readability -->
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent z-1"></div>
       
-      <!-- Overlapping Clinic Info Card -->
-      <div class="banner-clinic-info">
-        <div style="display: flex; gap: 1.25rem; align-items: center;">
-          <div style="width: 70px; height: 70px; background-color: var(--light-teal-bg); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
-            <i class="fa-solid fa-house-chimney-medical" id="profile-clinic-icon" style="font-size: 2.25rem; color: var(--primary-teal)"></i>
+      <!-- Clinic Details Content overlay -->
+      <div class="relative z-10 w-full text-white flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
+        <div>
+          <div class="flex items-center gap-3 mb-2 flex-wrap">
+            <span class="bg-primary px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase flex items-center gap-1 shadow-md"><span class="material-symbols-outlined text-[12px]">check_circle</span> Verified Clinic</span>
+            <span id="profile-rating-span" class="text-sm font-extrabold text-amber-300 flex items-center gap-1 drop-shadow-md">
+              <!-- Dynamically populated -->
+            </span>
           </div>
-          <div>
-            <h1 id="profile-title" style="font-size: 1.75rem; margin-bottom: 0.25rem;">Metro Care General Clinic</h1>
-            <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
-              <span class="badge badge-teal" id="profile-type-badge">General Medicine</span>
-              <span id="profile-rating-span" style="font-size: 0.85rem; font-weight: 600; color: var(--text-grey);">
-                <i class="fa-solid fa-star" style="color: var(--warning-yellow)"></i> 4.8 (342 reviews)
-              </span>
-              <span class="badge badge-success" id="profile-status">Open • Available Today</span>
-            </div>
-            <p id="profile-address" style="font-size: 0.85rem; color: var(--text-grey); margin-top: 0.25rem;"><i class="fa-solid fa-location-dot"></i> B-42, Connaught Place, New Delhi</p>
-          </div>
+          <h1 id="profile-title" class="font-headline-lg text-3xl sm:text-4xl font-extrabold text-white drop-shadow-lg leading-tight">Metro Care General Clinic</h1>
+          <p id="profile-address" class="text-sm text-slate-200 mt-2 flex items-center gap-1 drop-shadow-sm"><span class="material-symbols-outlined text-base">location_on</span> B-42, Connaught Place, New Delhi</p>
         </div>
         
-        <div style="display: flex; gap: 0.75rem;">
-          <button class="btn btn-secondary" id="share-clinic-btn" title="Share Clinic Profile"><i class="fa-solid fa-share-nodes"></i> Share</button>
-          <button class="btn btn-primary" onclick="window.location.href='tel:+919812345670'" style="padding: 0.75rem;"><i class="fa-solid fa-phone"></i> Call</button>
+        <div id="banner-badges-container" class="flex gap-2 flex-wrap z-10 mb-1">
+          <!-- Dynamically populated -->
         </div>
       </div>
-
     </div>
-  </div>
+</div>
 
-  <!-- Profile Content Switcher Section -->
-  <main class="container section-padding" style="padding-top: 1rem;">
-    <div class="clinic-profile-layout">
-      
-      <!-- LEFT COLUMN: Content Tabs (60%) -->
-      <section>
-        
-        <!-- Tab Links -->
-        <nav class="tab-nav-bar">
-          <button class="tab-btn" data-tab="overview">Overview</button>
-          <button class="tab-btn" data-tab="doctors">Doctors</button>
-          <button class="tab-btn active" data-tab="slots">Slots Booking</button>
-          <button class="tab-btn" data-tab="reviews">Reviews</button>
-          <button class="tab-btn" data-tab="location">Location</button>
-        </nav>
-
-        <!-- Tab 1: Overview Panel -->
-        <div class="tab-content-panel" id="overview-tab">
-          <div style="margin-bottom: 2rem;">
-            <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem;">About Clinic</h3>
-            <p id="about-text" style="color: var(--text-grey); line-height: 1.7;"></p>
-          </div>
-
-          <div style="margin-bottom: 2rem;">
-            <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem;">Services Provided</h3>
-            <div class="clinic-tags" id="services-list-container">
-              <!-- Rendered via JS -->
-            </div>
-          </div>
-
-          <div style="margin-bottom: 2rem;">
-            <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem;">Facilities</h3>
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;" id="facilities-list-container">
-              <!-- Rendered via JS -->
-            </div>
-          </div>
-
-          <div>
-            <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem;">Working Hours</h3>
-            <table style="width: 100%; border-collapse: collapse; border: 1px solid var(--border-color); text-align: left;">
-              <thead>
-                <tr style="background-color: var(--light-grey); font-weight: 600;">
-                  <th style="padding: 0.75rem 1rem; border: 1px solid var(--border-color);">Day</th>
-                  <th style="padding: 0.75rem 1rem; border: 1px solid var(--border-color);">Timings</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="padding: 0.75rem 1rem; border: 1px solid var(--border-color); font-weight: 500;">Monday - Saturday</td>
-                  <td style="padding: 0.75rem 1rem; border: 1px solid var(--border-color); color: var(--text-grey);">9:00 AM - 8:00 PM</td>
-                </tr>
-                <tr>
-                  <td style="padding: 0.75rem 1rem; border: 1px solid var(--border-color); font-weight: 500;">Sunday</td>
-                  <td style="padding: 0.75rem 1rem; border: 1px solid var(--border-color); color: var(--text-grey);">10:00 AM - 2:00 PM</td>
-                </tr>
-                <tr>
-                  <td style="padding: 0.75rem 1rem; border: 1px solid var(--border-color); font-weight: 500;">Emergency ER Services</td>
-                  <td style="padding: 0.75rem 1rem; border: 1px solid var(--border-color); color: var(--emergency-red); font-weight: 600;">24 Hours Open</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+<!-- Main Clinic Profile Switcher Section -->
+<main class="max-w-container-max mx-auto px-margin-desktop py-10 w-full flex flex-col lg:flex-row gap-gutter">
+    <!-- LEFT COLUMN: Content Tabs (60%) -->
+    <section class="flex-grow lg:w-[60%] flex flex-col gap-8">
+        <!-- Tab Navigation Bar -->
+        <div class="flex gap-8 border-b border-slate-200/50 pb-1 w-full">
+            <button class="tab-btn active font-label-md text-label-md text-slate-500 py-3 relative" data-tab="overview">About</button>
+            <button class="tab-btn font-label-md text-label-md text-slate-500 py-3 relative" data-tab="services">Services</button>
+            <button id="reviews-tab-btn" class="tab-btn font-label-md text-label-md text-slate-500 py-3 relative" data-tab="reviews">Reviews (128)</button>
         </div>
 
-        <!-- Tab 2: Doctors Panel -->
-        <div class="tab-content-panel" id="doctors-tab">
-          <h3 style="font-size: 1.35rem; margin-bottom: 1.25rem;">Specialist Doctors</h3>
-          <div class="doctors-list" id="doctors-list-container">
-            <!-- Rendered via JS -->
-          </div>
-        </div>
+        <!-- Tab 1: About Panel -->
+        <div class="tab-content-panel active flex flex-col gap-6" id="overview-tab">
+            <p id="about-text" class="text-on-surface-variant leading-relaxed text-sm bg-white/40 border border-white/60 p-6 rounded-2xl glass-card">
+                <!-- Dynamically populated -->
+            </p>
 
-        <!-- Tab 3: Slots Booking (RedBus Style - Active by default) -->
-        <div class="tab-content-panel active" id="slots-tab">
-          
-          <div class="slots-container-card">
-            <h3 style="font-size: 1.35rem; margin-bottom: 1rem;">Select Appointment Date</h3>
+            <!-- Dynamic Stats Grid inside About Tab -->
+            <div id="about-stats-box" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <!-- Dynamically populated -->
+            </div>
             
-            <!-- Date list scroller -->
-            <div class="date-picker-row" id="date-picker-row">
-              <!-- Generated via JS -->
+            <!-- Working Hours -->
+            <div class="glass-card rounded-3xl p-6 border border-white/40 flex flex-col gap-4">
+                <h3 class="font-headline-md text-lg font-bold text-on-surface flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">schedule</span> Working Hours
+                </h3>
+                <div class="overflow-hidden border border-slate-200/50 rounded-2xl bg-white/30">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 font-bold text-on-surface">
+                                <th class="p-4 border-b border-slate-200/50">Day</th>
+                                <th class="p-4 border-b border-slate-200/50">Timings</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr class="hover:bg-white/40 transition-colors">
+                                <td class="p-4 font-bold text-on-surface">Monday - Saturday</td>
+                                <td class="p-4 text-on-surface-variant font-medium">9:00 AM - 8:00 PM</td>
+                            </tr>
+                            <tr class="hover:bg-white/40 transition-colors">
+                                <td class="p-4 font-bold text-on-surface">Sunday</td>
+                                <td class="p-4 text-on-surface-variant font-medium">10:00 AM - 2:00 PM</td>
+                            </tr>
+                            <tr class="hover:bg-white/40 transition-colors">
+                                <td class="p-4 font-bold text-on-surface">Emergency ER Services</td>
+                                <td class="p-4 text-red-600 font-extrabold">24 Hours Open</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Services Panel -->
+        <div class="tab-content-panel flex flex-col gap-8" id="services-tab">
+            <div class="glass-card rounded-3xl p-6 border border-white/40 flex flex-col gap-4">
+                <h3 class="font-headline-md text-lg font-bold text-on-surface flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">medical_information</span> Services Provided
+                </h3>
+                <div id="services-list-container" class="flex gap-2 flex-wrap">
+                    <!-- Dynamically populated -->
+                </div>
             </div>
 
-            <h3 style="font-size: 1.35rem; margin-bottom: 1rem; margin-top: 1rem;">Choose Time Period</h3>
-            <!-- Period filter buttons -->
-            <div class="period-tabs">
-              <button class="period-tab-btn active" data-period="morning"><i class="fa-solid fa-mug-saucer"></i> Morning</button>
-              <button class="period-tab-btn" data-period="afternoon"><i class="fa-solid fa-sun"></i> Afternoon</button>
-              <button class="period-tab-btn" data-period="evening"><i class="fa-solid fa-moon"></i> Evening</button>
+            <div class="glass-card rounded-3xl p-6 border border-white/40 flex flex-col gap-4">
+                <h3 class="font-headline-md text-lg font-bold text-on-surface flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">checkroom</span> Facilities & Amenities
+                </h3>
+                <div id="facilities-list-container" class="flex gap-3 flex-wrap">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+            
+            <div class="flex flex-col gap-4">
+                <h3 class="font-headline-md text-lg font-bold text-on-surface flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">badge</span> Specialists On Duty
+                </h3>
+                <div id="doctors-list-container" class="flex flex-col gap-4">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Reviews Panel -->
+        <div class="tab-content-panel flex flex-col gap-8" id="reviews-tab">
+            <h3 class="font-headline-md text-lg font-bold text-on-surface">Patient Reviews</h3>
+            
+            <!-- Rating stats breakdown chart -->
+            <div class="glass-card rounded-3xl p-6 border border-white/50 flex flex-col sm:flex-row gap-8 items-center bg-slate-100/40">
+                <div class="text-center sm:border-r border-slate-200/50 sm:pr-8 flex-shrink-0">
+                    <h2 id="reviews-rating-big" class="text-5xl font-extrabold text-primary">4.8</h2>
+                    <div id="reviews-rating-stars" class="color-amber-400 text-amber-500 my-2 flex justify-center gap-0.5">
+                        <!-- Populated -->
+                    </div>
+                    <span id="reviews-count-big" class="text-xs text-on-surface-variant font-medium">342 reviews</span>
+                </div>
+                
+                <div class="flex-grow flex flex-col gap-2 w-full text-xs font-semibold">
+                    <!-- 5 Star -->
+                    <div class="flex items-center gap-3 w-full">
+                        <span class="w-12 text-slate-500">5 Star</span>
+                        <div class="flex-grow h-2 bg-slate-200 rounded-full overflow-hidden">
+                            <div class="w-[82%] h-full bg-primary"></div>
+                        </div>
+                        <span class="w-10 text-right text-slate-600">82%</span>
+                    </div>
+                    <!-- 4 Star -->
+                    <div class="flex items-center gap-3 w-full">
+                        <span class="w-12 text-slate-500">4 Star</span>
+                        <div class="flex-grow h-2 bg-slate-200 rounded-full overflow-hidden">
+                            <div class="w-[12%] h-full bg-primary"></div>
+                        </div>
+                        <span class="w-10 text-right text-slate-600">12%</span>
+                    </div>
+                    <!-- 3 Star -->
+                    <div class="flex items-center gap-3 w-full">
+                        <span class="w-12 text-slate-500">3 Star</span>
+                        <div class="flex-grow h-2 bg-slate-200 rounded-full overflow-hidden">
+                            <div class="w-[4%] h-full bg-primary"></div>
+                        </div>
+                        <span class="w-10 text-right text-slate-600">4%</span>
+                    </div>
+                    <!-- 2 Star -->
+                    <div class="flex items-center gap-3 w-full">
+                        <span class="w-12 text-slate-500">2 Star</span>
+                        <div class="flex-grow h-2 bg-slate-200 rounded-full overflow-hidden">
+                            <div class="w-[1%] h-full bg-primary"></div>
+                        </div>
+                        <span class="w-10 text-right text-slate-600">1%</span>
+                    </div>
+                    <!-- 1 Star -->
+                    <div class="flex items-center gap-3 w-full">
+                        <span class="w-12 text-slate-500">1 Star</span>
+                        <div class="flex-grow h-2 bg-slate-200 rounded-full overflow-hidden">
+                            <div class="w-[1%] h-full bg-primary"></div>
+                        </div>
+                        <span class="w-10 text-right text-slate-600">1%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews Cards scroll container -->
+            <div id="reviews-cards-list" class="flex flex-col gap-6 bg-white/40 p-6 rounded-3xl border border-white/60">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+
+        <!-- Schedule an Appointment Visual Slot Picker (RedBus Grid) -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white/50 flex flex-col gap-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h3 class="font-headline-md text-xl font-bold text-on-surface">Schedule an Appointment</h3>
+                    <p class="text-xs text-on-surface-variant mt-1">Select your preferred date & available visual slot below</p>
+                </div>
+                <!-- Date list scroller navigation -->
+                <div class="bg-primary/5 border border-primary/20 px-4 py-2 rounded-xl text-primary font-bold text-sm" id="calendar-current-month">
+                    Mon, Oct 24
+                </div>
+            </div>
+            
+            <!-- Date scroller row -->
+            <div class="date-selector-row overflow-x-auto pb-2 scrollbar-none" id="date-picker-row">
+                <!-- Populated via clinic.js -->
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <h4 class="font-headline-md text-sm font-bold text-on-surface">Choose Time Period</h4>
+                <!-- Period filter buttons -->
+                <div class="period-tabs flex gap-2">
+                    <button class="period-tab-btn active px-4 py-2 rounded-full border border-slate-200 bg-white text-xs font-bold transition-all focus:outline-none" data-period="morning"><span class="material-symbols-outlined text-[14px] align-middle mr-1">wb_twilight</span> Morning</button>
+                    <button class="period-tab-btn px-4 py-2 rounded-full border border-slate-200 bg-white text-xs font-bold transition-all focus:outline-none" data-period="afternoon"><span class="material-symbols-outlined text-[14px] align-middle mr-1">light_mode</span> Afternoon</button>
+                    <button class="period-tab-btn px-4 py-2 rounded-full border border-slate-200 bg-white text-xs font-bold transition-all focus:outline-none" data-period="evening"><span class="material-symbols-outlined text-[14px] align-middle mr-1">bedtime</span> Evening</button>
+                </div>
             </div>
 
             <!-- Slots visual grid -->
-            <div class="slot-grid-layout" id="slots-grid-container">
-              <!-- Rendered via JS -->
+            <div id="slots-grid-container" class="slot-grid-layout gap-4">
+                <!-- Populated via clinic.js -->
             </div>
 
-            <!-- Legend strip -->
-            <div style="display: flex; gap: 1.5rem; font-size: 0.8rem; font-weight: 600; flex-wrap: wrap; border-top: 1px solid var(--border-color); padding-top: 1rem;">
-              <div style="display: flex; align-items: center; gap: 0.4rem;">
-                <div style="width: 12px; height: 12px; border: 1px solid rgba(13, 148, 136, 0.3); border-radius: 3px;"></div>
-                <span style="color: var(--primary-teal)">Available</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.4rem;">
-                <div style="width: 12px; height: 12px; background-color: #F1F5F9; border-radius: 3px;"></div>
-                <span style="color: #94A3B8; text-decoration: line-through;">Booked</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.4rem;">
-                <div style="width: 12px; height: 12px; background-color: #FFFBEB; border: 1px solid #FCD34D; border-radius: 3px;"></div>
-                <span style="color: #D97706">Almost Full (1 left)</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.4rem;">
-                <div style="width: 12px; height: 12px; background-color: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 3px;"></div>
-                <span style="color: #DC2626">Closed</span>
-              </div>
+            <!-- Slots Legend -->
+            <div class="flex gap-6 text-[10px] font-extrabold text-on-surface-variant flex-wrap border-t border-slate-100 pt-4 mt-2 uppercase tracking-wide">
+                <div class="flex items-center gap-1.5">
+                    <div id="legend-avail-color" class="w-3.5 h-3.5 bg-primary/10 border border-primary rounded-md"></div>
+                    <span id="legend-avail-lbl" class="text-primary font-bold">AVAILABLE</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-slate-400">
+                    <div class="w-3.5 h-3.5 bg-slate-100 border border-slate-200 rounded-md"></div>
+                    <span class="line-through">BOOKED</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-amber-500">
+                    <div class="w-3.5 h-3.5 bg-amber-50 border border-amber-200 rounded-md"></div>
+                    <span>BUSY</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-red-500">
+                    <div class="w-3.5 h-3.5 bg-red-50 border border-red-200 rounded-md"></div>
+                    <span>CLOSED</span>
+                </div>
             </div>
+        </div>
+    </section>
 
-          </div>
-
+    <!-- RIGHT COLUMN: Sticky Reservation Sidebar (40%) -->
+    <aside class="w-full lg:w-[35%] flex-shrink-0 flex flex-col gap-6 lg:sticky lg:top-28 self-start">
+        <!-- Doctor Selector Card -->
+        <div class="glass-card rounded-3xl p-6 border border-white/40 flex flex-col gap-4">
+            <div class="form-field flex flex-col gap-2">
+                <label for="doctor-select" class="text-xs font-bold text-on-surface-variant uppercase tracking-wider flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-primary text-base" id="practitioner-icon">badge</span>
+                    Choose Practitioner
+                </label>
+                <select id="doctor-select" class="w-full bg-white/40 border border-outline-variant px-4 py-2.5 rounded-xl font-semibold text-sm focus:border-primary focus:ring-1 focus:ring-primary">
+                    <!-- Populated via clinic.js -->
+                </select>
+            </div>
         </div>
 
-        <!-- Tab 4: Reviews Panel -->
-        <div class="tab-content-panel" id="reviews-tab">
-          <h3 style="font-size: 1.35rem; margin-bottom: 1.5rem;">Patient Reviews</h3>
-          
-          <!-- Rating stats breakdown chart -->
-          <div style="display: flex; gap: 3rem; align-items: center; margin-bottom: 3rem; background-color: var(--light-grey); padding: 2rem; border-radius: var(--radius-lg);">
-            <div style="text-align: center;">
-              <h2 style="font-size: 3.5rem; font-family: var(--font-stats); color: var(--primary-teal);">4.8</h2>
-              <div style="color: var(--warning-yellow); margin-bottom: 0.25rem;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
-              <span style="font-size: 0.8rem; color: var(--text-grey);">342 reviews</span>
+        <!-- High-Fidelity Doctor Profile Card -->
+        <div class="glass-card rounded-3xl p-6 border border-white/40 flex flex-col gap-6 relative overflow-hidden">
+            <div class="flex gap-4 items-center">
+                <!-- Doctor Avatar -->
+                <div id="sidebar-doctor-avatar" class="w-16 h-16 rounded-2xl bg-primary/10 bg-cover bg-center border border-white/60 shadow-md flex-shrink-0"></div>
+                <div class="flex-grow">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <h4 id="sidebar-doctor-name" class="font-headline-md text-base font-extrabold text-on-surface leading-tight">Dr. Elena Vance</h4>
+                        <span id="sidebar-doctor-badge" class="bg-primary/10 text-primary text-[9px] font-bold px-2 py-0.5 rounded-full uppercase">Primary Vet</span>
+                    </div>
+                    <p id="sidebar-doctor-spec" class="text-xs text-on-surface-variant font-medium mt-1">Senior Veterinarian</p>
+                    <span id="sidebar-doctor-exp" class="inline-flex items-center gap-1 text-[9px] font-bold text-green-600 bg-green-500/10 px-2 py-0.5 rounded-full uppercase mt-1.5"><span class="material-symbols-outlined text-[10px]">verified</span> 18 yrs exp</span>
+                </div>
             </div>
             
-            <div style="flex: 1; display: flex; flex-direction: column; gap: 0.5rem;">
-              <!-- 5 Star -->
-              <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; font-weight: 500;">
-                <span style="width: 45px;">5 Star</span>
-                <div style="flex: 1; height: 8px; background-color: #E2E8F0; border-radius: 4px; overflow: hidden;">
-                  <div style="width: 82%; height: 100%; background-color: var(--primary-teal);"></div>
-                </div>
-                <span style="width: 35px; text-align: right;">82%</span>
-              </div>
-              <!-- 4 Star -->
-              <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; font-weight: 500;">
-                <span style="width: 45px;">4 Star</span>
-                <div style="flex: 1; height: 8px; background-color: #E2E8F0; border-radius: 4px; overflow: hidden;">
-                  <div style="width: 12%; height: 100%; background-color: var(--primary-teal);"></div>
-                </div>
-                <span style="width: 35px; text-align: right;">12%</span>
-              </div>
-              <!-- 3 Star -->
-              <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; font-weight: 500;">
-                <span style="width: 45px;">3 Star</span>
-                <div style="flex: 1; height: 8px; background-color: #E2E8F0; border-radius: 4px; overflow: hidden;">
-                  <div style="width: 4%; height: 100%; background-color: var(--primary-teal);"></div>
-                </div>
-                <span style="width: 35px; text-align: right;">4%</span>
-              </div>
-              <!-- 2 Star -->
-              <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; font-weight: 500;">
-                <span style="width: 45px;">2 Star</span>
-                <div style="flex: 1; height: 8px; background-color: #E2E8F0; border-radius: 4px; overflow: hidden;">
-                  <div style="width: 1%; height: 100%; background-color: var(--primary-teal);"></div>
-                </div>
-                <span style="width: 35px; text-align: right;">1%</span>
-              </div>
-              <!-- 1 Star -->
-              <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; font-weight: 500;">
-                <span style="width: 45px;">1 Star</span>
-                <div style="flex: 1; height: 8px; background-color: #E2E8F0; border-radius: 4px; overflow: hidden;">
-                  <div style="width: 1%; height: 100%; background-color: var(--primary-teal);"></div>
-                </div>
-                <span style="width: 35px; text-align: right;">1%</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Reviews Cards -->
-          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-            <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                <h4 style="font-size: 1rem;">Meera Vasudevan</h4>
-                <span style="font-size: 0.8rem; color: var(--text-grey);">12 June 2026</span>
-              </div>
-              <div style="color: var(--warning-yellow); font-size: 0.8rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-              <p style="color: var(--text-grey); font-size: 0.9rem;">"Dr. Arvind Mehta is incredibly patient and answered all my health queries with great clarity. Booking system was completely visual and smooth."</p>
+            <div class="flex justify-between items-center text-sm font-semibold border-t border-slate-200/50 pt-4">
+                <span class="text-on-surface-variant">Consultation Fee</span>
+                <strong id="sidebar-doctor-fee" class="text-on-surface text-lg font-bold">₹500</strong>
             </div>
             
-            <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                <h4 style="font-size: 1rem;">Rohan Sen</h4>
-                <span style="font-size: 0.8rem; color: var(--text-grey);">3 June 2026</span>
-              </div>
-              <div style="color: var(--warning-yellow); font-size: 0.8rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
-              <p style="color: var(--text-grey); font-size: 0.9rem;">"Very clean facilities. The appointment estimation said wait time would be ~20 mins, I reached there and was called in exactly 18 mins. Highly recommended!"</p>
+            <div class="flex justify-between items-center text-sm font-semibold">
+                <span class="text-on-surface-variant">Next Available Slot</span>
+                <strong id="sidebar-doctor-avail" class="text-primary font-extrabold">Today, 10:00 AM</strong>
             </div>
 
-            <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                <h4 style="font-size: 1rem;">Karthik A.</h4>
-                <span style="font-size: 0.8rem; color: var(--text-grey);">28 May 2026</span>
-              </div>
-              <div style="color: var(--warning-yellow); font-size: 0.8rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-              <p style="color: var(--text-grey); font-size: 0.9rem;">"I took my pet here (since they do vet bookings in the evenings as well). Dr. Ananya was fantastic with my cat. Visual queue tracking took off all my anxiety."</p>
+            <!-- Dynamic Booking Status/Summary details block -->
+            <div id="booking-summary-widget" class="flex flex-col gap-2">
+                <!-- Populated via clinic.js -->
             </div>
-          </div>
+
+            <!-- Proceed/Action Button -->
+            <button id="proceed-booking-btn" class="w-full bg-primary text-on-primary py-4 rounded-full font-label-md text-label-md flex items-center justify-center gap-2 shadow-lg hover:scale-105 active:scale-95 transition-all" disabled>
+                Book Appointment <span class="material-symbols-outlined text-lg">arrow_forward</span>
+            </button>
         </div>
 
-        <!-- Tab 5: Location Panel -->
-        <div class="tab-content-panel" id="location-tab">
-          <h3 style="font-size: 1.35rem; margin-bottom: 1rem;">Clinic Map Location</h3>
-          <p style="color: var(--text-grey); font-size: 0.9rem; margin-bottom: 1.5rem;"><i class="fa-solid fa-location-dot"></i> B-42, Connaught Place, Inner Circle, Opp. Metro Gate 3, New Delhi</p>
-          
-          <!-- Interactive map canvas inside profile -->
-          <div id="mini-map-canvas" style="height: 320px; border-radius: var(--radius-md); border: 1px solid var(--border-color); z-index: 1;"></div>
+        <!-- Location & Directions Card -->
+        <div class="glass-card rounded-3xl p-6 border border-white/40 flex flex-col gap-4">
+            <div class="flex justify-between items-center">
+                <h3 class="font-headline-md text-base font-bold text-on-surface">Location & Directions</h3>
+                <a href="#" id="open-maps-link" target="_blank" class="text-primary text-xs font-bold hover:underline">Open in Maps</a>
+            </div>
+            
+            <!-- Mini Map Canvas inside sidebar -->
+            <div id="mini-map-canvas" class="h-44 border border-slate-200/50 rounded-2xl overflow-hidden shadow-sm z-1"></div>
+            
+            <div id="directions-badge" class="flex gap-3 bg-slate-50 border border-slate-100 p-4 rounded-2xl text-xs">
+                <span id="location-drive-icon" class="material-symbols-outlined text-primary text-xl mt-0.5">drive_eta</span>
+                <div>
+                    <p id="location-drive-time" class="font-extrabold text-on-surface">12 min drive from you</p>
+                    <p id="location-drive-desc" class="text-on-surface-variant font-medium mt-0.5 leading-relaxed">Fastest route via Central Ave. Parking available on-site.</p>
+                </div>
+            </div>
         </div>
+    </aside>
+</main>
 
-      </section>
-
-      <!-- RIGHT COLUMN: Sticky Reservation Sidebar (40%) -->
-      <aside>
-        <div class="sticky-sidebar-card">
-          <h3>Booking Summary</h3>
-          
-          <!-- Doctor Dropdown Selector -->
-          <div class="form-field" style="margin-bottom: 1.5rem;">
-            <label for="doctor-select">Choose Doctor specialty:</label>
-            <select id="doctor-select" style="background-color: var(--white);">
-              <!-- Populated via JS -->
-            </select>
-          </div>
-
-          <!-- Selection details block -->
-          <div id="booking-summary-widget">
-            <!-- Updated dynamically via JS -->
-          </div>
-
-          <button id="proceed-booking-btn" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem; padding: 1rem;" disabled>
-            Proceed to Patient Details <i class="fa-solid fa-arrow-right"></i>
-          </button>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest/80 dark:bg-inverse-surface/80 backdrop-blur-md border-t border-white/20 full-width py-12 mt-20">
+    <div class="w-full py-12 px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter">
+        <div class="flex flex-col gap-4">
+            <a href="index.html" class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim font-bold">PawCare</a>
+            <p class="font-body-md text-body-md text-on-surface-variant">Bridging human medical standards with premium pet care empathy. Your pets deserve the best.</p>
         </div>
-      </aside>
-
+        <div>
+            <h5 class="font-label-md text-label-md text-primary mb-6">Quick Links</h5>
+            <ul class="flex flex-col gap-3">
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Medical Standards</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-label-md text-label-md text-primary mb-6">Support</h5>
+            <ul class="flex flex-col gap-3">
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Support</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Find a Specialist</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Help Center</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-label-md text-label-md text-primary mb-6">Community</h5>
+            <div class="flex gap-4">
+                <a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-lg">share</span></a>
+                <a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-lg">groups</span></a>
+                <a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-lg">mail</span></a>
+            </div>
+            <p class="mt-8 font-label-sm text-label-sm text-on-surface-variant">© 2024 PawCare Healthcare. All rights reserved.</p>
+        </div>
     </div>
-  </main>
+</footer>
 
-  <!-- Footer -->
-  <footer class="footer" id="contact">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="index.html" class="logo">
-          <i class="fa-solid fa-house-chimney-medical"></i> PawCare
-        </a>
-        <p>We are making clinic visits frictionless. Search human and veterinary clinics, view exact doctor availability, book appointments visually, and skip wait lists.</p>
-        <div class="social-links">
-          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#"><i class="fa-brands fa-twitter"></i></a>
-          <a href="#"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-        </div>
+<!-- Modals -->
+
+<!-- Emergency Modal -->
+<div id="emergency-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-red-950/40 backdrop-blur-md p-4 transition-all duration-300 opacity-0">
+  <div class="glass-card bg-white/95 dark:bg-inverse-surface/95 rounded-3xl p-8 max-w-md w-full border border-red-500/30 shadow-2xl transition-all scale-95 duration-300 transform opacity-0 text-center relative overflow-hidden" id="emergency-card">
+    <div class="absolute -right-10 -top-10 w-40 h-40 bg-red-500/10 rounded-full blur-2xl animate-pulse"></div>
+    <div class="flex justify-end mb-2">
+      <button onclick="toggleModal('emergency-modal', false)" class="text-on-surface-variant hover:text-red-500 transition-colors flex items-center">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    
+    <div class="w-16 h-16 bg-red-100 dark:bg-red-950/50 rounded-full flex items-center justify-center mx-auto mb-6 text-red-600 dark:text-red-400 animate-bounce">
+      <span class="material-symbols-outlined text-4xl font-bold">emergency</span>
+    </div>
+    
+    <h3 class="font-headline-md text-headline-md text-red-600 dark:text-red-400 mb-2 font-extrabold uppercase tracking-wide">
+      EMERGENCY ACTIVE
+    </h3>
+    <p class="text-xs text-on-surface-variant mb-6 font-semibold">
+      Nearest Emergency Medical Centers
+    </p>
+    
+    <div class="flex flex-col gap-4 text-left mb-6">
+      <div class="p-4 bg-red-500/5 rounded-2xl border border-red-500/10">
+        <h4 class="font-bold text-on-surface text-sm flex justify-between">
+          <span>City Care Hospital & ER</span>
+          <span class="text-red-600 font-bold text-xs uppercase">0.8 km</span>
+        </h4>
+        <p class="text-xs text-on-surface-variant mt-1">24/7 Human Trauma & General Emergency Support</p>
       </div>
-      <div class="footer-col">
-        <h4>Discover</h4>
-        <ul>
-          <li><a href="find.html">Find General Clinics</a></li>
-          <li><a href="find.html?type=pet">Find Pet Vets</a></li>
-          <li><a href="find.html?type=dental">Dental Care Near Me</a></li>
-          <li><a href="find.html?type=eye">Eye Specialists</a></li>
-          <li><a href="find.html?type=skin">Skin & Hair Clinics</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Clinic Portal Login</a></li>
-          <li><a href="#">Emergency Help Guide</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Stay Updated</h4>
-        <p>Subscribe to our newsletter for health tips and clinic updates.</p>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!')">
-          <div class="newsletter-input-group">
-            <input type="email" placeholder="Your Email Address" required>
-            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
-          </div>
-        </form>
+      <div class="p-4 bg-purple-500/5 rounded-2xl border border-purple-500/10">
+        <h4 class="font-bold text-on-surface text-sm flex justify-between">
+          <span>PawCare 24/7 Vet Hospital</span>
+          <span class="text-purple-600 dark:text-purple-400 font-bold text-xs uppercase">1.4 km</span>
+        </h4>
+        <p class="text-xs text-on-surface-variant mt-1">Full-service 24-hour Vet Trauma Center & ICU</p>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 PawCare Health Platform. All rights reserved.</p>
-      <div class="footer-bottom-links">
-        <a href="#">Security</a>
-        <a href="#">Sitemap</a>
-      </div>
-    </div>
-  </footer>
+    
+    <a href="tel:+919876543210" class="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-full font-label-md text-label-md flex items-center justify-center gap-2 shadow-lg hover:scale-[1.02] active:scale-95 transition-all mb-4">
+      <span class="material-symbols-outlined">call</span> Call Dispatch Center
+    </a>
+    
+    <button onclick="toggleModal('emergency-modal', false)" class="text-xs text-on-surface-variant hover:underline font-semibold">
+      Dismiss Emergency Screen
+    </button>
+  </div>
+</div>
 
-  <!-- Scripts -->
-  <!-- Leaflet Map Script CDN -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/clinic.js"></script>
+<!-- Toast Container -->
+<div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    function toggleModal(modalId, show) {
+        const modal = document.getElementById(modalId);
+        const cardId = modalId.replace('modal', 'card');
+        const card = document.getElementById(cardId);
+        if (show) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                card.classList.remove('scale-95', 'opacity-0');
+                card.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        } else {
+            modal.classList.add('opacity-0');
+            card.classList.remove('scale-100', 'opacity-100');
+            card.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    }
+    
+    document.querySelectorAll('[id$="-modal"]').forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) toggleModal(modal.id, false);
+        });
+    });
+
+    function showToast(message) {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'glass-card bg-white/90 dark:bg-inverse-surface/90 text-on-surface border border-white/50 px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3 transition-all transform translate-y-4 opacity-0 duration-300';
+        toast.innerHTML = `
+            <span class="material-symbols-outlined text-primary font-bold">check_circle</span>
+            <span class="font-label-md text-label-md">${message}</span>
+        `;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.classList.remove('translate-y-4', 'opacity-0');
+        }, 10);
+        setTimeout(() => {
+            toast.classList.add('translate-y-4', 'opacity-0');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const sessionData = localStorage.getItem('pawcare_session');
+        const navActions = document.querySelector('header .flex.items-center.gap-4');
+        if (sessionData && navActions) {
+            const user = JSON.parse(sessionData);
+            const findNearMeBtn = navActions.querySelector('button:not(.bg-primary)');
+            if (findNearMeBtn) {
+                findNearMeBtn.outerHTML = `
+                  <a href="dashboard.html" class="hidden md:flex items-center gap-2 font-label-md text-label-md px-5 py-2.5 rounded-full border border-primary text-primary bg-primary/5 hover:bg-primary/10 transition-all hover:scale-105">
+                    <span class="material-symbols-outlined text-lg">account_circle</span>
+                    Hello, ${user.name.split(' ')[0]}
+                  </a>
+                `;
+            }
+        }
+    });
+</script>
+<script src="js/app.js"></script>
+<script src="js/clinic.js"></script>
 </body>
 </html>

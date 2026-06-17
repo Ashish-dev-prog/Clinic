@@ -1,279 +1,675 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Confirm Booking Details — Patient / Pet Profile | PawCare</title>
-  <meta name="description" content="Provide patient/pet details, select checklists, and confirm OPD consultation fees payment options.">
-  <!-- Fonts -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/page-specific.css">
-</head>
-<body>
-
-  <!-- Sticky Navbar -->
-  <header class="navbar">
-    <a href="index.html" class="logo" id="nav-logo">
-      <i class="fa-solid fa-house-chimney-medical"></i> PawCare
-    </a>
-    <nav class="nav-links" id="navbar-links">
-      <a href="index.html">Home</a>
-      <a href="find.html" class="active">Find Clinic</a>
-      <a href="dashboard.html">Pet Care</a>
-      <a href="index.html#how-it-works">How It Works</a>
-      <a href="index.html#contact">Contact</a>
-    </nav>
-    <div class="nav-actions">
-      <a href="find.html" class="btn btn-primary" id="find-near-me-btn">
-        <i class="fa-solid fa-location-crosshairs"></i> Find Near Me
-      </a>
-      <button class="btn btn-emergency" id="emergency-btn">
-        <i class="fa-solid fa-triangle-exclamation"></i> EMERGENCY
-      </button>
-      <button class="mobile-nav-toggle" id="mobile-toggle">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-    </div>
-  </header>
-
-  <main class="container section-padding" style="padding-top: 3rem;">
-    
-    <!-- Step Tracker Progress Bar -->
-    <div class="progress-bar-steps scroll-reveal">
-      <div class="progress-line">
-        <div class="progress-line-fill" style="width: 50%;"></div>
-      </div>
-      <div class="step-node completed">
-        1
-        <span class="step-label-node">Select Slot</span>
-      </div>
-      <div class="step-node active">
-        2
-        <span class="step-label-node">Patient Details</span>
-      </div>
-      <div class="step-node">
-        3
-        <span class="step-label-node">Payment / Confirm</span>
-      </div>
-      <div class="step-node">
-        4
-        <span class="step-label-node">Done</span>
-      </div>
-    </div>
-
-    <!-- Booking details main split -->
-    <div class="clinic-profile-layout">
-      
-      <!-- LEFT COLUMN: Patient Form Fields (60%) -->
-      <section class="booking-form-box scroll-reveal">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Confirm Booking Details — Patient / Pet Profile | PawCare</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <!-- FontAwesome for fallback -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#006b5f",
+                      "primary-fixed-dim": "#4fdbc8",
+                      "error": "#ba1a1a",
+                      "inverse-surface": "#213145",
+                      "outline-variant": "#bbcac6",
+                      "primary-fixed": "#71f8e4",
+                      "on-tertiary": "#ffffff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-primary": "#ffffff",
+                      "surface-dim": "#cbdbf5",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "surface-container": "#e5eeff",
+                      "surface-bright": "#f8f9ff",
+                      "primary": "#006b5f",
+                      "surface-variant": "#d3e4fe",
+                      "on-primary-fixed-variant": "#005048",
+                      "tertiary": "#bc0b3b",
+                      "primary-container": "#14b8a6",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#fffbff",
+                      "on-surface": "#0b1c30",
+                      "secondary-fixed": "#e9ddff",
+                      "surface-container-highest": "#d3e4fe",
+                      "outline": "#6c7a77",
+                      "secondary": "#6b38d4",
+                      "on-surface-variant": "#3c4947",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed": "#ffdadb",
+                      "secondary-container": "#8455ef",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed": "#40000d",
+                      "on-tertiary-container": "#7a0022",
+                      "surface": "#f8f9ff",
+                      "on-primary-fixed": "#00201c",
+                      "on-tertiary-fixed-variant": "#92002a",
+                      "on-secondary-fixed": "#23005c",
+                      "background": "#f8f9ff",
+                      "on-background": "#0b1c30",
+                      "tertiary-container": "#ff7b88",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-primary": "#4fdbc8",
+                      "on-error-container": "#93000a",
+                      "on-primary-container": "#00423b",
+                      "surface-container-high": "#dce9ff",
+                      "tertiary-fixed-dim": "#ffb2b7",
+                      "surface-container-low": "#eff4ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "40px",
+                      "container-max": "1280px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "display-lg-mobile": ["Plus Jakarta Sans"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "body-lg": ["Inter"],
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/page-specific.css">
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 107, 95, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateY(-4px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .nav-item-hover:hover .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
-        <!-- Booking For Switcher Toggle -->
-        <h3 style="font-size: 1.25rem; margin-bottom: 1rem; text-align: center;">Booking Appointment For:</h3>
-        <div class="switch-container" style="margin-bottom: 2.5rem;">
-          <div class="switch-label active" id="book-toggle-human">
-            <i class="fa-solid fa-user"></i> Human Patient
-          </div>
-          <div class="switch-label" id="book-toggle-pet">
-            <i class="fa-solid fa-paw"></i> Pet (Vet Case)
-          </div>
-        </div>
+        /* Form switch styling */
+        .switch-label {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .switch-label.active {
+            background-color: #006b5f;
+            color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 107, 95, 0.2);
+        }
+        .switch-label.active.pet-mode {
+            background-color: #8B5CF6;
+            box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.2);
+        }
 
-        <form id="booking-details-form">
-          
-          <!-- HUMAN FIELDS (active by default) -->
-          <div class="form-grid" id="form-human-fields">
-            <div class="form-field">
-              <label for="patient-name">Patient's Full Name</label>
-              <input type="text" id="patient-name" placeholder="John Doe" required>
-            </div>
-            <div class="form-field">
-              <label for="patient-age">Patient's Age</label>
-              <input type="number" id="patient-age" placeholder="Age in Yrs" min="0" max="120" required>
-            </div>
-            <div class="form-field">
-              <label for="patient-gender">Gender</label>
-              <select id="patient-gender">
-                <option value="all">Choose Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label for="patient-phone">Mobile Phone Number</label>
-              <input type="tel" id="patient-phone" placeholder="10-digit number" required>
-            </div>
-            <div class="form-field form-group-full">
-              <label for="patient-email">Email Address</label>
-              <input type="email" id="patient-email" placeholder="johndoe@email.com" required>
-            </div>
-            <div class="form-field form-group-full">
-              <label for="patient-symptoms">Describe Symptoms / Ailment (Optional)</label>
-              <textarea id="patient-symptoms" rows="4" placeholder="Briefly describe what issues you are facing (e.g. Toothache, Fever, Rashes)..."></textarea>
-            </div>
-            <div class="form-field form-group-full">
-              <label>Previous Medical Files (Optional)</label>
-              <button type="button" class="btn btn-secondary" onclick="showToast('Mock Upload Triggered')" style="padding: 0.6rem; border-style: dashed; width: 100%; border-color: var(--text-grey);">
-                <i class="fa-solid fa-cloud-arrow-up"></i> Upload Medical PDF / Images
-              </button>
-            </div>
-          </div>
+        /* Custom dynamic style overrides for input hover, focus, and pet mode active on book.html */
+        input[type="text"], input[type="number"], input[type="tel"], input[type="email"], input[type="date"], select, textarea {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        input[type="text"]:hover, input[type="number"]:hover, input[type="tel"]:hover, input[type="email"]:hover, input[type="date"]:hover, select:hover, textarea:hover {
+            border-color: #006b5f;
+            background-color: rgba(255, 255, 255, 0.85);
+            transform: scale(1.01);
+        }
+        input[type="text"]:focus, input[type="number"]:focus, input[type="tel"]:focus, input[type="email"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
+            border-color: #006b5f !important;
+            background-color: #ffffff !important;
+            box-shadow: 0 0 0 3px rgba(0, 107, 95, 0.15) !important;
+            transform: translateY(-1px) scale(1.01);
+        }
+        
+        /* Pet Mode Overrides */
+        body.pet-mode-active input[type="text"]:hover, 
+        body.pet-mode-active input[type="number"]:hover, 
+        body.pet-mode-active input[type="tel"]:hover, 
+        body.pet-mode-active input[type="email"]:hover, 
+        body.pet-mode-active input[type="date"]:hover, 
+        body.pet-mode-active select:hover, 
+        body.pet-mode-active textarea:hover {
+            border-color: #8B5CF6;
+        }
+        body.pet-mode-active input[type="text"]:focus, 
+        body.pet-mode-active input[type="number"]:focus, 
+        body.pet-mode-active input[type="tel"]:focus, 
+        body.pet-mode-active input[type="email"]:focus, 
+        body.pet-mode-active input[type="date"]:focus, 
+        body.pet-mode-active select:focus, 
+        body.pet-mode-active textarea:focus {
+            border-color: #8B5CF6 !important;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15) !important;
+        }
 
-          <!-- PET FIELDS (hidden by default) -->
-          <div class="form-grid" id="form-pet-fields" style="display: none;">
-            <div class="form-field">
-              <label for="pet-name">Pet's Name</label>
-              <input type="text" id="pet-name" placeholder="Bruno">
-            </div>
-            <div class="form-field">
-              <label for="pet-species">Pet Species</label>
-              <select id="pet-species">
-                <option value="all">Choose Species</option>
-                <option value="dog">Dog</option>
-                <option value="cat">Cat</option>
-                <option value="rabbit">Rabbit</option>
-                <option value="bird">Bird</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label for="pet-breed">Breed Type</label>
-              <input type="text" id="pet-breed" placeholder="Golden Retriever / Persian Cat">
-            </div>
-            <div class="form-field">
-              <label for="pet-age">Pet's Age</label>
-              <input type="text" id="pet-age" placeholder="e.g. 2 Years / 6 Months">
-            </div>
-            <div class="form-field">
-              <label for="pet-owner-name">Owner's Full Name</label>
-              <input type="text" id="pet-owner-name" placeholder="John Doe">
-            </div>
-            <div class="form-field">
-              <label for="pet-owner-phone">Owner's Phone Number</label>
-              <input type="tel" id="pet-owner-phone" placeholder="10-digit number">
-            </div>
-            <div class="form-field form-group-full">
-              <label for="pet-vaccine-date">Last Vaccination Date (Optional)</label>
-              <input type="date" id="pet-vaccine-date">
-            </div>
-            <div class="form-field form-group-full">
-              <label for="pet-symptoms">Reason for Vet Consultation</label>
-              <textarea id="pet-symptoms" rows="4" placeholder="Briefly describe the pet's condition (e.g. Lethargy, Vomiting, Vaccine Booster due)..."></textarea>
-            </div>
-            <div class="form-field form-group-full">
-              <label>Vaccination Card / Medical Reports (Optional)</label>
-              <button type="button" class="btn btn-secondary" onclick="showToast('Mock Vet Upload Triggered')" style="padding: 0.6rem; border-style: dashed; width: 100%; border-color: var(--text-grey);">
-                <i class="fa-solid fa-cloud-arrow-up"></i> Upload Vet Records / Card
-              </button>
-            </div>
-          </div>
+        /* Checkbox overrides */
+        input[type="checkbox"] {
+            transition: all 0.2s ease !important;
+            cursor: pointer;
+        }
+        input[type="checkbox"]:hover {
+            transform: scale(1.1);
+        }
+        body.pet-mode-active input[type="checkbox"] {
+            accent-color: #8B5CF6 !important;
+        }
+        body.pet-mode-active input[type="checkbox"]:focus {
+            --tw-ring-color: #8B5CF6 !important;
+        }
 
-          <!-- Pre-visit checklist checkboxes -->
-          <div class="checkbox-checklist">
-            <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-dark);">Pre-visit Guidelines Checklist</h4>
-            <label class="check-item">
-              <input type="checkbox" id="check-early" required checked>
-              <span>I will arrive at the clinic lobby 10 minutes prior to the booked time slot.</span>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" id="check-reports" required checked>
-              <span>I will carry previous medical files and prescription cards to the consultation room.</span>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" id="check-confirmed" required checked>
-              <span>I understand that queue waiting times may fluctuate depending on emergency cases.</span>
-            </label>
-          </div>
+        /* Header link / Step tracker color tracking */
+        body.pet-mode-active .bg-primary {
+            background-color: #8B5CF6 !important;
+        }
+        body.pet-mode-active .text-primary {
+            color: #8B5CF6 !important;
+        }
+        body.pet-mode-active .border-primary {
+            border-color: #8B5CF6 !important;
+        }
+        body.pet-mode-active .ring-primary\/20 {
+            --tw-ring-color: rgba(139, 92, 246, 0.2) !important;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden flex flex-col">
+<!-- Background Layer -->
+<div class="fixed inset-0 -z-10 pointer-events-none">
+    <div class="absolute inset-0 w-full h-full opacity-40" style="display:block;">
+        <canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+        <script>
+        (function() {
+          const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+          function syncSize() {
+            const w = canvas.clientWidth  || 1280;
+            const h = canvas.clientHeight || 720;
+            if (canvas.width !== w || canvas.height !== h) {
+              canvas.width  = w;
+              canvas.height = h;
+            }
+          }
+          if (typeof ResizeObserver !== 'undefined') {
+            new ResizeObserver(syncSize).observe(canvas);
+          }
+          syncSize();
 
-          <!-- Checkout payment options block -->
-          <div style="border-top: 1px solid var(--border-color); padding-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
-            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;">Choose Payment & Confirm Booking</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-              <button type="submit" id="pay-online-btn" class="btn btn-primary" style="padding: 1rem;">
-                <i class="fa-solid fa-credit-card"></i> Pay ₹218 Online Now
-              </button>
-              <button type="submit" id="pay-clinic-btn" class="btn btn-secondary" style="padding: 1rem;">
-                <i class="fa-solid fa-hand-holding-dollar"></i> Pay ₹218 at Clinic
-              </button>
-            </div>
-            <span style="font-size: 0.75rem; color: var(--text-grey); text-align: center; display: block;">Secured payment gateway. Instant refunds on booking cancellations.</span>
-          </div>
-
-        </form>
-      </section>
-
-      <!-- RIGHT COLUMN: Booking Summary Widget (40%) -->
-      <aside class="scroll-reveal">
-        <div class="sticky-sidebar-card">
-          <h3 style="font-size: 1.2rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">Selected Appointment</h3>
-          <div id="booking-details-summary">
-            <!-- Rendered dynamically via JS -->
-          </div>
-        </div>
-      </aside>
-
+          const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+          if (!gl) return;
+          const vs = `attribute vec2 a_position;
+        varying vec2 v_texCoord;
+        void main() {
+          v_texCoord = a_position * 0.5 + 0.5;
+          gl_Position = vec4(a_position, 0.0, 1.0);
+        }`;
+          const fs = `precision highp float;
+        uniform float u_time;
+        uniform vec2 u_resolution;
+        uniform vec2 u_mouse;
+        varying vec2 v_texCoord;
+        float hash(vec2 p) {
+            p = fract(p * vec2(123.34, 456.21));
+            p += dot(p, p + 45.32);
+            return fract(p.x * p.y);
+        }
+        void main() {
+            vec2 uv = v_texCoord;
+            vec2 p1 = vec2(0.2 + 0.1 * sin(u_time * 0.5), 0.3 + 0.1 * cos(u_time * 0.4));
+            vec2 p2 = vec2(0.8 + 0.1 * cos(u_time * 0.3), 0.7 + 0.1 * sin(u_time * 0.6));
+            vec2 p3 = vec2(0.5 + 0.2 * sin(u_time * 0.7), 0.5 + 0.2 * cos(u_time * 0.5));
+            float d1 = length(uv - p1);
+            float d2 = length(uv - p2);
+            float d3 = length(uv - p3);
+            vec3 rose = vec3(1.0, 0.8, 0.85);
+            vec3 violet = vec3(0.9, 0.85, 1.0);
+            vec3 turquoise = vec3(0.8, 1.0, 0.95);
+            vec3 amber = vec3(1.0, 0.95, 0.8);
+            vec3 col = mix(rose, violet, smoothstep(0.0, 0.8, d1));
+            col = mix(col, turquoise, smoothstep(0.0, 0.8, d2));
+            col = mix(col, amber, smoothstep(0.0, 0.8, d3));
+            col += (hash(uv + u_time * 0.01) - 0.5) * 0.02;
+            gl_FragColor = vec4(col, 1.0);
+        }`;
+          function cs(type, src) {
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            return s;
+          }
+          const prog = gl.createProgram();
+          gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+          gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+          gl.linkProgram(prog);
+          gl.useProgram(prog);
+          const buf = gl.createBuffer();
+          gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+          gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+          const pos = gl.getAttribLocation(prog, 'a_position');
+          gl.enableVertexAttribArray(pos);
+          gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+          const uTime = gl.getUniformLocation(prog, 'u_time');
+          const uRes = gl.getUniformLocation(prog, 'u_resolution');
+          const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+          let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+          window.addEventListener('mousemove', (event) => {
+            const rect = canvas.getBoundingClientRect();
+            if (rect.width && rect.height) {
+              const nx = (event.clientX - rect.left) / rect.width;
+              const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+              mouse.x = nx * canvas.width;
+              mouse.y = ny * canvas.height;
+            }
+          });
+          function render(t) {
+            gl.viewport(0, 0, canvas.width, canvas.height);
+            if (uTime) gl.uniform1f(uTime, t * 0.001);
+            if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+            if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            requestAnimationFrame(render);
+          }
+          render(0);
+        })();
+        </script>
     </div>
-  </main>
+</div>
 
-  <!-- Footer -->
-  <footer class="footer" id="contact">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="index.html" class="logo">
-          <i class="fa-solid fa-house-chimney-medical"></i> PawCare
-        </a>
-        <p>We are making clinic visits frictionless. Search human and veterinary clinics, view exact doctor availability, book appointments visually, and skip wait lists.</p>
-        <div class="social-links">
-          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#"><i class="fa-brands fa-twitter"></i></a>
-          <a href="#"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+<!-- Top Navigation Bar -->
+<header class="navbar bg-white/60 dark:bg-inverse-surface/60 backdrop-blur-xl border-b border-white/40 dark:border-white/10 docked full-width top-0 sticky z-50 shadow-[0_20px_50px_rgba(0,107,95,0.05)]">
+    <div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+        <div class="flex items-center gap-8">
+            <a class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim" href="index.html">PawCare</a>
+            <nav class="hidden md:flex items-center gap-6">
+                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary hover:scale-105 transition-all" href="index.html">Home</a>
+                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary hover:scale-105 transition-all" href="find.html">Find Clinic</a>
+                <a class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim border-b-2 border-primary pb-1" href="book.html">Book</a>
+                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary hover:scale-105 transition-all" href="dashboard.html">Dashboard</a>
+            </nav>
         </div>
-      </div>
-      <div class="footer-col">
-        <h4>Discover</h4>
-        <ul>
-          <li><a href="find.html">Find General Clinics</a></li>
-          <li><a href="find.html?type=pet">Find Pet Vets</a></li>
-          <li><a href="find.html?type=dental">Dental Care Near Me</a></li>
-          <li><a href="find.html?type=eye">Eye Specialists</a></li>
-          <li><a href="find.html?type=skin">Skin & Hair Clinics</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Clinic Portal Login</a></li>
-          <li><a href="#">Emergency Help Guide</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Stay Updated</h4>
-        <p>Subscribe to our newsletter for health tips and clinic updates.</p>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!')">
-          <div class="newsletter-input-group">
-            <input type="email" placeholder="Your Email Address" required>
-            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
-          </div>
-        </form>
-      </div>
+        <div class="flex items-center gap-4">
+            <button onclick="window.location.href='find.html'" class="hidden md:block font-label-md text-label-md px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/5 transition-colors">Find Near Me</button>
+            <button onclick="toggleModal('emergency-modal', true)" class="font-label-md text-label-md px-6 py-2 rounded-full bg-primary text-on-primary shadow-lg hover:scale-105 active:scale-95 transition-all">EMERGENCY</button>
+        </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 PawCare Health Platform. All rights reserved.</p>
-      <div class="footer-bottom-links">
-        <a href="#">Security</a>
-        <a href="#">Sitemap</a>
-      </div>
-    </div>
-  </footer>
+</header>
 
-  <!-- Scripts -->
-  <script src="js/app.js"></script>
-  <script src="js/book.js"></script>
+<main class="max-w-container-max mx-auto px-margin-desktop py-10 flex flex-col gap-10">
+    <!-- Step Tracker Progress Bar -->
+    <div class="glass-card rounded-3xl p-6 border border-white/40 flex justify-between items-center max-w-3xl mx-auto w-full relative">
+        <div class="absolute left-10 right-10 h-0.5 bg-slate-200 top-1/2 -translate-y-1/2 z-1">
+            <div class="h-full bg-primary" style="width: 50%;"></div>
+        </div>
+        
+        <div class="flex flex-col items-center gap-2 z-10">
+            <div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xs">1</div>
+            <span class="text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">Select Slot</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 z-10">
+            <div class="w-8 h-8 rounded-full bg-primary text-on-primary ring-4 ring-primary/20 flex items-center justify-center font-bold text-xs">2</div>
+            <span class="text-[10px] font-bold uppercase tracking-wide text-primary">Patient Details</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 z-10">
+            <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs">3</div>
+            <span class="text-[10px] font-bold uppercase tracking-wide text-slate-400">Payment</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 z-10">
+            <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs">4</div>
+            <span class="text-[10px] font-bold uppercase tracking-wide text-slate-400">Confirm</span>
+        </div>
+    </div>
+
+    <!-- Booking Details Split Grid -->
+    <div class="flex flex-col lg:flex-row gap-gutter">
+        <!-- LEFT COLUMN: Patient Intake form (60%) -->
+        <section class="flex-grow lg:w-[60%] flex flex-col gap-6">
+            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white/50 flex flex-col gap-6">
+                <div class="text-center">
+                    <h3 class="font-headline-md text-lg font-bold text-on-surface">Booking Appointment For:</h3>
+                </div>
+
+                <!-- Booking For Toggle Switch -->
+                <div class="flex bg-white/40 p-1 rounded-full border border-slate-200/50 shadow-sm backdrop-blur-md max-w-sm mx-auto w-full select-none">
+                    <button type="button" id="book-toggle-human" class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-full font-label-md text-xs text-primary bg-white shadow-sm transition-all focus:outline-none switch-label active">
+                        <span class="material-symbols-outlined text-sm">person</span> Human Patient
+                    </button>
+                    <button type="button" id="book-toggle-pet" class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-full font-label-md text-xs text-on-surface-variant hover:text-primary transition-all focus:outline-none switch-label">
+                        <span class="material-symbols-outlined text-sm">pets</span> Pet Patient
+                    </button>
+                </div>
+
+                <form id="booking-details-form" class="flex flex-col gap-6">
+                    <!-- HUMAN FORM FIELDS (visible by default) -->
+                    <div id="form-human-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="sm:col-span-2">
+                            <label for="patient-name" class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Patient Full Name</label>
+                            <input type="text" id="patient-name" required placeholder="John Doe" class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm font-semibold">
+                        </div>
+                        <div>
+                            <label for="patient-age" class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Patient Age</label>
+                            <input type="number" id="patient-age" required placeholder="e.g. 28" min="0" max="120" class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm font-semibold">
+                        </div>
+                        <div>
+                            <label for="patient-gender" class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Gender</label>
+                            <select id="patient-gender" class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white/40 focus:border-primary focus:ring-1 focus:ring-primary font-semibold text-sm">
+                                <option value="all">Choose Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="patient-phone" class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Phone Number</label>
+                            <input type="tel" id="patient-phone" required placeholder="e.g. +91 98765 43210" class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm font-semibold">
+                        </div>
+                        <div>
+                            <label for="patient-email" class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Email Address</label>
+                            <input type="email" id="patient-email" required placeholder="johndoe@email.com" class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm font-semibold">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label for="patient-symptoms" class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Symptoms / Condition (Optional)</label>
+                            <textarea id="patient-symptoms" rows="4" placeholder="Briefly describe what issues you are facing..." class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm font-semibold"></textarea>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Previous Medical Records (Optional)</label>
+                            <button type="button" onclick="showToast('Diagnostic file upload simulator triggered.')" class="w-full py-4 rounded-2xl border border-dashed border-outline-variant bg-white/30 text-on-surface-variant font-bold text-xs hover:bg-slate-50 transition-colors flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-base">cloud_upload</span> Upload Medical PDF / Images
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PET FORM FIELDS (hidden by default) -->
+                    <div id="form-pet-fields" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="pet-name" class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Pet Name</label>
+                            <input type="text" id="pet-name" placeholder="Bruno" class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm font-semibold">
+                        </div>
+                        <div>
+                            <label for="pet-species" class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Species</label>
+                            <select id="pet-species" class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white/40 focus:border-primary focus:ring-1 focus:ring-primary font-semibold text-sm">
+                                <option value="all">Choose Species</option>
+                                <option value="dog">Dog</option>
+                                <option value="cat">Cat</option>
+                                <option value="rabbit">Rabbit</option>
+                                <option value="bird">Bird</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="pet-breed" class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Breed Type</label>
+                            <input type="text" id="pet-breed" placeholder="Beagle / Persian Cat" class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm font-semibold">
+                        </div>
+                        <div>
+                            <label for="pet-age" class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Pet's Age</label>
+                            <input type="text" id="pet-age" placeholder="e.g. 2 Years / 6 Months" class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm font-semibold">
+                        </div>
+                        <div>
+                            <label for="pet-owner-name" class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Owner Name</label>
+                            <input type="text" id="pet-owner-name" placeholder="John Doe" class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm font-semibold">
+                        </div>
+                        <div>
+                            <label for="pet-owner-phone" class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Owner Phone</label>
+                            <input type="tel" id="pet-owner-phone" placeholder="e.g. +91 98765 43210" class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm font-semibold">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label for="pet-vaccine-date" class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Last Vaccination Date (Optional)</label>
+                            <input type="date" id="pet-vaccine-date" class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm font-semibold">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label for="pet-symptoms" class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Reason for Vet Consultation</label>
+                            <textarea id="pet-symptoms" rows="4" placeholder="Briefly describe the pet's condition..." class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm font-semibold"></textarea>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Vaccination Card / Medical Reports (Optional)</label>
+                            <button type="button" onclick="showToast('Vet vaccine card upload simulator triggered.')" class="w-full py-4 rounded-2xl border border-dashed border-outline-variant bg-white/30 text-on-surface-variant font-bold text-xs hover:bg-slate-50 transition-colors flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-base">cloud_upload</span> Upload Vet Records / Card
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Pre-visit Guidelines Checklist -->
+                    <div class="border-t border-slate-200/50 pt-6 flex flex-col gap-3">
+                        <h4 class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Pre-visit Guidelines Checklist</h4>
+                        <label class="flex items-start gap-3 text-xs font-semibold text-on-surface-variant cursor-pointer">
+                            <input type="checkbox" id="check-early" required checked class="rounded border-outline-variant text-primary focus:ring-primary mt-0.5">
+                            <span>I will arrive at the clinic lobby 10 minutes prior to the booked time slot.</span>
+                        </label>
+                        <label class="flex items-start gap-3 text-xs font-semibold text-on-surface-variant cursor-pointer">
+                            <input type="checkbox" id="check-reports" required checked class="rounded border-outline-variant text-primary focus:ring-primary mt-0.5">
+                            <span>I will carry previous medical files and prescription cards to the consultation room.</span>
+                        </label>
+                        <label class="flex items-start gap-3 text-xs font-semibold text-on-surface-variant cursor-pointer">
+                            <input type="checkbox" id="check-confirmed" required checked class="rounded border-outline-variant text-primary focus:ring-primary mt-0.5">
+                            <span>I understand that queue waiting times may fluctuate depending on emergency cases.</span>
+                        </label>
+                    </div>
+
+                    <!-- Checkout payment button trigger -->
+                    <div class="border-t border-slate-200/50 pt-6 flex flex-col gap-4">
+                        <h4 class="font-headline-md text-sm font-bold text-on-surface">Choose Payment & Confirm Booking</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <button type="submit" id="pay-online-btn" class="bg-primary text-on-primary py-4 rounded-2xl hover:scale-105 active:scale-95 shadow-lg transition-all font-bold text-sm flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-base">credit_card</span> Pay ₹218 Online Now
+                            </button>
+                            <button type="submit" id="pay-clinic-btn" class="bg-white/60 hover:bg-white border border-slate-300 text-on-surface py-4 rounded-2xl hover:scale-105 active:scale-95 shadow-md transition-all font-bold text-sm flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-base">account_balance_wallet</span> Pay ₹218 at Clinic
+                            </button>
+                        </div>
+                        <span class="text-[10px] text-on-surface-variant font-medium text-center">Secured payment gateway. Instant refunds on booking cancellations.</span>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- RIGHT COLUMN: Booking Summary Widget (40%) -->
+        <aside class="w-full lg:w-[35%] flex-shrink-0 self-start lg:sticky lg:top-28">
+            <div class="glass-card rounded-3xl p-6 border border-white/40 flex flex-col gap-6">
+                <h3 class="font-headline-md text-base font-bold text-on-surface mb-2 pb-2 border-b border-slate-200/50 flex items-center gap-1.5"><span class="material-symbols-outlined text-primary">analytics</span> Selected Appointment</h3>
+                <div id="booking-details-summary">
+                    <!-- Populated dynamically via book.js -->
+                </div>
+            </div>
+        </aside>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-surface-container-lowest/80 dark:bg-inverse-surface/80 backdrop-blur-md border-t border-white/20 full-width py-12 mt-20">
+    <div class="w-full py-12 px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter">
+        <div class="flex flex-col gap-4">
+            <a href="index.html" class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim font-bold">PawCare</a>
+            <p class="font-body-md text-body-md text-on-surface-variant">Bridging human medical standards with premium pet care empathy. Your pets deserve the best.</p>
+        </div>
+        <div>
+            <h5 class="font-label-md text-label-md text-primary mb-6">Quick Links</h5>
+            <ul class="flex flex-col gap-3">
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Medical Standards</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-label-md text-label-md text-primary mb-6">Support</h5>
+            <ul class="flex flex-col gap-3">
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Support</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Find a Specialist</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Help Center</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-label-md text-label-md text-primary mb-6">Community</h5>
+            <div class="flex gap-4">
+                <a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-lg">share</span></a>
+                <a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-lg">groups</span></a>
+                <a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-lg">mail</span></a>
+            </div>
+            <p class="mt-8 font-label-sm text-label-sm text-on-surface-variant">© 2026 PawCare Healthcare. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Modals -->
+
+<!-- Emergency Modal -->
+<div id="emergency-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-red-950/40 backdrop-blur-md p-4 transition-all duration-300 opacity-0">
+  <div class="glass-card bg-white/95 dark:bg-inverse-surface/95 rounded-3xl p-8 max-w-md w-full border border-red-500/30 shadow-2xl transition-all scale-95 duration-300 transform opacity-0 text-center relative overflow-hidden" id="emergency-card">
+    <div class="absolute -right-10 -top-10 w-40 h-40 bg-red-500/10 rounded-full blur-2xl animate-pulse"></div>
+    <div class="flex justify-end mb-2">
+      <button onclick="toggleModal('emergency-modal', false)" class="text-on-surface-variant hover:text-red-500 transition-colors flex items-center">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    
+    <div class="w-16 h-16 bg-red-100 dark:bg-red-950/50 rounded-full flex items-center justify-center mx-auto mb-6 text-red-600 dark:text-red-400 animate-bounce">
+      <span class="material-symbols-outlined text-4xl font-bold">emergency</span>
+    </div>
+    
+    <h3 class="font-headline-md text-headline-md text-red-600 dark:text-red-400 mb-2 font-extrabold uppercase tracking-wide">
+      EMERGENCY ACTIVE
+    </h3>
+    <p class="text-xs text-on-surface-variant mb-6 font-semibold">
+      Nearest Emergency Medical Centers
+    </p>
+    
+    <div class="flex flex-col gap-4 text-left mb-6">
+      <div class="p-4 bg-red-500/5 rounded-2xl border border-red-500/10">
+        <h4 class="font-bold text-on-surface text-sm flex justify-between">
+          <span>City Care Hospital & ER</span>
+          <span class="text-red-600 font-bold text-xs uppercase">0.8 km</span>
+        </h4>
+        <p class="text-xs text-on-surface-variant mt-1">24/7 Human Trauma & General Emergency Support</p>
+      </div>
+      <div class="p-4 bg-purple-500/5 rounded-2xl border border-purple-500/10">
+        <h4 class="font-bold text-on-surface text-sm flex justify-between">
+          <span>PawCare 24/7 Vet Hospital</span>
+          <span class="text-purple-600 dark:text-purple-400 font-bold text-xs uppercase">1.4 km</span>
+        </h4>
+        <p class="text-xs text-on-surface-variant mt-1">Full-service 24-hour Vet Trauma Center & ICU</p>
+      </div>
+    </div>
+    
+    <a href="tel:+919876543210" class="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-full font-label-md text-label-md flex items-center justify-center gap-2 shadow-lg hover:scale-[1.02] active:scale-95 transition-all mb-4">
+      <span class="material-symbols-outlined">call</span> Call Dispatch Center
+    </a>
+    
+    <button onclick="toggleModal('emergency-modal', false)" class="text-xs text-on-surface-variant hover:underline font-semibold">
+      Dismiss Emergency Screen
+    </button>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
+
+<!-- Scripts -->
+<script>
+    function toggleModal(modalId, show) {
+        const modal = document.getElementById(modalId);
+        const cardId = modalId.replace('modal', 'card');
+        const card = document.getElementById(cardId);
+        if (show) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                card.classList.remove('scale-95', 'opacity-0');
+                card.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        } else {
+            modal.classList.add('opacity-0');
+            card.classList.remove('scale-100', 'opacity-100');
+            card.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    }
+    
+    document.querySelectorAll('[id$="-modal"]').forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) toggleModal(modal.id, false);
+        });
+    });
+
+    function showToast(message) {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'glass-card bg-white/90 dark:bg-inverse-surface/90 text-on-surface border border-white/50 px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3 transition-all transform translate-y-4 opacity-0 duration-300';
+        toast.innerHTML = `
+            <span class="material-symbols-outlined text-primary font-bold">check_circle</span>
+            <span class="font-label-md text-label-md">${message}</span>
+        `;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.classList.remove('translate-y-4', 'opacity-0');
+        }, 10);
+        setTimeout(() => {
+            toast.classList.add('translate-y-4', 'opacity-0');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const sessionData = localStorage.getItem('pawcare_session');
+        const navActions = document.querySelector('header .flex.items-center.gap-4');
+        if (sessionData && navActions) {
+            const user = JSON.parse(sessionData);
+            const findNearMeBtn = navActions.querySelector('button:not(.bg-primary)');
+            if (findNearMeBtn) {
+                findNearMeBtn.outerHTML = `
+                  <a href="dashboard.html" class="hidden md:flex items-center gap-2 font-label-md text-label-md px-5 py-2.5 rounded-full border border-primary text-primary bg-primary/5 hover:bg-primary/10 transition-all hover:scale-105">
+                    <span class="material-symbols-outlined text-lg">account_circle</span>
+                    Hello, ${user.name.split(' ')[0]}
+                  </a>
+                `;
+            }
+        }
+    });
+</script>
+<script src="js/app.js"></script>
+<script src="js/book.js"></script>
 </body>
 </html>

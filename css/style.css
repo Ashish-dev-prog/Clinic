@@ -10,16 +10,17 @@
   --warning-yellow: #F59E0B;
   
   /* White glass cards style variables */
-  --white: rgba(255, 255, 255, 0.7); 
+  --white: rgba(255, 255, 255, 0.65); 
   --light-grey: #F8FAFC;
-  --border-color: rgba(226, 232, 240, 0.8);
+  --border-color: rgba(226, 232, 240, 0.6);
   --text-dark: #0F172A;
-  --text-grey: #64748B;
+  --text-grey: #475569;
   
-  /* Soft white gradient background */
-  --body-bg: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 50%, #EFF6FF 100%);
-  --navbar-bg: rgba(255, 255, 255, 0.75);
-  --card-backdrop: blur(12px);
+  /* Soft colorful mesh gradient background with generated image */
+  --body-bg: linear-gradient(135deg, rgba(248, 250, 252, 0.5) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(239, 246, 255, 0.5) 100%), 
+             url('../images/bg_mesh_gradient.png') no-repeat center center fixed;
+  --navbar-bg: rgba(255, 255, 255, 0.7);
+  --card-backdrop: blur(16px);
   
   /* Blue CTA buttons for light mode */
   --primary-btn-bg: #2563EB;
@@ -99,6 +100,35 @@
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
+.glass-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: radial-gradient(350px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(13, 148, 136, 0.08), transparent 80%);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.glass-card.pet-hover::before,
+body.pet-mode-active .glass-card::before {
+  background: radial-gradient(350px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(139, 92, 246, 0.08), transparent 80%);
+}
+
+.glass-card:hover::before {
+  opacity: 1;
+}
+
 /* CSS Reset */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -114,6 +144,7 @@ html {
 body {
   font-family: var(--font-body);
   background: var(--body-bg);
+  background-size: cover !important;
   color: var(--text-dark);
   line-height: 1.6;
   overflow-x: hidden;
@@ -1253,137 +1284,8 @@ ul {
 }
 
 /* ==========================================================================
-   Dribbble Day/Night Toggle Switch styling
+   Theme Toggle Switch styling (Removed - forced light mode)
    ========================================================================== */
-.theme-toggle-container {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 0.5rem;
-}
-
-.theme-toggle-checkbox {
-  display: none;
-}
-
-.theme-toggle-label {
-  display: block;
-  position: relative;
-  width: 76px;
-  height: 38px;
-  background-color: #52a8ff;
-  border-radius: 38px;
-  cursor: pointer;
-  overflow: hidden;
-  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(255, 255, 255, 0.1);
-  transition: background-color 0.4s ease;
-}
-
-.theme-toggle-thumb {
-  display: block;
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 32px;
-  height: 32px;
-  background-color: #ffc000;
-  border-radius: 50%;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25), inset 0 -2px 4px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.4);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.4s ease;
-  z-index: 5;
-  overflow: hidden;
-}
-
-/* Craters for dark mode */
-.crater {
-  position: absolute;
-  background-color: #94a3b8;
-  border-radius: 50%;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.crater-1 { width: 8px; height: 8px; top: 7px; left: 10px; }
-.crater-2 { width: 5px; height: 5px; top: 18px; left: 6px; }
-.crater-3 { width: 6px; height: 6px; top: 15px; left: 20px; }
-
-/* Clouds for light mode (Day) */
-.cloud-decor {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
-
-.cloud-puff {
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.85);
-  border-radius: 50%;
-  box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.puff-1 { width: 24px; height: 24px; bottom: -8px; right: 10px; }
-.puff-2 { width: 30px; height: 30px; bottom: -12px; right: 26px; }
-.puff-3 { width: 16px; height: 16px; bottom: 0; right: 4px; }
-
-/* Stars for dark mode (Night) */
-.star-decor {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  opacity: 0;
-  transform: translateY(-20px);
-  transition: transform 0.4s ease, opacity 0.4s ease;
-  color: #fff;
-  font-family: Arial, sans-serif;
-}
-
-.star-spark {
-  position: absolute;
-  font-size: 8px;
-  color: #fffdc9;
-  text-shadow: 0 0 4px rgba(255, 253, 201, 0.8);
-}
-
-.twinkle-1 { top: 8px; left: 16px; font-size: 10px; animation: twinkle 1.5s infinite alternate; }
-.twinkle-2 { top: 22px; left: 28px; font-size: 6px; animation: twinkle 2s infinite alternate -0.5s; }
-.twinkle-3 { top: 12px; left: 40px; font-size: 7px; animation: twinkle 1.8s infinite alternate -1s; }
-
-@keyframes twinkle {
-  0% { opacity: 0.3; transform: scale(0.8); }
-  100% { opacity: 1; transform: scale(1.2); }
-}
-
-/* Checked (Dark Mode Active) state styles */
-.theme-toggle-checkbox:checked + .theme-toggle-label {
-  background-color: #0c0d14;
-}
-
-.theme-toggle-checkbox:checked + .theme-toggle-label .theme-toggle-thumb {
-  transform: translateX(38px);
-  background-color: #cbd5e1; /* Grey moon color */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5), inset -2px -2px 4px rgba(0, 0, 0, 0.4), inset 2px 2px 4px rgba(255, 255, 255, 0.2);
-}
-
-.theme-toggle-checkbox:checked + .theme-toggle-label .theme-toggle-thumb .crater {
-  opacity: 1;
-}
-
-.theme-toggle-checkbox:checked + .theme-toggle-label .cloud-decor {
-  transform: translateY(20px);
-  opacity: 0;
-}
-
-.theme-toggle-checkbox:checked + .theme-toggle-label .star-decor {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 /* ==========================================================================
    Background Ambient Orbs & Dots Pattern Styles
@@ -1408,7 +1310,7 @@ ul {
   height: 100%;
   background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
   background-size: 24px 24px;
-  opacity: 0.12;
+  opacity: 0.15;
   transition: opacity 0.4s ease;
 }
 
@@ -1416,7 +1318,7 @@ ul {
   position: absolute;
   border-radius: 50%;
   filter: blur(120px);
-  opacity: 0.15;
+  opacity: 0.22;
   transition: background-color 1.2s ease, opacity 1.2s ease;
   animation: float-orb 30s infinite alternate ease-in-out;
   pointer-events: none;
@@ -1427,7 +1329,7 @@ ul {
   height: 50vw;
   top: -15vw;
   right: -10vw;
-  background: radial-gradient(circle, #7DD3FC 0%, rgba(125, 211, 252, 0) 70%); /* Sky Blue */
+  background: radial-gradient(circle, rgba(253, 164, 175, 0.4) 0%, rgba(253, 164, 175, 0) 70%); /* Rose Pink */
 }
 
 .orb-2 {
@@ -1435,7 +1337,7 @@ ul {
   height: 45vw;
   bottom: -15vw;
   left: -10vw;
-  background: radial-gradient(circle, #99F6E4 0%, rgba(153, 246, 228, 0) 70%); /* Soft Aqua */
+  background: radial-gradient(circle, rgba(192, 132, 252, 0.45) 0%, rgba(192, 132, 252, 0) 70%); /* Violet */
   animation-delay: -7s;
   animation-duration: 40s;
 }
@@ -1445,11 +1347,10 @@ ul {
   height: 35vw;
   top: 35vh;
   left: 25vw;
-  background: radial-gradient(circle, #2DD4BF 0%, rgba(45, 212, 191, 0) 70%); /* Soft Teal */
-  opacity: 0.08;
+  background: radial-gradient(circle, rgba(45, 212, 191, 0.35) 0%, rgba(45, 212, 191, 0) 70%); /* Soft Teal */
+  opacity: 0.25;
   animation-delay: -15s;
   animation-duration: 35s;
-  display: none; /* Hidden in Light Mode */
 }
 
 .orb-4 {
@@ -1457,11 +1358,10 @@ ul {
   height: 30vw;
   bottom: 30vh;
   right: 15vw;
-  background: radial-gradient(circle, #FFFFFF 0%, rgba(255, 255, 255, 0) 70%); /* White glow */
-  opacity: 0.12;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.35) 0%, rgba(251, 191, 36, 0) 70%); /* Warm Amber */
+  opacity: 0.2;
   animation-delay: -22s;
   animation-duration: 45s;
-  display: none; /* Hidden in Light Mode */
 }
 
 @keyframes float-orb {
@@ -1476,30 +1376,7 @@ ul {
   }
 }
 
-/* Dark mode ambient orb color shifts and visibility overrides */
-[data-theme="dark"] .orb-1 {
-  background: radial-gradient(circle, #0284C7 0%, rgba(2, 132, 199, 0) 70%); /* Deep Sky Blue */
-  opacity: 0.16;
-}
-
-[data-theme="dark"] .orb-2 {
-  background: radial-gradient(circle, #0D9488 0%, rgba(13, 148, 136, 0) 70%); /* Deep Teal */
-  opacity: 0.16;
-}
-
-[data-theme="dark"] .orb-3 {
-  background: radial-gradient(circle, #06B6D4 0%, rgba(6, 182, 212, 0) 70%); /* Cyan */
-  opacity: 0.12;
-  display: block; /* Shown in Dark Mode */
-}
-
-[data-theme="dark"] .orb-4 {
-  background: radial-gradient(circle, #38BDF8 0%, rgba(56, 189, 248, 0) 70%); /* Soft Sky Blue */
-  opacity: 0.12;
-  display: block; /* Shown in Dark Mode */
-}
-
-/* Levitating Translucent Anti-Gravity Particles */
+/* Levitating Translucent Anti-Gravity Particles - Always On */
 .particles-wrapper {
   position: absolute;
   top: 0;
@@ -1508,11 +1385,6 @@ ul {
   height: 100%;
   overflow: hidden;
   pointer-events: none;
-  display: none; /* Hidden in Light Mode */
-}
-
-/* Shown in Dark Mode */
-[data-theme="dark"] .particles-wrapper {
   display: block;
 }
 
@@ -1523,6 +1395,7 @@ ul {
   pointer-events: none;
   animation: levitate-particle linear infinite;
   filter: blur(0.5px);
+  box-shadow: 0 0 6px rgba(13, 148, 136, 0.2); /* Soft teal glow */
 }
 
 @keyframes levitate-particle {

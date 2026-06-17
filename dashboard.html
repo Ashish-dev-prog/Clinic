@@ -1,254 +1,1020 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Dashboard — Manage Tokens & Pet Profiles | PawCare</title>
-  <meta name="description" content="View your upcoming clinic token queues, past prescriptions, saved clinics, and vaccine schedules for your pets.">
-  <!-- Fonts -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/page-specific.css">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Dashboard | PawCare Healthcare</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#006b5f",
+                      "primary-fixed-dim": "#4fdbc8",
+                      "error": "#ba1a1a",
+                      "inverse-surface": "#213145",
+                      "outline-variant": "#bbcac6",
+                      "primary-fixed": "#71f8e4",
+                      "on-tertiary": "#ffffff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-primary": "#ffffff",
+                      "surface-dim": "#cbdbf5",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "surface-container": "#e5eeff",
+                      "surface-bright": "#f8f9ff",
+                      "primary": "#006b5f",
+                      "surface-variant": "#d3e4fe",
+                      "on-primary-fixed-variant": "#005048",
+                      "tertiary": "#bc0b3b",
+                      "primary-container": "#14b8a6",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#fffbff",
+                      "on-surface": "#0b1c30",
+                      "secondary-fixed": "#e9ddff",
+                      "surface-container-highest": "#d3e4fe",
+                      "outline": "#6c7a77",
+                      "secondary": "#6b38d4",
+                      "on-surface-variant": "#3c4947",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed": "#ffdadb",
+                      "secondary-container": "#8455ef",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed": "#40000d",
+                      "on-tertiary-container": "#7a0022",
+                      "surface": "#f8f9ff",
+                      "on-primary-fixed": "#00201c",
+                      "on-tertiary-fixed-variant": "#92002a",
+                      "on-secondary-fixed": "#23005c",
+                      "background": "#f8f9ff",
+                      "on-background": "#0b1c30",
+                      "tertiary-container": "#ff7b88",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-primary": "#4fdbc8",
+                      "on-error-container": "#93000a",
+                      "on-primary-container": "#00423b",
+                      "surface-container-high": "#dce9ff",
+                      "tertiary-fixed-dim": "#ffb2b7",
+                      "surface-container-low": "#eff4ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "40px",
+                      "container-max": "1280px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "display-lg-mobile": ["Plus Jakarta Sans"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "body-lg": ["Inter"],
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/page-specific.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px; /* Offset for sticky header */
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 107, 95, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateY(-4px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .nav-item-hover:hover .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
 </head>
-<body>
+<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden">
+<!-- Background Layer -->
+<div class="fixed inset-0 -z-10 pointer-events-none">
+    <!-- STITCH_SHADER_START:ANIMATION_2 class="absolute inset-0 w-full h-full opacity-40" -->
+    <div class="absolute inset-0 w-full h-full opacity-40" style="display:block;">
+    <canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+    <script>
+    (function() {
+      const canvas = document.getElementById('shader-canvas-ANIMATION_2');
 
-  <!-- Sticky Navbar -->
-  <header class="navbar">
-    <a href="index.html" class="logo" id="nav-logo">
-      <i class="fa-solid fa-house-chimney-medical"></i> PawCare
-    </a>
-    <nav class="nav-links" id="navbar-links">
-      <a href="index.html">Home</a>
-      <a href="find.html">Find Clinic</a>
-      <a href="dashboard.html" class="active">Pet Care</a>
-      <a href="index.html#how-it-works">How It Works</a>
-      <a href="index.html#contact">Contact</a>
-    </nav>
-    <div class="nav-actions">
-      <a href="find.html" class="btn btn-primary" id="find-near-me-btn">
-        <i class="fa-solid fa-location-crosshairs"></i> Find Near Me
-      </a>
-      <button class="btn btn-emergency" id="emergency-btn">
-        <i class="fa-solid fa-triangle-exclamation"></i> EMERGENCY
-      </button>
-      <button class="mobile-nav-toggle" id="mobile-toggle">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-    </div>
-  </header>
+      // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+      // This fires on initial layout and whenever the element is resized.
+      function syncSize() {
+        const w = canvas.clientWidth  || 1280;
+        const h = canvas.clientHeight || 720;
+        if (canvas.width !== w || canvas.height !== h) {
+          canvas.width  = w;
+          canvas.height = h;
+        }
+      }
+      if (typeof ResizeObserver !== 'undefined') {
+        new ResizeObserver(syncSize).observe(canvas);
+      }
+      syncSize();
 
-  <main class="container section-padding" style="padding-top: 3rem;">
-    <div class="dashboard-grid-layout">
-      
-      <!-- LEFT SIDEBAR: User card & Tab navigation (25%) -->
-      <aside class="dashboard-sidebar scroll-reveal">
-        <div class="dashboard-user-card">
-          <div class="user-avatar-large">JD</div>
-          <h2 style="font-size: 1.35rem; margin-bottom: 0.15rem;">John Doe</h2>
-          <p style="font-size: 0.8rem; color: var(--text-grey); font-weight: 500;">Member since April 2026</p>
-        </div>
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (!gl) return;
+      const vs = `attribute vec2 a_position;
+    varying vec2 v_texCoord;
+    void main() {
+      v_texCoord = a_position * 0.5 + 0.5;
+      gl_Position = vec4(a_position, 0.0, 1.0);
+    }`;
+      const fs = `precision highp float;
+    uniform float u_time;
+    uniform vec2 u_resolution;
+    uniform vec2 u_mouse;
+    varying vec2 v_texCoord;
 
-        <nav class="dashboard-menu">
-          <button class="dashboard-menu-btn active" data-tab="upcoming">
-            <i class="fa-solid fa-calendar-check"></i> Upcoming Appointments
-          </button>
-          <button class="dashboard-menu-btn" data-tab="past">
-            <i class="fa-solid fa-clock-rotate-left"></i> Past Consultations
-          </button>
-          <button class="dashboard-menu-btn" data-tab="pet-profiles">
-            <i class="fa-solid fa-paw"></i> Pet Profiles
-          </button>
-          <button class="dashboard-menu-btn" data-tab="saved">
-            <i class="fa-solid fa-bookmark"></i> Saved Clinics
-          </button>
-          <button class="dashboard-menu-btn" data-tab="settings">
-            <i class="fa-solid fa-gears"></i> Settings
-          </button>
-        </nav>
-      </aside>
+    // Simple noise function
+    float hash(vec2 p) {
+        p = fract(p * vec2(123.34, 456.21));
+        p += dot(p, p + 45.32);
+        return fract(p.x * p.y);
+    }
 
-      <!-- RIGHT PANEL: Dynamic Content Panels (75%) -->
-      <section class="scroll-reveal" style="background-color: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-sm); min-height: 480px;">
+    void main() {
+        vec2 uv = v_texCoord;
         
-        <!-- Panel 1: Upcoming Appointments -->
-        <div class="dashboard-panel active" id="panel-upcoming">
-          <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Upcoming Consultations</h3>
-          <div id="upcoming-appointments-list">
-            <!-- Rendered via JS -->
-          </div>
-        </div>
+        // Animate color centers
+        vec2 p1 = vec2(0.2 + 0.1 * sin(u_time * 0.5), 0.3 + 0.1 * cos(u_time * 0.4));
+        vec2 p2 = vec2(0.8 + 0.1 * cos(u_time * 0.3), 0.7 + 0.1 * sin(u_time * 0.6));
+        vec2 p3 = vec2(0.5 + 0.2 * sin(u_time * 0.7), 0.5 + 0.2 * cos(u_time * 0.5));
+        
+        // Distances to color centers
+        float d1 = length(uv - p1);
+        float d2 = length(uv - p2);
+        float d3 = length(uv - p3);
+        
+        // Pastel colors
+        vec3 rose = vec3(1.0, 0.8, 0.85);
+        vec3 violet = vec3(0.9, 0.85, 1.0);
+        vec3 turquoise = vec3(0.8, 1.0, 0.95);
+        vec3 amber = vec3(1.0, 0.95, 0.8);
+        
+        // Blend colors based on proximity
+        vec3 col = mix(rose, violet, smoothstep(0.0, 0.8, d1));
+        col = mix(col, turquoise, smoothstep(0.0, 0.8, d2));
+        col = mix(col, amber, smoothstep(0.0, 0.8, d3));
+        
+        // Add subtle grain/noise for texture
+        col += (hash(uv + u_time * 0.01) - 0.5) * 0.02;
+        
+        gl_FragColor = vec4(col, 1.0);
+    }`;
+      function cs(type, src) {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src);
+        gl.compileShader(s);
+        return s;
+      }
+      const prog = gl.createProgram();
+      gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+      gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+      gl.linkProgram(prog);
+      gl.useProgram(prog);
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+      const pos = gl.getAttribLocation(prog, 'a_position');
+      gl.enableVertexAttribArray(pos);
+      gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+      const uTime = gl.getUniformLocation(prog, 'u_time');
+      const uRes = gl.getUniformLocation(prog, 'u_resolution');
+      const uMouse = gl.getUniformLocation(prog, 'u_mouse');
 
-        <!-- Panel 2: Past Appointments -->
-        <div class="dashboard-panel" id="panel-past">
-          <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Medical Visit History</h3>
-          <div id="past-appointments-list">
-            <!-- Rendered via JS -->
-          </div>
-        </div>
+      // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+      // Shaders that need normalized coords should use: u_mouse / u_resolution.
+      let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+      window.addEventListener('mousemove', (event) => {
+        const rect = canvas.getBoundingClientRect();
+        if (rect.width && rect.height) {
+          const nx = (event.clientX - rect.left) / rect.width;
+          const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+          mouse.x = nx * canvas.width;
+          mouse.y = ny * canvas.height;
+        }
+      });
 
-        <!-- Panel 3: Pet Profiles (Vaccine grid & Add Pet Card) -->
-        <div class="dashboard-panel" id="panel-pet-profiles">
-          <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Companion Pet Profiles</h3>
-          <div class="pet-profiles-grid" id="pet-profiles-grid">
-            <!-- Rendered via JS -->
-          </div>
-        </div>
+      function render(t) {
+        if (typeof ResizeObserver === 'undefined') syncSize();
+        gl.viewport(0, 0, canvas.width, canvas.height);
+        if (uTime) gl.uniform1f(uTime, t * 0.001);
+        if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+        if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        requestAnimationFrame(render);
+      }
+      render(0);
+    })();
+    </script>
+    </div>
+    <!-- STITCH_SHADER_END:ANIMATION_2 -->
+</div>
 
-        <!-- Panel 4: Saved Clinics -->
-        <div class="dashboard-panel" id="panel-saved">
-          <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Bookmarked Clinics</h3>
-          <div class="clinics-grid" id="saved-clinics-grid" style="grid-template-columns: repeat(2, 1fr);">
-            <!-- Rendered via JS -->
-          </div>
+<!-- Top Navigation Bar -->
+<header class="navbar bg-white/60 dark:bg-inverse-surface/60 backdrop-blur-xl border-b border-white/40 dark:border-white/10 docked full-width top-0 sticky z-50 shadow-[0_20px_50px_rgba(0,107,95,0.05)]">
+    <div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+        <div class="flex items-center gap-8">
+            <a class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim" href="index.html">PawCare</a>
+            <nav class="hidden md:flex items-center gap-6">
+                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary hover:scale-105 transition-all" href="index.html">Home</a>
+                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary hover:scale-105 transition-all" href="find.html">Find Clinic</a>
+                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary hover:scale-105 transition-all" href="book.html">Book</a>
+                <a class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim border-b-2 border-primary pb-1" href="dashboard.html">Dashboard</a>
+            </nav>
         </div>
+        <div class="flex items-center gap-4">
+            <button onclick="window.location.href='find.html'" class="hidden md:block font-label-md text-label-md px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/5 transition-colors">Find Near Me</button>
+            <button onclick="toggleModal('emergency-modal', true)" class="font-label-md text-label-md px-6 py-2 rounded-full bg-primary text-on-primary shadow-lg hover:scale-105 active:scale-95 transition-all">EMERGENCY</button>
+        </div>
+    </div>
+</header>
 
-        <!-- Panel 5: Settings -->
-        <div class="dashboard-panel" id="panel-settings">
-          <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Profile & Account Settings</h3>
-          <form onsubmit="event.preventDefault(); showToast('Settings saved successfully!')">
-            <div class="form-grid">
-              <div class="form-field">
-                <label for="set-name">Full Name</label>
-                <input type="text" id="set-name" value="John Doe" required>
-              </div>
-              <div class="form-field">
-                <label for="set-phone">Phone Number</label>
-                <input type="tel" id="set-phone" value="+91 98765 43210" required>
-              </div>
-              <div class="form-field form-group-full">
-                <label for="set-email">Email Address</label>
-                <input type="email" id="set-email" value="johndoe@email.com" required>
-              </div>
-              <div class="form-field form-group-full">
-                <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-dark);">Communication Preferences</h4>
-                <label class="check-item">
-                  <input type="checkbox" checked>
-                  <span>Receive WhatsApp reminders on token status queue changes.</span>
-                </label>
-                <label class="check-item" style="margin-top: 0.5rem;">
-                  <input type="checkbox" checked>
-                  <span>Email notifications for booking confirmations and receipts.</span>
-                </label>
-              </div>
-              <div class="form-group-full" style="margin-top: 1rem;">
-                <button type="submit" class="btn btn-primary" style="padding: 0.75rem 2rem;">Save Changes</button>
-              </div>
+<!-- Main Content Layout -->
+<main class="max-w-container-max mx-auto px-margin-desktop py-10 flex flex-col md:flex-row gap-gutter">
+    <!-- Sidebar Navigation -->
+    <aside class="w-full md:w-64 flex-shrink-0">
+        <div class="glass-card rounded-2xl p-6 flex flex-col gap-2 sticky top-28">
+            <div class="mb-4">
+                <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest px-4">Menu</p>
             </div>
-          </form>
+            <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary-container/10 text-primary font-label-md text-label-md group" href="#dashboard-overview">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                Dashboard
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-variant/40 font-label-md text-label-md transition-all nav-item-hover" href="#pets-section">
+                <span class="material-symbols-outlined">pets</span>
+                My Pets
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-variant/40 font-label-md text-label-md transition-all nav-item-hover" href="#appointments-section">
+                <span class="material-symbols-outlined">calendar_today</span>
+                Appointments
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-variant/40 font-label-md text-label-md transition-all nav-item-hover" href="#history-section">
+                <span class="material-symbols-outlined">history</span>
+                History
+            </a>
+            <hr class="my-4 border-white/40"/>
+            <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-variant/40 font-label-md text-label-md transition-all nav-item-hover cursor-pointer" onclick="toggleModal('settings-modal', true)">
+                <span class="material-symbols-outlined">settings</span>
+                Account Settings
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-error hover:bg-error/10 font-label-md text-label-md transition-all cursor-pointer" onclick="signOut()">
+                <span class="material-symbols-outlined">logout</span>
+                Sign Out
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Dashboard Canvas -->
+    <div class="flex-grow flex flex-col gap-10">
+        <!-- Header Welcome -->
+        <section id="dashboard-overview" class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 scroll-mt-24">
+            <div>
+                <h1 class="font-headline-lg text-headline-lg text-on-surface">Welcome back, Sarah!</h1>
+                <p class="font-body-md text-body-md text-on-surface-variant">Here is a quick look at your pets' health and upcoming schedules.</p>
+            </div>
+            <button onclick="toggleModal('register-pet-modal', true)" class="bg-secondary text-on-secondary px-6 py-3 rounded-full font-label-md text-label-md flex items-center gap-2 shadow-lg hover:scale-105 transition-all">
+                <span class="material-symbols-outlined">add</span>
+                Register New Pet
+            </button>
+        </section>
+
+        <!-- Pet Profiles Header -->
+        <div class="border-b border-white/40 pb-2">
+            <h2 class="font-headline-lg text-headline-md text-on-surface">My Pet Companion Profiles</h2>
         </div>
 
-      </section>
-    </div>
-  </main>
+        <!-- Pet Profiles (Bento-style Glass Cards) -->
+        <section id="pets-section" class="grid grid-cols-1 lg:grid-cols-2 gap-6 scroll-mt-24">
+            <!-- Pet Card 1 -->
+            <div class="glass-card rounded-3xl p-8 flex flex-col gap-6 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-primary/20 transition-all"></div>
+                <div class="flex items-center gap-6 relative">
+                    <div class="w-24 h-24 rounded-2xl overflow-hidden shadow-xl ring-4 ring-white/50">
+                        <img class="w-full h-full object-cover" data-alt="A portrait of a healthy, fluffy golden retriever dog sitting in a brightly lit, modern apartment with large windows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-63eR6hW2P2F_Udw-HwHWkgkMjq6Xhqo8K3BOcDudVavsLi6ck4Th1OMLTlj5cNM12RZ9XsmKX7sMb2xZEikT_-0_HVHqWwtPC7fbJYR2ASvormVcPjIPEZou9QaT7KMR4ku8mi2fq96005vlVw0vkORYAPGVPUoTxhsgh7HUL11zSLBns_r02V3t32YXFFeXb8gu9y1tWtIjNanB1w6G9Se1zryosAr7FSg66KQlydgr51Htq1hk-IEpUR2_rvk53YtRHUiqayk"/>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-headline-md text-headline-md text-on-surface">Cooper</h3>
+                            <span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter">Verified</span>
+                        </div>
+                        <p class="font-label-md text-label-md text-on-surface-variant">Golden Retriever • 4 Years</p>
+                        <div class="flex gap-2 mt-2">
+                            <span class="px-3 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm">Male</span>
+                            <span class="px-3 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm">32 kg</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 bg-white/40 rounded-2xl border border-white/60">
+                        <p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Vaccination Status</p>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                            <span class="font-label-md text-label-md text-on-surface">Fully Updated</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white/40 rounded-2xl border border-white/60">
+                        <p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Next Checkup</p>
+                        <p class="font-label-md text-label-md text-on-surface">Oct 24, 2026</p>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center pt-2">
+                    <button onclick="showToast('Loading medical records for Cooper...')" class="text-primary font-label-md text-label-md flex items-center gap-1 hover:underline">
+                        View Medical Records <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                    <button onclick="showToast('Edit profile feature is under development.')" class="w-10 h-10 rounded-full flex items-center justify-center bg-white/60 hover:bg-white text-on-surface-variant shadow-sm transition-all">
+                        <span class="material-symbols-outlined">edit</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Pet Card 2 -->
+            <div class="glass-card rounded-3xl p-8 flex flex-col gap-6 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-secondary/20 transition-all"></div>
+                <div class="flex items-center gap-6 relative">
+                    <div class="w-24 h-24 rounded-2xl overflow-hidden shadow-xl ring-4 ring-white/50">
+                        <img class="w-full h-full object-cover" data-alt="A close-up photograph of a sleek, grey shorthair cat with bright green eyes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGakHEaiOXFSKgatxgggng78NM2F1S3fftI03PAuRf7xKO2uY9b5bMdpECrx2slXUCfr7QkTVGHebEcdqjehv950jN4WfdYapAiGt5WzzThkBS9jvkO6ToLcMUHPuxNsvGo6_8gZzS7-ExnaIjHdexNS15G952snShBkawbjGlH9CGFEUklah2EBv1nvYAqdtKr0LxL6syRkRCTZAHGiQOwezvv1hExONWqKaUxZbVkKu49Jacgs22fBtPH7RjgdSAJJSix7G3060"/>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-headline-md text-headline-md text-on-surface">Luna</h3>
+                            <span class="bg-secondary/10 text-secondary text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter">Premium Care</span>
+                        </div>
+                        <p class="font-label-md text-label-md text-on-surface-variant">British Shorthair • 2 Years</p>
+                        <div class="flex gap-2 mt-2">
+                            <span class="px-3 py-1 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm">Female</span>
+                            <span class="px-3 py-1 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm">4.2 kg</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 bg-white/40 rounded-2xl border border-white/60">
+                        <p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Vaccination Status</p>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                            <span class="font-label-md text-label-md text-on-surface">Due: Rabies</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white/40 rounded-2xl border border-white/60">
+                        <p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Health Score</p>
+                        <div class="flex items-center gap-2">
+                            <span class="font-label-md text-label-md text-secondary font-bold">94/100</span>
+                            <span class="material-symbols-outlined text-secondary text-sm">trending_up</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center pt-2">
+                    <button onclick="showToast('Loading medical records for Luna...')" class="text-secondary font-label-md text-label-md flex items-center gap-1 hover:underline">
+                        View Medical Records <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                    <button onclick="showToast('Edit profile feature is under development.')" class="w-10 h-10 rounded-full flex items-center justify-center bg-white/60 hover:bg-white text-on-surface-variant shadow-sm transition-all">
+                        <span class="material-symbols-outlined">edit</span>
+                    </button>
+                </div>
+            </div>
+        </section>
 
-  <!-- Add Pet Profile Modal -->
-  <div id="add-pet-modal" class="overlay">
-    <div class="overlay-card" style="border-color: #8B5CF6; max-width: 500px; text-align: left; padding: 2.5rem;">
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem; margin-bottom: 1.5rem;">
-        <h2 style="font-size: 1.5rem; color: #8B5CF6; margin: 0;"><i class="fa-solid fa-paw"></i> Add Pet Profile</h2>
-        <button id="close-pet-modal" style="background: none; border: none; font-size: 1.5rem; color: var(--text-grey); cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+        <!-- Appointment & Queue Status -->
+        <section id="appointments-section" class="grid grid-cols-1 xl:grid-cols-3 gap-gutter scroll-mt-24">
+            <!-- Active Queue -->
+            <div class="xl:col-span-1 glass-card rounded-3xl p-6 bg-primary/5 border-primary/20">
+                <div class="flex justify-between items-center mb-6">
+                    <h4 class="font-headline-md text-headline-md text-primary">Live Queue</h4>
+                    <span class="flex h-3 w-3 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+                    </span>
+                </div>
+                <div class="flex flex-col items-center py-4 text-center">
+                    <p class="font-label-sm text-label-sm text-on-surface-variant mb-2">Current Position</p>
+                    <div class="text-7xl font-extrabold text-primary mb-4 tracking-tighter">04</div>
+                    <p class="font-body-md text-body-md text-on-surface font-semibold">Cooper • Routine Dental</p>
+                    <p class="font-label-md text-label-md text-on-surface-variant">Estimated wait: 12 mins</p>
+                </div>
+                <div class="mt-6 pt-6 border-t border-primary/10">
+                    <button onclick="checkInRemotely(this)" class="w-full py-3 rounded-2xl border border-primary/30 text-primary font-label-md text-label-md hover:bg-primary/5 transition-all">Check-in Remotely</button>
+                </div>
+            </div>
+
+            <!-- Upcoming Slots -->
+            <div class="xl:col-span-2 glass-card rounded-3xl p-6">
+                <h4 class="font-headline-md text-headline-md text-on-surface mb-6">Upcoming Appointments</h4>
+                <div class="flex flex-col gap-4">
+                    <!-- Appt 1 -->
+                    <div class="flex items-center justify-between p-4 bg-white/30 rounded-2xl border border-white/50 hover:bg-white/50 transition-all duration-300">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center">
+                                <span class="material-symbols-outlined">vaccines</span>
+                            </div>
+                            <div>
+                                <p class="font-label-md text-label-md text-on-surface">Luna • Rabies Booster</p>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">Sept 28, 2026 • 10:30 AM • Central Vet Center</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="showToast('Vaccine Booster appointment added to your Google/iCal Calendar.')" class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">calendar_today</span></button>
+                            <button onclick="cancelAppointment(this, 'Luna - Rabies Booster')" class="p-2 text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined">cancel</span></button>
+                        </div>
+                    </div>
+                    <!-- Appt 2 -->
+                    <div class="flex items-center justify-between p-4 bg-white/30 rounded-2xl border border-white/50 hover:bg-white/50 transition-all duration-300">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center">
+                                <span class="material-symbols-outlined">stethoscope</span>
+                            </div>
+                            <div>
+                                <p class="font-label-md text-label-md text-on-surface">Cooper • Annual Physical</p>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">Oct 24, 2026 • 02:15 PM • Paws &amp; Claws Clinic</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="showToast('Annual Physical appointment added to your Google/iCal Calendar.')" class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">calendar_today</span></button>
+                            <button onclick="cancelAppointment(this, 'Cooper - Annual Physical')" class="p-2 text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined">cancel</span></button>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="showToast('Calendar synchronization completed!')" class="mt-6 w-full py-4 text-center font-label-md text-label-md text-on-surface-variant hover:text-primary border-t border-white/20">View Calendar View</button>
+            </div>
+        </section>
+
+        <!-- History & Receipts -->
+        <section id="history-section" class="glass-card rounded-3xl overflow-hidden scroll-mt-24">
+            <div class="p-8 border-b border-white/40 flex justify-between items-center">
+                <h4 class="font-headline-md text-headline-md text-on-surface">Visit History</h4>
+                <div class="flex gap-2">
+                    <button class="px-4 py-2 bg-surface-variant/40 rounded-lg font-label-sm text-label-sm">This Year</button>
+                    <button onclick="showToast('Filters matching: dog, cat, all clinics applied.')" class="p-2 bg-surface-variant/40 rounded-lg flex items-center"><span class="material-symbols-outlined text-sm">filter_list</span></button>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-surface-variant/20">
+                            <th class="p-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Date</th>
+                            <th class="p-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Pet</th>
+                            <th class="p-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Reason</th>
+                            <th class="p-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Clinician</th>
+                            <th class="p-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/20">
+                        <tr class="hover:bg-white/40 transition-colors">
+                            <td class="p-6 font-label-md text-label-md text-on-surface">Aug 12, 2026</td>
+                            <td class="p-6 font-label-md text-label-md text-on-surface">Cooper</td>
+                            <td class="p-6 font-label-md text-label-md text-on-surface">Skin Allergy Screening</td>
+                            <td class="p-6 font-label-md text-label-md text-on-surface-variant">Dr. Emily Stone</td>
+                            <td class="p-6">
+                                <button onclick="downloadReceipt('Cooper - Skin Allergy Screening')" class="flex items-center gap-2 text-primary font-label-md text-label-md hover:brightness-90">
+                                    <span class="material-symbols-outlined text-lg">download</span> Receipt
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-white/40 transition-colors">
+                            <td class="p-6 font-label-md text-label-md text-on-surface">July 04, 2026</td>
+                            <td class="p-6 font-label-md text-label-md text-on-surface">Luna</td>
+                            <td class="p-6 font-label-md text-label-md text-on-surface">General Wellness</td>
+                            <td class="p-6 font-label-md text-label-md text-on-surface-variant">Dr. Mark Vance</td>
+                            <td class="p-6">
+                                <button onclick="downloadReceipt('Luna - General Wellness')" class="flex items-center gap-2 text-primary font-label-md text-label-md hover:brightness-90">
+                                    <span class="material-symbols-outlined text-lg">download</span> Receipt
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-white/40 transition-colors">
+                            <td class="p-6 font-label-md text-label-md text-on-surface">May 21, 2026</td>
+                            <td class="p-6 font-label-md text-label-md text-on-surface">Cooper</td>
+                            <td class="p-6 font-label-md text-label-md text-on-surface">Vaccination Pack</td>
+                            <td class="p-6 font-label-md text-label-md text-on-surface-variant">Dr. Emily Stone</td>
+                            <td class="p-6">
+                                <button onclick="downloadReceipt('Cooper - Vaccination Pack')" class="flex items-center gap-2 text-primary font-label-md text-label-md hover:brightness-90">
+                                    <span class="material-symbols-outlined text-lg">download</span> Receipt
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="p-6 text-center">
+                <button onclick="showToast('Loading older historical visits...')" class="text-primary font-label-md text-label-md hover:underline">Load More Records</button>
+            </div>
+        </section>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-surface-container-lowest/80 dark:bg-inverse-surface/80 backdrop-blur-md border-t border-white/20 full-width py-12 mt-20">
+    <div class="w-full py-12 px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter">
+        <div class="flex flex-col gap-4">
+            <a href="index.html" class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim font-bold">PawCare</a>
+            <p class="font-body-md text-body-md text-on-surface-variant">Bridging human medical standards with premium pet care empathy. Your pets deserve the best.</p>
+        </div>
+        <div>
+            <h5 class="font-label-md text-label-md text-primary mb-6">Quick Links</h5>
+            <ul class="flex flex-col gap-3">
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Medical Standards</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-label-md text-label-md text-primary mb-6">Support</h5>
+            <ul class="flex flex-col gap-3">
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Support</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Find a Specialist</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Help Center</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-label-md text-label-md text-primary mb-6">Community</h5>
+            <div class="flex gap-4">
+                <a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-lg">share</span></a>
+                <a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-lg">groups</span></a>
+                <a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-lg">mail</span></a>
+            </div>
+            <p class="mt-8 font-label-sm text-label-sm text-on-surface-variant">© 2026 PawCare Healthcare. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Modals -->
+
+<!-- Register Pet Modal -->
+<div id="register-pet-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm p-4 transition-all duration-300 opacity-0">
+  <div class="glass-card bg-white/95 dark:bg-inverse-surface/95 rounded-3xl p-8 max-w-md w-full border border-white/40 shadow-2xl transition-all scale-95 duration-300 transform opacity-0" id="register-pet-card">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+        <span class="material-symbols-outlined">pets</span>
+        Register New Pet
+      </h3>
+      <button onclick="toggleModal('register-pet-modal', false)" class="text-on-surface-variant hover:text-primary transition-colors flex items-center">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <form id="register-pet-form" class="flex flex-col gap-4">
+      <div>
+        <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Pet Name</label>
+        <input type="text" id="pet-name-input" required class="w-full px-4 py-2 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="e.g. Max">
       </div>
-
-      <form id="add-pet-details-form">
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <div class="form-field">
-            <label for="new-pet-name">Pet's Name</label>
-            <input type="text" id="new-pet-name" placeholder="Coco" required>
-          </div>
-          <div class="form-field">
-            <label for="new-pet-species">Pet Species</label>
-            <select id="new-pet-species" required>
-              <option value="all">Choose Species</option>
-              <option value="dog">Dog</option>
-              <option value="cat">Cat</option>
-              <option value="rabbit">Rabbit</option>
-              <option value="bird">Bird</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <div class="form-field">
-            <label for="new-pet-breed">Breed Type</label>
-            <input type="text" id="new-pet-breed" placeholder="Beagle / Persian Cat" required>
-          </div>
-          <div class="form-field">
-            <label for="new-pet-age">Pet Age</label>
-            <input type="text" id="new-pet-age" placeholder="e.g. 1 Year / 4 Months" required>
-          </div>
-          <div class="form-field">
-            <label for="new-pet-vaccine">Vaccine Card Status</label>
-            <select id="new-pet-vaccine">
-              <option value="healthy">Up-to-Date (Healthy)</option>
-              <option value="due">Vaccines Due Soon</option>
-              <option value="overdue">Overdue Vaccines Alert</option>
-            </select>
-          </div>
-          
-          <button type="submit" class="btn" style="background-color: #8B5CF6; color: var(--white); border: none; font-weight: 700; padding: 1rem; width: 100%; margin-top: 1rem;">
-            Create Pet Profile
-          </button>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Species</label>
+          <select id="pet-species-input" class="w-full px-4 py-2 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+            <option value="Dog">Dog</option>
+            <option value="Cat">Cat</option>
+            <option value="Rabbit">Rabbit</option>
+            <option value="Bird">Bird</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
-      </form>
-    </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Breed</label>
+          <input type="text" id="pet-breed-input" required class="w-full px-4 py-2 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="e.g. Beagle">
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Gender</label>
+          <select id="pet-gender-input" class="w-full px-4 py-2 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Weight</label>
+          <input type="text" id="pet-weight-input" required class="w-full px-4 py-2 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="e.g. 15 kg">
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Age</label>
+          <input type="text" id="pet-age-input" required class="w-full px-4 py-2 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="e.g. 2 Years">
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Vaccines</label>
+          <select id="pet-vaccine-input" class="w-full px-4 py-2 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+            <option value="Fully Updated">Fully Updated</option>
+            <option value="Due Soon">Due Soon</option>
+            <option value="Overdue">Overdue</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Next Checkup / Detail Date</label>
+        <input type="text" id="pet-extra-input" required class="w-full px-4 py-2 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="e.g. Oct 24, 2026 or Rabies booster">
+      </div>
+      <button type="submit" class="bg-primary text-on-primary py-3 rounded-full font-label-md text-label-md mt-4 hover:scale-105 active:scale-95 transition-all shadow-lg">
+        Save Pet Profile
+      </button>
+    </form>
   </div>
+</div>
 
-  <!-- Footer -->
-  <footer class="footer" id="contact">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="index.html" class="logo">
-          <i class="fa-solid fa-house-chimney-medical"></i> PawCare
-        </a>
-        <p>We are making clinic visits frictionless. Search human and veterinary clinics, view exact doctor availability, book appointments visually, and skip wait lists.</p>
-        <div class="social-links">
-          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#"><i class="fa-brands fa-twitter"></i></a>
-          <a href="#"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-        </div>
+<!-- Account Settings Modal -->
+<div id="settings-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm p-4 transition-all duration-300 opacity-0">
+  <div class="glass-card bg-white/95 dark:bg-inverse-surface/95 rounded-3xl p-8 max-w-md w-full border border-white/40 shadow-2xl transition-all scale-95 duration-300 transform opacity-0" id="settings-card">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+        <span class="material-symbols-outlined">settings</span>
+        Account Settings
+      </h3>
+      <button onclick="toggleModal('settings-modal', false)" class="text-on-surface-variant hover:text-primary transition-colors flex items-center">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <form id="settings-form" class="flex flex-col gap-4">
+      <div>
+        <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Full Name</label>
+        <input type="text" id="settings-name-input" required class="w-full px-4 py-2 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" value="Sarah">
       </div>
-      <div class="footer-col">
-        <h4>Discover</h4>
-        <ul>
-          <li><a href="find.html">Find General Clinics</a></li>
-          <li><a href="find.html?type=pet">Find Pet Vets</a></li>
-          <li><a href="find.html?type=dental">Dental Care Near Me</a></li>
-          <li><a href="find.html?type=eye">Eye Specialists</a></li>
-          <li><a href="find.html?type=skin">Skin & Hair Clinics</a></li>
-        </ul>
+      <div>
+        <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Email Address</label>
+        <input type="email" id="settings-email-input" required class="w-full px-4 py-2 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" value="sarah.vance@example.com">
       </div>
-      <div class="footer-col">
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Clinic Portal Login</a></li>
-          <li><a href="#">Emergency Help Guide</a></li>
-        </ul>
+      <div>
+        <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Phone Number</label>
+        <input type="tel" id="settings-phone-input" required class="w-full px-4 py-2 rounded-xl border border-outline-variant bg-white/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" value="+91 98765 43210">
       </div>
-      <div class="footer-col">
-        <h4>Stay Updated</h4>
-        <p>Subscribe to our newsletter for health tips and clinic updates.</p>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!')">
-          <div class="newsletter-input-group">
-            <input type="email" placeholder="Your Email Address" required>
-            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
-          </div>
-        </form>
+      <div class="flex flex-col gap-2 mt-2">
+        <label class="flex items-center gap-2 text-sm text-on-surface-variant">
+          <input type="checkbox" checked class="rounded border-outline-variant text-primary focus:ring-primary">
+          <span>Receive WhatsApp notifications</span>
+        </label>
+        <label class="flex items-center gap-2 text-sm text-on-surface-variant">
+          <input type="checkbox" checked class="rounded border-outline-variant text-primary focus:ring-primary">
+          <span>Email monthly health reports</span>
+        </label>
+      </div>
+      <button type="submit" class="bg-primary text-on-primary py-3 rounded-full font-label-md text-label-md mt-4 hover:scale-105 active:scale-95 transition-all shadow-lg">
+        Save Settings
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Emergency Modal -->
+<div id="emergency-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-red-950/40 backdrop-blur-md p-4 transition-all duration-300 opacity-0">
+  <div class="glass-card bg-white/95 dark:bg-inverse-surface/95 rounded-3xl p-8 max-w-md w-full border border-red-500/30 shadow-2xl transition-all scale-95 duration-300 transform opacity-0 text-center relative overflow-hidden" id="emergency-card">
+    <div class="absolute -right-10 -top-10 w-40 h-40 bg-red-500/10 rounded-full blur-2xl animate-pulse"></div>
+    <div class="flex justify-end mb-2">
+      <button onclick="toggleModal('emergency-modal', false)" class="text-on-surface-variant hover:text-red-500 transition-colors flex items-center">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    
+    <div class="w-16 h-16 bg-red-100 dark:bg-red-950/50 rounded-full flex items-center justify-center mx-auto mb-6 text-red-600 dark:text-red-400 animate-bounce">
+      <span class="material-symbols-outlined text-4xl font-bold">emergency</span>
+    </div>
+    
+    <h3 class="font-headline-md text-headline-md text-red-600 dark:text-red-400 mb-2 font-extrabold uppercase tracking-wide">
+      EMERGENCY ACTIVE
+    </h3>
+    <p class="text-xs text-on-surface-variant mb-6 font-semibold">
+      Nearest Emergency Medical Centers
+    </p>
+    
+    <div class="flex flex-col gap-4 text-left mb-6">
+      <div class="p-4 bg-red-500/5 rounded-2xl border border-red-500/10">
+        <h4 class="font-bold text-on-surface text-sm flex justify-between">
+          <span>City Care Hospital & ER</span>
+          <span class="text-red-600 font-bold text-xs uppercase">0.8 km</span>
+        </h4>
+        <p class="text-xs text-on-surface-variant mt-1">24/7 Human Trauma & General Emergency Support</p>
+      </div>
+      <div class="p-4 bg-purple-500/5 rounded-2xl border border-purple-500/10">
+        <h4 class="font-bold text-on-surface text-sm flex justify-between">
+          <span>PawCare 24/7 Vet Hospital</span>
+          <span class="text-purple-600 dark:text-purple-400 font-bold text-xs uppercase">1.4 km</span>
+        </h4>
+        <p class="text-xs text-on-surface-variant mt-1">Full-service 24-hour Vet Trauma Center & ICU</p>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 PawCare Health Platform. All rights reserved.</p>
-      <div class="footer-bottom-links">
-        <a href="#">Security</a>
-        <a href="#">Sitemap</a>
-      </div>
-    </div>
-  </footer>
+    
+    <a href="tel:+919876543210" class="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-full font-label-md text-label-md flex items-center justify-center gap-2 shadow-lg hover:scale-[1.02] active:scale-95 transition-all mb-4">
+      <span class="material-symbols-outlined">call</span> Call Dispatch Center
+    </a>
+    
+    <button onclick="toggleModal('emergency-modal', false)" class="text-xs text-on-surface-variant hover:underline font-semibold">
+      Dismiss Emergency Screen
+    </button>
+  </div>
+</div>
 
-  <!-- Scripts -->
-  <script src="js/app.js"></script>
-  <script src="js/dashboard.js"></script>
+<!-- Toast Container -->
+<div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
+
+<script>
+    // Micro-interactions and effects
+    document.querySelectorAll('.glass-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
+
+    // Simulating some dynamic behavior for the queue
+    let queueNum = 4;
+    setInterval(() => {
+        if(Math.random() > 0.8 && queueNum > 1) {
+            queueNum--;
+            const queueEl = document.querySelector('.text-7xl');
+            if(queueEl) {
+                queueEl.textContent = queueNum.toString().padStart(2, '0');
+                queueEl.classList.add('scale-110', 'text-secondary');
+                setTimeout(() => {
+                    queueEl.classList.remove('scale-110', 'text-secondary');
+                }, 500);
+            }
+        }
+    }, 10000);
+
+    // Dynamic Modal Actions
+    function toggleModal(modalId, show) {
+        const modal = document.getElementById(modalId);
+        const cardId = modalId.replace('modal', 'card');
+        const card = document.getElementById(cardId);
+        if (show) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                card.classList.remove('scale-95', 'opacity-0');
+                card.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        } else {
+            modal.classList.add('opacity-0');
+            card.classList.remove('scale-100', 'opacity-100');
+            card.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    }
+
+    // Modal click-outside dismissal
+    document.querySelectorAll('[id$="-modal"]').forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                toggleModal(modal.id, false);
+            }
+        });
+    });
+
+    // Global Toast System
+    function showToast(message) {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'glass-card bg-white/90 dark:bg-inverse-surface/90 text-on-surface border border-white/50 px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3 transition-all transform translate-y-4 opacity-0 duration-300';
+        toast.innerHTML = `
+            <span class="material-symbols-outlined text-primary font-bold">check_circle</span>
+            <span class="font-label-md text-label-md">${message}</span>
+        `;
+        container.appendChild(toast);
+        
+        // Animate entry
+        setTimeout(() => {
+            toast.classList.remove('translate-y-4', 'opacity-0');
+        }, 10);
+        
+        // Animate exit
+        setTimeout(() => {
+            toast.classList.add('translate-y-4', 'opacity-0');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, 3000);
+    }
+
+    // Remote Check-in simulator
+    function checkInRemotely(btn) {
+        showToast("Initiating remote queue check-in...");
+        btn.disabled = true;
+        btn.textContent = "Checking in...";
+        setTimeout(() => {
+            showToast("Checked in successfully! Your token #04 is confirmed.");
+            btn.textContent = "Checked In";
+            btn.className = "w-full py-3 rounded-2xl bg-primary/10 text-primary font-label-md text-label-md border border-primary/20 cursor-default";
+            
+            // Update estimated wait time
+            const waitTimeEl = btn.closest('.glass-card').querySelector('.font-label-md.text-label-md');
+            if (waitTimeEl) {
+                waitTimeEl.textContent = "Estimated wait: 8 mins • You are next!";
+            }
+        }, 1500);
+    }
+
+    // Cancel appointment logic
+    function cancelAppointment(btn, apptName) {
+        if (confirm(`Are you sure you want to cancel the appointment: ${apptName}?`)) {
+            const card = btn.closest('.flex.items-center.justify-between');
+            if (card) {
+                card.classList.add('scale-90', 'opacity-0');
+                setTimeout(() => {
+                    card.remove();
+                    showToast("Appointment cancelled successfully. Refund initiated.");
+                }, 300);
+            }
+        }
+    }
+
+    // Download receipt simulator
+    function downloadReceipt(reason) {
+        showToast(`Preparing receipt details for: ${reason}...`);
+        setTimeout(() => {
+            showToast("Receipt downloaded successfully!");
+        }, 1000);
+    }
+
+    // Sign out handler
+    function signOut() {
+        if (confirm("Are you sure you want to sign out from PawCare?")) {
+            localStorage.removeItem('pawcare_session');
+            showToast("Logged out successfully. Redirecting to home page...");
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1200);
+        }
+    }
+
+    // Register Pet Profile form submission
+    document.getElementById('register-pet-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('pet-name-input').value;
+        const species = document.getElementById('pet-species-input').value;
+        const breed = document.getElementById('pet-breed-input').value;
+        const gender = document.getElementById('pet-gender-input').value;
+        const weight = document.getElementById('pet-weight-input').value;
+        const age = document.getElementById('pet-age-input').value;
+        const vaccine = document.getElementById('pet-vaccine-input').value;
+        const extra = document.getElementById('pet-extra-input').value;
+
+        // Custom styling based on vaccine status
+        let vaccineColor = "bg-green-500";
+        if (vaccine === "Due Soon") vaccineColor = "bg-amber-500";
+        if (vaccine === "Overdue") vaccineColor = "bg-red-500";
+
+        // Assign placeholder image based on species
+        let imgUrl = "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=200"; // dog
+        if (species.toLowerCase() === "cat") {
+            imgUrl = "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=200";
+        } else if (species.toLowerCase() === "rabbit") {
+            imgUrl = "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=200";
+        } else if (species.toLowerCase() === "bird") {
+            imgUrl = "https://images.unsplash.com/photo-1522850959076-39e7149f1a4e?auto=format&fit=crop&q=80&w=200";
+        }
+
+        const newPetCard = document.createElement('div');
+        newPetCard.className = "glass-card rounded-3xl p-8 flex flex-col gap-6 relative overflow-hidden group opacity-0 scale-95 transition-all duration-500";
+        newPetCard.innerHTML = `
+            <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-primary/20 transition-all"></div>
+            <div class="flex items-center gap-6 relative">
+                <div class="w-24 h-24 rounded-2xl overflow-hidden shadow-xl ring-4 ring-white/50">
+                    <img class="w-full h-full object-cover" src="${imgUrl}"/>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h3 class="font-headline-md text-headline-md text-on-surface">${name}</h3>
+                        <span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter">Verified</span>
+                    </div>
+                    <p class="font-label-md text-label-md text-on-surface-variant">${breed} • ${age}</p>
+                    <div class="flex gap-2 mt-2">
+                        <span class="px-3 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm">${gender}</span>
+                        <span class="px-3 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm">${weight}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="p-4 bg-white/40 rounded-2xl border border-white/60">
+                    <p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Vaccination Status</p>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full ${vaccineColor}"></span>
+                        <span class="font-label-md text-label-md text-on-surface">${vaccine === 'Fully Updated' ? 'Fully Updated' : vaccine + ': ' + extra}</span>
+                    </div>
+                </div>
+                <div class="p-4 bg-white/40 rounded-2xl border border-white/60">
+                    <p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Next Checkup</p>
+                    <p class="font-label-md text-label-md text-on-surface">${extra || 'N/A'}</p>
+                </div>
+            </div>
+            <div class="flex justify-between items-center pt-2">
+                <button onclick="showToast('Loading medical records for ${name}...')" class="text-primary font-label-md text-label-md flex items-center gap-1 hover:underline">
+                    View Medical Records <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
+                <button onclick="showToast('Edit profile feature is under development.')" class="w-10 h-10 rounded-full flex items-center justify-center bg-white/60 hover:bg-white text-on-surface-variant shadow-sm transition-all">
+                    <span class="material-symbols-outlined">edit</span>
+                </button>
+            </div>
+        `;
+
+        const petSection = document.getElementById('pets-section');
+        petSection.insertBefore(newPetCard, petSection.firstChild);
+
+        // Animate the card opening
+        setTimeout(() => {
+            newPetCard.classList.remove('opacity-0', 'scale-95');
+            newPetCard.classList.add('opacity-100', 'scale-100');
+        }, 50);
+
+        toggleModal('register-pet-modal', false);
+        showToast(`${name}'s profile has been created successfully!`);
+        document.getElementById('register-pet-form').reset();
+    });
+
+    // Account Settings Form submit handler
+    document.getElementById('settings-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('settings-name-input').value;
+        const email = document.getElementById('settings-email-input').value;
+        const phone = document.getElementById('settings-phone-input').value;
+
+        // Save session locally
+        const sessionData = localStorage.getItem('pawcare_session') || '{}';
+        const user = JSON.parse(sessionData);
+        user.name = name;
+        user.email = email;
+        user.phone = phone;
+        localStorage.setItem('pawcare_session', JSON.stringify(user));
+
+        // Update welcome message
+        const welcomeTitle = document.querySelector('#dashboard-overview h1');
+        if (welcomeTitle) {
+            welcomeTitle.textContent = `Welcome back, ${name}!`;
+        }
+
+        toggleModal('settings-modal', false);
+        showToast("Account settings updated successfully!");
+    });
+
+    // Load session username
+    document.addEventListener('DOMContentLoaded', () => {
+        const sessionData = localStorage.getItem('pawcare_session');
+        if (sessionData) {
+            const user = JSON.parse(sessionData);
+            const welcomeTitle = document.querySelector('#dashboard-overview h1');
+            if (welcomeTitle) {
+                welcomeTitle.textContent = `Welcome back, ${user.name}!`;
+            }
+            const nameInput = document.getElementById('settings-name-input');
+            if (nameInput) nameInput.value = user.name;
+            const emailInput = document.getElementById('settings-email-input');
+            if (emailInput) emailInput.value = user.email || "sarah.vance@example.com";
+            const phoneInput = document.getElementById('settings-phone-input');
+            if (phoneInput) phoneInput.value = user.phone || "+91 98765 43210";
+        }
+    });
+</script>
 </body>
 </html>

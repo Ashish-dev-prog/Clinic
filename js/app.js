@@ -1,11 +1,6 @@
-// Check and apply theme immediately on script load to minimize flash
+// Force light theme immediately on script load to minimize flash
 (function() {
-  const currentTheme = localStorage.getItem('pawcare_theme') || 'light';
-  if (currentTheme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'light');
-  }
+  document.documentElement.setAttribute('data-theme', 'light');
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -78,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAccordionFAQHandlers();
   initSmoothScrolling();
   initStatsStripObserver();
+  initGlassCardSpotlight();
 });
 
 // Helper function to inject Emergency Overlay HTML
@@ -599,59 +595,9 @@ function animateStatsCounter() {
 }
 
 function initThemeToggle() {
-  const navActions = document.querySelector('.nav-actions');
-  if (!navActions) return;
-
-  // 1. Create toggle HTML matching Dribbble Day/Night design
-  const toggleHtml = `
-    <div class="theme-toggle-container">
-      <input type="checkbox" id="theme-toggle-checkbox" class="theme-toggle-checkbox">
-      <label for="theme-toggle-checkbox" class="theme-toggle-label">
-        <span class="theme-toggle-thumb">
-          <span class="crater crater-1"></span>
-          <span class="crater crater-2"></span>
-          <span class="crater crater-3"></span>
-        </span>
-        <span class="cloud-decor">
-          <span class="cloud-puff puff-1"></span>
-          <span class="cloud-puff puff-2"></span>
-          <span class="cloud-puff puff-3"></span>
-        </span>
-        <span class="star-decor">
-          <span class="star-spark twinkle-1">★</span>
-          <span class="star-spark twinkle-2">✦</span>
-          <span class="star-spark twinkle-3">✦</span>
-        </span>
-      </label>
-    </div>
-  `;
-
-  // Insert toggle switch into navbar actions
-  navActions.insertAdjacentHTML('afterbegin', toggleHtml);
-
-  const checkbox = document.getElementById('theme-toggle-checkbox');
-  const currentTheme = localStorage.getItem('pawcare_theme') || 'light';
-
-  // Apply initial theme state
-  if (currentTheme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    checkbox.checked = true;
-  } else {
-    document.documentElement.setAttribute('data-theme', 'light');
-    checkbox.checked = false;
-  }
-
-  checkbox.addEventListener('change', () => {
-    if (checkbox.checked) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      localStorage.setItem('pawcare_theme', 'dark');
-      showToast('Switched to Dark Mode 🌙');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'light');
-      localStorage.setItem('pawcare_theme', 'light');
-      showToast('Switched to Light Mode ☀️');
-    }
-  });
+  // Always force light mode
+  document.documentElement.setAttribute('data-theme', 'light');
+  localStorage.setItem('pawcare_theme', 'light');
 
   // Inject ambient background elements
   injectAmbientOrbs();
@@ -711,4 +657,17 @@ function createParticle(parent) {
   particle.style.backgroundColor = randColor;
   
   parent.appendChild(particle);
+}
+
+function initGlassCardSpotlight() {
+  document.addEventListener('mousemove', (e) => {
+    const card = e.target.closest('.glass-card');
+    if (card) {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    }
+  });
 }

@@ -1,225 +1,610 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Booking Confirmed — Token Tracker | PawCare</title>
-  <meta name="description" content="Your appointment has been successfully booked. Track your token queue place in real-time.">
-  <!-- Fonts -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/page-specific.css">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Booking Confirmed — Token Tracker | PawCare</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <!-- FontAwesome for fallback -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#006b5f",
+                      "primary-fixed-dim": "#4fdbc8",
+                      "error": "#ba1a1a",
+                      "inverse-surface": "#213145",
+                      "outline-variant": "#bbcac6",
+                      "primary-fixed": "#71f8e4",
+                      "on-tertiary": "#ffffff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-primary": "#ffffff",
+                      "surface-dim": "#cbdbf5",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "surface-container": "#e5eeff",
+                      "surface-bright": "#f8f9ff",
+                      "primary": "#006b5f",
+                      "surface-variant": "#d3e4fe",
+                      "on-primary-fixed-variant": "#005048",
+                      "tertiary": "#bc0b3b",
+                      "primary-container": "#14b8a6",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#fffbff",
+                      "on-surface": "#0b1c30",
+                      "secondary-fixed": "#e9ddff",
+                      "surface-container-highest": "#d3e4fe",
+                      "outline": "#6c7a77",
+                      "secondary": "#6b38d4",
+                      "on-surface-variant": "#3c4947",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed": "#ffdadb",
+                      "secondary-container": "#8455ef",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed": "#40000d",
+                      "on-tertiary-container": "#7a0022",
+                      "surface": "#f8f9ff",
+                      "on-primary-fixed": "#00201c",
+                      "on-tertiary-fixed-variant": "#92002a",
+                      "on-secondary-fixed": "#23005c",
+                      "background": "#f8f9ff",
+                      "on-background": "#0b1c30",
+                      "tertiary-container": "#ff7b88",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-primary": "#4fdbc8",
+                      "on-error-container": "#93000a",
+                      "on-primary-container": "#00423b",
+                      "surface-container-high": "#dce9ff",
+                      "tertiary-fixed-dim": "#ffb2b7",
+                      "surface-container-low": "#eff4ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "40px",
+                      "container-max": "1280px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "display-lg-mobile": ["Plus Jakarta Sans"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "body-lg": ["Inter"],
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/page-specific.css">
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 107, 95, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateY(-4px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .nav-item-hover:hover .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Success checkmark draw animation */
+        .success-checkmark-svg {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem auto;
+        }
+        .success-checkmark-svg circle {
+            fill: none;
+            stroke: #006b5f;
+            stroke-width: 4;
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-linecap: round;
+            animation: stroke-circle 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+        .success-checkmark-svg path {
+            fill: none;
+            stroke: #006b5f;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke-check 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+        }
+        @keyframes stroke-circle {
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes stroke-check {
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* Queue progress bar & nodes */
+        .queue-progress-bar {
+            height: 6px;
+            background-color: #f1f5f9;
+            border-radius: 9999px;
+            position: relative;
+            margin: 1.5rem 0;
+        }
+        .queue-progress-fill {
+            height: 100%;
+            width: 60%;
+            background-color: #006b5f;
+            border-radius: 9999px;
+            transition: width 1s ease;
+        }
+        .queue-progress-nodes {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            top: -21px;
+        }
+        .queue-progress-node {
+            width: 14px;
+            height: 14px;
+            background-color: #cbd5e1;
+            border-radius: 9999px;
+            border: 3px solid #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .queue-progress-node.active {
+            background-color: #006b5f;
+            transform: scale(1.25);
+            box-shadow: 0 0 8px rgba(0, 107, 95, 0.4);
+        }
+        .queue-progress-node.completed {
+            background-color: #14b8a6;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden flex flex-col">
+<!-- Background Layer -->
+<div class="fixed inset-0 -z-10 pointer-events-none">
+    <div class="absolute inset-0 w-full h-full opacity-40" style="display:block;">
+        <canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+        <script>
+        (function() {
+          const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+          function syncSize() {
+            const w = canvas.clientWidth  || 1280;
+            const h = canvas.clientHeight || 720;
+            if (canvas.width !== w || canvas.height !== h) {
+              canvas.width  = w;
+              canvas.height = h;
+            }
+          }
+          if (typeof ResizeObserver !== 'undefined') {
+            new ResizeObserver(syncSize).observe(canvas);
+          }
+          syncSize();
 
-  <!-- Sticky Navbar -->
-  <header class="navbar">
-    <a href="index.html" class="logo" id="nav-logo">
-      <i class="fa-solid fa-house-chimney-medical"></i> PawCare
-    </a>
-    <nav class="nav-links" id="navbar-links">
-      <a href="index.html">Home</a>
-      <a href="find.html" class="active">Find Clinic</a>
-      <a href="dashboard.html">Pet Care</a>
-      <a href="index.html#how-it-works">How It Works</a>
-      <a href="index.html#contact">Contact</a>
-    </nav>
-    <div class="nav-actions">
-      <a href="find.html" class="btn btn-primary" id="find-near-me-btn">
-        <i class="fa-solid fa-location-crosshairs"></i> Find Near Me
-      </a>
-      <button class="btn btn-emergency" id="emergency-btn">
-        <i class="fa-solid fa-triangle-exclamation"></i> EMERGENCY
-      </button>
-      <button class="mobile-nav-toggle" id="mobile-toggle">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+          const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+          if (!gl) return;
+          const vs = `attribute vec2 a_position;
+        varying vec2 v_texCoord;
+        void main() {
+          v_texCoord = a_position * 0.5 + 0.5;
+          gl_Position = vec4(a_position, 0.0, 1.0);
+        }`;
+          const fs = `precision highp float;
+        uniform float u_time;
+        uniform vec2 u_resolution;
+        uniform vec2 u_mouse;
+        varying vec2 v_texCoord;
+        float hash(vec2 p) {
+            p = fract(p * vec2(123.34, 456.21));
+            p += dot(p, p + 45.32);
+            return fract(p.x * p.y);
+        }
+        void main() {
+            vec2 uv = v_texCoord;
+            vec2 p1 = vec2(0.2 + 0.1 * sin(u_time * 0.5), 0.3 + 0.1 * cos(u_time * 0.4));
+            vec2 p2 = vec2(0.8 + 0.1 * cos(u_time * 0.3), 0.7 + 0.1 * sin(u_time * 0.6));
+            vec2 p3 = vec2(0.5 + 0.2 * sin(u_time * 0.7), 0.5 + 0.2 * cos(u_time * 0.5));
+            float d1 = length(uv - p1);
+            float d2 = length(uv - p2);
+            float d3 = length(uv - p3);
+            vec3 rose = vec3(1.0, 0.8, 0.85);
+            vec3 violet = vec3(0.9, 0.85, 1.0);
+            vec3 turquoise = vec3(0.8, 1.0, 0.95);
+            vec3 amber = vec3(1.0, 0.95, 0.8);
+            vec3 col = mix(rose, violet, smoothstep(0.0, 0.8, d1));
+            col = mix(col, turquoise, smoothstep(0.0, 0.8, d2));
+            col = mix(col, amber, smoothstep(0.0, 0.8, d3));
+            col += (hash(uv + u_time * 0.01) - 0.5) * 0.02;
+            gl_FragColor = vec4(col, 1.0);
+        }`;
+          function cs(type, src) {
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            return s;
+          }
+          const prog = gl.createProgram();
+          gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+          gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+          gl.linkProgram(prog);
+          gl.useProgram(prog);
+          const buf = gl.createBuffer();
+          gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+          gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+          const pos = gl.getAttribLocation(prog, 'a_position');
+          gl.enableVertexAttribArray(pos);
+          gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+          const uTime = gl.getUniformLocation(prog, 'u_time');
+          const uRes = gl.getUniformLocation(prog, 'u_resolution');
+          const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+          let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+          window.addEventListener('mousemove', (event) => {
+            const rect = canvas.getBoundingClientRect();
+            if (rect.width && rect.height) {
+              const nx = (event.clientX - rect.left) / rect.width;
+              const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+              mouse.x = nx * canvas.width;
+              mouse.y = ny * canvas.height;
+            }
+          });
+          function render(t) {
+            gl.viewport(0, 0, canvas.width, canvas.height);
+            if (uTime) gl.uniform1f(uTime, t * 0.001);
+            if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+            if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            requestAnimationFrame(render);
+          }
+          render(0);
+        })();
+        </script>
     </div>
-  </header>
+</div>
 
-  <main class="container section-padding" style="padding-top: 3rem;">
-    
-    <div class="confirmation-card scroll-reveal">
-      
-      <!-- SVG Checkmark Drawing Animation -->
-      <svg class="success-checkmark-svg" viewBox="0 0 52 52">
-        <circle cx="26" cy="26" r="25" fill="none"/>
-        <path fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-      </svg>
-
-      <h1 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--text-dark);">Appointment Confirmed!</h1>
-      <p style="color: var(--text-grey); font-size: 0.95rem; margin-bottom: 1.5rem;">Your queue spot has been successfully reserved. Arrive on time.</p>
-
-      <!-- Token Highlight Box -->
-      <div class="token-highlight-box" id="token-highlight-box">
-        <span>YOUR QUEUE TOKEN</span>
-        <h2 id="token-number-display">#07</h2>
-      </div>
-
-      <!-- Booking details card list -->
-      <div style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; text-align: left; background-color: var(--light-grey); margin-bottom: 2rem;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.9rem;">
-          <div>
-            <span style="color: var(--text-grey); font-size: 0.8rem; font-weight: 500;">CLINIC</span>
-            <p style="font-weight: 700; margin-top: 0.15rem;" id="summary-clinic">Metro Care General Clinic</p>
-          </div>
-          <div>
-            <span style="color: var(--text-grey); font-size: 0.8rem; font-weight: 500;">SPECIALIST</span>
-            <p style="font-weight: 700; margin-top: 0.15rem;" id="summary-doctor">Dr. Arvind Mehta</p>
-          </div>
-          <div style="grid-column: span 2; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
-            <span style="color: var(--text-grey); font-size: 0.8rem; font-weight: 500;">DATE & TIME SLOT</span>
-            <p style="font-weight: 700; margin-top: 0.15rem;" id="summary-datetime">Thursday, 18 June at 10:30 AM</p>
-          </div>
-          <div style="border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
-            <span style="color: var(--text-grey); font-size: 0.8rem; font-weight: 500;">PATIENT</span>
-            <p style="font-weight: 700; margin-top: 0.15rem;" id="summary-patient">John Doe</p>
-          </div>
-          <div style="border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
-            <span style="color: var(--text-grey); font-size: 0.8rem; font-weight: 500;">PAYMENT STATUS</span>
-            <div style="margin-top: 0.15rem;">
-              <span id="summary-payment" class="badge badge-success">Paid Online (Verified)</span>
-            </div>
-          </div>
+<!-- Top Navigation Bar -->
+<header class="navbar bg-white/60 dark:bg-inverse-surface/60 backdrop-blur-xl border-b border-white/40 dark:border-white/10 docked full-width top-0 sticky z-50 shadow-[0_20px_50px_rgba(0,107,95,0.05)]">
+    <div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+        <div class="flex items-center gap-8">
+            <a class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim" href="index.html">PawCare</a>
+            <nav class="hidden md:flex items-center gap-6">
+                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary hover:scale-105 transition-all" href="index.html">Home</a>
+                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary hover:scale-105 transition-all" href="find.html">Find Clinic</a>
+                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary hover:scale-105 transition-all" href="book.html">Book</a>
+                <a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary hover:scale-105 transition-all" href="dashboard.html">Dashboard</a>
+            </nav>
         </div>
-      </div>
+        <div class="flex items-center gap-4">
+            <button onclick="window.location.href='find.html'" class="hidden md:block font-label-md text-label-md px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/5 transition-colors">Find Near Me</button>
+            <button onclick="toggleModal('emergency-modal', true)" class="font-label-md text-label-md px-6 py-2 rounded-full bg-primary text-on-primary shadow-lg hover:scale-105 active:scale-95 transition-all">EMERGENCY</button>
+        </div>
+    </div>
+</header>
 
-      <!-- Live Queue tracker timelines -->
-      <div class="queue-tracker-box">
-        <h3>
-          <span>Live Queue Progress</span>
-          <span class="live-indicator" id="tracker-live-indicator">LIVE FEED</span>
-        </h3>
+<main class="max-w-container-max mx-auto px-margin-desktop py-10 w-full flex justify-center">
+    <!-- Confirmation Bento Card -->
+    <div class="glass-card rounded-3xl p-8 sm:p-12 border border-white/50 shadow-2xl max-w-2xl w-full text-center flex flex-col gap-6">
         
-        <!-- Timeline progress tracking -->
-        <div class="queue-progress-bar">
-          <div class="queue-progress-fill"></div>
-        </div>
-        <div class="queue-progress-nodes">
-          <div class="queue-progress-node completed" id="progress-node-ahead">
-            <span>Patients Ahead</span>
-          </div>
-          <div class="queue-progress-node active" id="progress-node-you">
-            <span style="font-weight: 700;">You (#07)</span>
-          </div>
-          <div class="queue-progress-node" id="progress-node-doc">
-            <span>Consulting</span>
-          </div>
-        </div>
-
-        <div style="margin-top: 1.5rem; text-align: center; border-top: 1px dashed var(--border-color); padding-top: 1rem;">
-          <h4 id="queue-ahead-label" style="font-size: 1.15rem; color: var(--primary-teal); margin-bottom: 0.25rem;">3 patients ahead of you</h4>
-          <p id="queue-est-label" style="font-size: 0.9rem; font-weight: 600; color: var(--text-dark);">Estimated wait: ~35 minutes</p>
-          <span id="tracker-last-updated-text" style="font-size: 0.75rem; color: var(--text-grey); display: block; margin-top: 0.5rem;">Last updated: just now</span>
-        </div>
-      </div>
-
-      <!-- Mock QR code card -->
-      <div style="border: 1px dashed var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; display: flex; align-items: center; gap: 1.5rem; text-align: left; margin-bottom: 2.5rem;">
-        
-        <!-- CSS Styled QR mock block -->
-        <div style="width: 80px; height: 80px; background-color: var(--white); border: 2px solid var(--text-dark); border-radius: 4px; padding: 0.35rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; position: relative;">
-          <!-- Corner anchors -->
-          <div style="border: 3px solid var(--text-dark); background-color: transparent;"></div>
-          <div style="border: 1px dashed var(--text-grey);"></div>
-          <div style="border: 1px dashed var(--text-grey);"></div>
-          <div style="border: 3px solid var(--text-dark); background-color: transparent;"></div>
-          
-          <div style="border: 1px dashed var(--text-grey);"></div>
-          <div style="background-color: var(--text-dark);"></div>
-          <div style="background-color: var(--text-dark);"></div>
-          <div style="border: 1px dashed var(--text-grey);"></div>
-          
-          <div style="border: 1px dashed var(--text-grey);"></div>
-          <div style="background-color: var(--text-dark);"></div>
-          <div style="border: 1px dashed var(--text-grey);"></div>
-          <div style="background-color: var(--text-dark);"></div>
-          
-          <div style="border: 3px solid var(--text-dark); background-color: transparent;"></div>
-          <div style="border: 1px dashed var(--text-grey);"></div>
-          <div style="background-color: var(--text-dark);"></div>
-          <div style="background-color: var(--text-dark);"></div>
-        </div>
+        <!-- Animated success checkmark -->
+        <svg class="success-checkmark-svg" viewBox="0 0 52 52">
+            <circle cx="26" cy="26" r="25" fill="none"/>
+            <path fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
 
         <div>
-          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem;">Self Check-in QR Code</h4>
-          <p style="font-size: 0.8rem; color: var(--text-grey); line-height: 1.4;">Show this QR scan code at the clinic reception terminal to self check-in and notify the doctor of your arrival.</p>
+            <h1 class="font-headline-lg text-2xl sm:text-3xl font-extrabold text-on-surface">Appointment Confirmed!</h1>
+            <p class="text-sm text-on-surface-variant font-semibold mt-1">Your queue spot has been successfully reserved. Arrive on time.</p>
         </div>
-      </div>
 
-      <!-- Action items buttons -->
-      <div style="display: flex; flex-direction: column; gap: 1rem;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-          <button id="add-calendar-btn" class="btn btn-secondary"><i class="fa-solid fa-calendar-plus"></i> Add to Calendar</button>
-          <button id="get-directions-btn" class="btn btn-secondary"><i class="fa-solid fa-map-location-dot"></i> Get Directions</button>
+        <!-- Token Highlight Box -->
+        <div id="token-highlight-box" class="bg-primary/5 border-2 border-dashed border-primary rounded-2xl p-6 transition-all duration-300 max-w-sm mx-auto w-full">
+            <span class="text-xs font-bold uppercase tracking-wider text-primary">YOUR QUEUE TOKEN</span>
+            <h2 id="token-number-display" class="text-5xl font-extrabold text-primary mt-1">#07</h2>
         </div>
-        <button id="share-confirmed-btn" class="btn btn-outline-teal" style="width: 100%;"><i class="fa-solid fa-share-nodes"></i> Share Booking Reference</button>
-        <button id="cancel-appt-btn" class="btn" style="background-color: transparent; color: var(--emergency-red); border-color: transparent; text-decoration: underline; font-weight: 600; font-size: 0.9rem; padding: 0.5rem 1rem;">
-          Cancel Appointment Slot
-        </button>
-      </div>
+
+        <!-- Appointment Summary Details Table -->
+        <div class="bg-white/30 border border-slate-200/50 rounded-2xl p-6 text-left w-full text-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">CLINIC</span>
+                    <p id="summary-clinic" class="font-bold text-on-surface mt-0.5">Metro Care General Clinic</p>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">SPECIALIST</span>
+                    <p id="summary-doctor" class="font-bold text-on-surface mt-0.5">Dr. Arvind Mehta</p>
+                </div>
+                <div class="sm:col-span-2 border-t border-slate-200/40 pt-3">
+                    <span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">DATE & TIME SLOT</span>
+                    <p id="summary-datetime" class="font-bold text-on-surface mt-0.5">Thursday, 18 June at 10:30 AM</p>
+                </div>
+                <div class="border-t border-slate-200/40 pt-3">
+                    <span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">PATIENT</span>
+                    <p id="summary-patient" class="font-bold text-on-surface mt-0.5">John Doe</p>
+                </div>
+                <div class="border-t border-slate-200/40 pt-3">
+                    <span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">PAYMENT STATUS</span>
+                    <div class="mt-1">
+                        <span id="summary-payment" class="bg-green-500/10 text-green-600 border border-green-500/20 text-xs font-bold px-3 py-1 rounded-full uppercase">Paid Online (Verified)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Queue tracker timeline progress bar -->
+        <div class="border border-slate-200/50 rounded-2xl p-6 text-left w-full flex flex-col gap-4 bg-white/40">
+            <div class="flex justify-between items-center">
+                <h3 class="font-headline-md text-sm font-bold text-on-surface">Live Queue Progress</h3>
+                <span id="tracker-live-indicator" class="bg-green-100 text-green-600 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase flex items-center gap-1 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping"></span> LIVE FEED</span>
+            </div>
+            
+            <!-- Progress Tracker bar -->
+            <div class="queue-progress-bar">
+                <div class="queue-progress-fill"></div>
+            </div>
+            <!-- Progress Timeline node descriptors -->
+            <div class="queue-progress-nodes select-none text-[9px] font-bold uppercase text-on-surface-variant">
+                <div id="progress-node-ahead" class="queue-progress-node completed">
+                    <span class="absolute left-1/2 -translate-x-1/2 top-4 whitespace-nowrap">Ahead</span>
+                </div>
+                <div id="progress-node-you" class="queue-progress-node active">
+                    <span class="absolute left-1/2 -translate-x-1/2 top-4 whitespace-nowrap">You</span>
+                </div>
+                <div id="progress-node-doc" class="queue-progress-node">
+                    <span class="absolute left-1/2 -translate-x-1/2 top-4 whitespace-nowrap">Cabin</span>
+                </div>
+            </div>
+
+            <!-- Wait estimation labels -->
+            <div class="border-t border-dashed border-slate-200/50 pt-4 mt-1 text-center">
+                <h4 id="queue-ahead-label" class="font-extrabold text-primary text-base">3 patients ahead of you</h4>
+                <p id="queue-est-label" class="text-xs text-on-surface-variant font-bold mt-0.5">Estimated wait: ~35 minutes</p>
+                <span id="tracker-last-updated-text" class="text-[9px] text-slate-400 mt-2 block">Last updated: just now</span>
+            </div>
+        </div>
+
+        <!-- Self check-in QR Code box -->
+        <div class="border border-dashed border-slate-200/60 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-6 text-left w-full bg-white/20">
+            <!-- Mock QR code block -->
+            <div class="w-20 h-20 bg-white border border-on-surface rounded-xl p-1.5 grid grid-cols-4 gap-[2px] flex-shrink-0 shadow-sm relative">
+                <!-- Outer corners -->
+                <div class="border-[3px] border-on-surface bg-transparent"></div>
+                <div class="border border-dashed border-slate-300"></div>
+                <div class="border border-dashed border-slate-300"></div>
+                <div class="border-[3px] border-on-surface bg-transparent"></div>
+                
+                <div class="border border-dashed border-slate-300"></div>
+                <div class="bg-on-surface rounded-sm"></div>
+                <div class="bg-on-surface rounded-sm"></div>
+                <div class="border border-dashed border-slate-300"></div>
+                
+                <div class="border border-dashed border-slate-300"></div>
+                <div class="bg-on-surface rounded-sm"></div>
+                <div class="border border-dashed border-slate-300"></div>
+                <div class="bg-on-surface rounded-sm"></div>
+                
+                <div class="border-[3px] border-on-surface bg-transparent"></div>
+                <div class="border border-dashed border-slate-300"></div>
+                <div class="bg-on-surface rounded-sm"></div>
+                <div class="bg-on-surface rounded-sm"></div>
+            </div>
+            <div>
+                <h4 class="font-bold text-on-surface text-sm">Self Check-in QR Code</h4>
+                <p class="text-xs text-on-surface-variant mt-1.5 leading-relaxed">Show this QR scan code at the clinic reception terminal to self check-in and notify the doctor of your arrival.</p>
+            </div>
+        </div>
+
+        <!-- Action buttons grid -->
+        <div class="flex flex-col gap-3 w-full">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button id="add-calendar-btn" class="bg-white/60 hover:bg-white border border-slate-300 text-on-surface py-3 rounded-2xl font-bold text-xs hover:scale-105 active:scale-95 shadow-sm transition-all flex items-center justify-center gap-1.5"><span class="material-symbols-outlined text-base">calendar_add-on</span> Add to Calendar</button>
+                <button id="get-directions-btn" class="bg-white/60 hover:bg-white border border-slate-300 text-on-surface py-3 rounded-2xl font-bold text-xs hover:scale-105 active:scale-95 shadow-sm transition-all flex items-center justify-center gap-1.5"><span class="material-symbols-outlined text-base">directions</span> Get Directions</button>
+            </div>
+            <button id="share-confirmed-btn" class="bg-primary/5 text-primary py-3 rounded-2xl font-bold text-xs hover:scale-105 active:scale-95 shadow-sm border border-primary/20 transition-all flex items-center justify-center gap-1.5"><span class="material-symbols-outlined text-base">share</span> Share Booking Reference</button>
+            <button id="cancel-appt-btn" class="text-red-500 hover:text-red-600 underline font-bold text-xs py-2 mt-2 transition-all">Cancel Appointment Slot</button>
+        </div>
 
     </div>
-  </main>
+</main>
 
-  <!-- Footer -->
-  <footer class="footer" id="contact">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="index.html" class="logo">
-          <i class="fa-solid fa-house-chimney-medical"></i> PawCare
-        </a>
-        <p>We are making clinic visits frictionless. Search human and veterinary clinics, view exact doctor availability, book appointments visually, and skip wait lists.</p>
-        <div class="social-links">
-          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#"><i class="fa-brands fa-twitter"></i></a>
-          <a href="#"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest/80 dark:bg-inverse-surface/80 backdrop-blur-md border-t border-white/20 full-width py-12 mt-20">
+    <div class="w-full py-12 px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter">
+        <div class="flex flex-col gap-4">
+            <a href="index.html" class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim font-bold">PawCare</a>
+            <p class="font-body-md text-body-md text-on-surface-variant">Bridging human medical standards with premium pet care empathy. Your pets deserve the best.</p>
         </div>
-      </div>
-      <div class="footer-col">
-        <h4>Discover</h4>
-        <ul>
-          <li><a href="find.html">Find General Clinics</a></li>
-          <li><a href="find.html?type=pet">Find Pet Vets</a></li>
-          <li><a href="find.html?type=dental">Dental Care Near Me</a></li>
-          <li><a href="find.html?type=eye">Eye Specialists</a></li>
-          <li><a href="find.html?type=skin">Skin & Hair Clinics</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Clinic Portal Login</a></li>
-          <li><a href="#">Emergency Help Guide</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Stay Updated</h4>
-        <p>Subscribe to our newsletter for health tips and clinic updates.</p>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!')">
-          <div class="newsletter-input-group">
-            <input type="email" placeholder="Your Email Address" required>
-            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
-          </div>
-        </form>
-      </div>
+        <div>
+            <h5 class="font-label-md text-label-md text-primary mb-6">Quick Links</h5>
+            <ul class="flex flex-col gap-3">
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Medical Standards</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-label-md text-label-md text-primary mb-6">Support</h5>
+            <ul class="flex flex-col gap-3">
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Support</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Find a Specialist</a></li>
+                <li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Help Center</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-label-md text-label-md text-primary mb-6">Community</h5>
+            <div class="flex gap-4">
+                <a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-lg">share</span></a>
+                <a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-lg">groups</span></a>
+                <a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-lg">mail</span></a>
+            </div>
+            <p class="mt-8 font-label-sm text-label-sm text-on-surface-variant">© 2026 PawCare Healthcare. All rights reserved.</p>
+        </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 PawCare Health Platform. All rights reserved.</p>
-      <div class="footer-bottom-links">
-        <a href="#">Security</a>
-        <a href="#">Sitemap</a>
-      </div>
-    </div>
-  </footer>
+</footer>
 
-  <!-- Scripts -->
-  <script src="js/app.js"></script>
-  <script src="js/confirmed.js"></script>
+<!-- Modals -->
+
+<!-- Emergency Modal -->
+<div id="emergency-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-red-950/40 backdrop-blur-md p-4 transition-all duration-300 opacity-0">
+  <div class="glass-card bg-white/95 dark:bg-inverse-surface/95 rounded-3xl p-8 max-w-md w-full border border-red-500/30 shadow-2xl transition-all scale-95 duration-300 transform opacity-0 text-center relative overflow-hidden" id="emergency-card">
+    <div class="absolute -right-10 -top-10 w-40 h-40 bg-red-500/10 rounded-full blur-2xl animate-pulse"></div>
+    <div class="flex justify-end mb-2">
+      <button onclick="toggleModal('emergency-modal', false)" class="text-on-surface-variant hover:text-red-500 transition-colors flex items-center">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    
+    <div class="w-16 h-16 bg-red-100 dark:bg-red-950/50 rounded-full flex items-center justify-center mx-auto mb-6 text-red-600 dark:text-red-400 animate-bounce">
+      <span class="material-symbols-outlined text-4xl font-bold">emergency</span>
+    </div>
+    
+    <h3 class="font-headline-md text-headline-md text-red-600 dark:text-red-400 mb-2 font-extrabold uppercase tracking-wide">
+      EMERGENCY ACTIVE
+    </h3>
+    <p class="text-xs text-on-surface-variant mb-6 font-semibold">
+      Nearest Emergency Medical Centers
+    </p>
+    
+    <div class="flex flex-col gap-4 text-left mb-6">
+      <div class="p-4 bg-red-500/5 rounded-2xl border border-red-500/10">
+        <h4 class="font-bold text-on-surface text-sm flex justify-between">
+          <span>City Care Hospital & ER</span>
+          <span class="text-red-600 font-bold text-xs uppercase">0.8 km</span>
+        </h4>
+        <p class="text-xs text-on-surface-variant mt-1">24/7 Human Trauma & General Emergency Support</p>
+      </div>
+      <div class="p-4 bg-purple-500/5 rounded-2xl border border-purple-500/10">
+        <h4 class="font-bold text-on-surface text-sm flex justify-between">
+          <span>PawCare 24/7 Vet Hospital</span>
+          <span class="text-purple-600 dark:text-purple-400 font-bold text-xs uppercase">1.4 km</span>
+        </h4>
+        <p class="text-xs text-on-surface-variant mt-1">Full-service 24-hour Vet Trauma Center & ICU</p>
+      </div>
+    </div>
+    
+    <a href="tel:+919876543210" class="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-full font-label-md text-label-md flex items-center justify-center gap-2 shadow-lg hover:scale-[1.02] active:scale-95 transition-all mb-4">
+      <span class="material-symbols-outlined">call</span> Call Dispatch Center
+    </a>
+    
+    <button onclick="toggleModal('emergency-modal', false)" class="text-xs text-on-surface-variant hover:underline font-semibold">
+      Dismiss Emergency Screen
+    </button>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
+
+<!-- Scripts -->
+<script>
+    function toggleModal(modalId, show) {
+        const modal = document.getElementById(modalId);
+        const cardId = modalId.replace('modal', 'card');
+        const card = document.getElementById(cardId);
+        if (show) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                card.classList.remove('scale-95', 'opacity-0');
+                card.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        } else {
+            modal.classList.add('opacity-0');
+            card.classList.remove('scale-100', 'opacity-100');
+            card.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    }
+    
+    document.querySelectorAll('[id$="-modal"]').forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) toggleModal(modal.id, false);
+        });
+    });
+
+    function showToast(message) {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'glass-card bg-white/90 dark:bg-inverse-surface/90 text-on-surface border border-white/50 px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3 transition-all transform translate-y-4 opacity-0 duration-300';
+        toast.innerHTML = `
+            <span class="material-symbols-outlined text-primary font-bold">check_circle</span>
+            <span class="font-label-md text-label-md">${message}</span>
+        `;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.classList.remove('translate-y-4', 'opacity-0');
+        }, 10);
+        setTimeout(() => {
+            toast.classList.add('translate-y-4', 'opacity-0');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const sessionData = localStorage.getItem('pawcare_session');
+        const navActions = document.querySelector('header .flex.items-center.gap-4');
+        if (sessionData && navActions) {
+            const user = JSON.parse(sessionData);
+            const findNearMeBtn = navActions.querySelector('button:not(.bg-primary)');
+            if (findNearMeBtn) {
+                findNearMeBtn.outerHTML = `
+                  <a href="dashboard.html" class="hidden md:flex items-center gap-2 font-label-md text-label-md px-5 py-2.5 rounded-full border border-primary text-primary bg-primary/5 hover:bg-primary/10 transition-all hover:scale-105">
+                    <span class="material-symbols-outlined text-lg">account_circle</span>
+                    Hello, ${user.name.split(' ')[0]}
+                  </a>
+                `;
+            }
+        }
+    });
+</script>
+<script src="js/app.js"></script>
+<script src="js/confirmed.js"></script>
 </body>
 </html>

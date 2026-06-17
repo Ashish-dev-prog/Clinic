@@ -37,8 +37,8 @@ let pastAppointments = [
   },
   {
     id: "appt-98",
-    clinicName: "Happy Tails Vet Clinic",
-    doctorName: "Dr. Ananya Iyer",
+    clinicName: "Starlight Holistic Vet Care",
+    doctorName: "Dr. Elena Vance",
     date: "24 April 2026",
     time: "11:00 AM",
     statusBadge: "badge-teal",
@@ -100,10 +100,10 @@ let savedClinics = [
   },
   {
     id: "pet-1",
-    name: "Happy Tails Vet Clinic",
+    name: "Starlight Holistic Vet Care",
     type: "Veterinary Care",
-    rating: 4.8,
-    distance: 1.5,
+    rating: 4.9,
+    distance: 1.2,
     statusText: "Open Today"
   }
 ];

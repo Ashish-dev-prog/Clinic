@@ -85,50 +85,45 @@ function renderBookingSummary() {
   const editLink = `clinic.html?id=${bookingParams.clinicId}`;
 
   summaryBox.innerHTML = `
-    <div style="display: flex; flex-direction: column; gap: 1rem;">
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
-        <h4 style="font-size: 1.1rem; font-weight: 700;">${bookingParams.clinicName}</h4>
-        <a href="${editLink}" style="font-size: 0.85rem; color: var(--primary-teal); font-weight: 600; text-decoration: underline;"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+    <div class="flex flex-col gap-4">
+      <div class="flex justify-between items-center border-b border-slate-200/50 dark:border-white/10 pb-4">
+        <h4 class="font-headline-md text-base font-extrabold text-on-surface">${bookingParams.clinicName}</h4>
+        <a href="${editLink}" class="text-xs font-bold text-primary hover:underline flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">edit</span> Edit</a>
       </div>
-      <div class="booking-summary-row">
-        <span class="label">Specialist</span>
-        <span class="val">${bookingParams.doctorName}</span>
+      <div class="flex justify-between items-center text-xs font-semibold">
+        <span class="text-on-surface-variant">Specialist</span>
+        <span class="text-on-surface font-extrabold">${bookingParams.doctorName}</span>
       </div>
-      <div class="booking-summary-row">
-        <span class="label">Schedule</span>
-        <span class="val">${bookingParams.date} at ${bookingParams.slot}</span>
+      <div class="flex justify-between items-center text-xs font-semibold">
+        <span class="text-on-surface-variant">Schedule</span>
+        <span class="text-on-surface font-extrabold">${bookingParams.date} at ${bookingParams.slot}</span>
       </div>
-      <div class="booking-summary-row">
-        <span class="label">Lobby Queue</span>
-        <span class="val">Token #${bookingParams.queue}</span>
+      <div class="flex justify-between items-center text-xs font-semibold">
+        <span class="text-on-surface-variant">Lobby Queue</span>
+        <span class="text-on-surface font-extrabold">Token #${bookingParams.queue}</span>
       </div>
-      <div class="booking-summary-row">
-        <span class="label">Lobby Est. Wait</span>
-        <span class="val">${bookingParams.wait}</span>
+      <div class="flex justify-between items-center text-xs font-semibold">
+        <span class="text-on-surface-variant">Lobby Est. Wait</span>
+        <span class="text-on-surface font-extrabold">${bookingParams.wait}</span>
       </div>
       
-      <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 0.5rem;">
-        <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem;">Consultation Fees</h4>
-        <div class="booking-summary-row">
-          <span class="label">OPD Fee</span>
-          <span class="val">₹200.00</span>
+      <div class="border-t border-slate-200/50 dark:border-white/10 pt-4 mt-2">
+        <h4 class="font-headline-md text-xs font-extrabold text-on-surface uppercase tracking-wider mb-3">Consultation Fees</h4>
+        <div class="flex justify-between items-center text-xs font-semibold mb-2">
+          <span class="text-on-surface-variant">OPD Fee</span>
+          <span class="text-on-surface">₹200.00</span>
         </div>
-        <div class="booking-summary-row">
-          <span class="label">Booking Charge & GST</span>
-          <span class="val">₹18.00</span>
+        <div class="flex justify-between items-center text-xs font-semibold mb-3">
+          <span class="text-on-surface-variant">Booking Charge & GST</span>
+          <span class="text-on-surface">₹18.00</span>
         </div>
-        <div class="booking-summary-row" style="border-top: 1px dashed var(--border-color); padding-top: 0.5rem; margin-top: 0.5rem; font-size: 1.1rem; font-weight: 700;">
-          <span>Total Payable</span>
-          <span style="color: var(--primary-teal);" id="summary-total-fee">₹218.00</span>
+        <div class="flex justify-between items-center font-bold text-sm border-t border-dashed border-slate-200/80 dark:border-white/20 pt-3 mt-1">
+          <span class="text-on-surface">Total Payable</span>
+          <span class="${bookingParams.isPet ? 'text-purple-600 dark:text-purple-400' : 'text-primary'} font-extrabold text-base" id="summary-total-fee">₹218.00</span>
         </div>
       </div>
     </div>
   `;
-
-  if (bookingParams.isPet) {
-    const totalFee = document.getElementById('summary-total-fee');
-    if (totalFee) totalFee.style.color = "#8B5CF6";
-  }
 }
 
 // Switches form layouts between Patient and Pet
@@ -147,6 +142,7 @@ function setBookingMode(mode, toggleH, toggleP, formH, formP, btnOnline, btnClin
     btnOnline.classList.remove('pet-bg');
     
     bookingParams.isPet = false;
+    document.body.classList.remove('pet-mode-active');
   } else {
     toggleP.classList.add('active', 'pet-mode');
     toggleH.classList.remove('active');
@@ -160,6 +156,7 @@ function setBookingMode(mode, toggleH, toggleP, formH, formP, btnOnline, btnClin
     btnOnline.classList.add('pet-bg');
     
     bookingParams.isPet = true;
+    document.body.classList.add('pet-mode-active');
   }
   
   // Re-run summary render to update coloring

@@ -80,11 +80,11 @@ const clinicsData = [
   },
   {
     id: "pet-1",
-    name: "Happy Tails Vet Clinic",
+    name: "Starlight Holistic Vet Care",
     type: "pet",
     typeName: "Veterinary Care",
-    distance: 1.5,
-    rating: 4.8,
+    distance: 1.2,
+    rating: 4.9,
     status: "open",
     statusText: "Open • Available",
     nextSlot: "10:00 AM",
@@ -337,30 +337,36 @@ function renderList(clinics) {
   }
 
   listContainer.innerHTML = clinics.map(clinic => {
-    let statusClass = "badge-success";
-    if (clinic.status === "busy") statusClass = "badge-warning";
-    if (clinic.status === "closed") statusClass = "badge-danger";
+    let statusClass = "bg-green-500/10 text-green-600";
+    if (clinic.status === "busy") statusClass = "bg-amber-500/10 text-amber-600";
+    if (clinic.status === "closed") statusClass = "bg-red-500/10 text-red-600";
 
-    const petIcon = clinic.isPet ? `<span class="badge badge-purple" style="font-size: 0.7rem; padding: 0.1rem 0.4rem;"><i class="fa-solid fa-paw"></i> Pet</span>` : "";
+    const petIcon = clinic.isPet ? `<span class="bg-purple-500/10 text-purple-600 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-tighter flex items-center gap-0.5"><span class="material-symbols-outlined text-[10px] fill-purple-600">pets</span> Pet</span>` : "";
+
+    const isHighlighted = activeClinicId === clinic.id;
+    const highlightClasses = isHighlighted ? "border-primary/60 bg-primary/5 shadow-lg scale-[1.01]" : "";
 
     return `
-      <div class="sidebar-clinic-item animate-fade-in-up" id="item-${clinic.id}" onclick="selectClinic('${clinic.id}')">
-        <div class="clinic-item-header">
-          <div class="clinic-item-title">
-            <h3>${clinic.name} ${petIcon}</h3>
-            <div class="clinic-item-meta" style="margin-top: 0.25rem;">
-              <span><i class="fa-solid fa-stethoscope"></i> ${clinic.typeName}</span>
-              <span><i class="fa-solid fa-location-dot"></i> ${clinic.distance} km away</span>
+      <div class="glass-card p-5 rounded-2xl cursor-pointer transition-all hover:scale-[1.01] hover:bg-white/80 active:scale-[0.99] flex flex-col gap-3 border border-white/40 dark:border-white/10 ${highlightClasses} animate-fade-in-up" id="item-${clinic.id}" onclick="selectClinic('${clinic.id}')">
+        <div class="flex justify-between items-start gap-2">
+          <div>
+            <h3 class="font-headline-md text-sm font-bold text-on-surface flex items-center gap-2 flex-wrap">
+              ${clinic.name}
+              ${petIcon}
+            </h3>
+            <div class="flex gap-4 mt-2 text-xs font-semibold text-on-surface-variant flex-wrap">
+              <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">stethoscope</span> ${clinic.typeName}</span>
+              <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">distance</span> ${clinic.distance} km</span>
             </div>
           </div>
-          <div class="clinic-rating">
-            <i class="fa-solid fa-star"></i> ${clinic.rating}
+          <div class="flex items-center gap-1 text-xs font-extrabold text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-full">
+            <span class="material-symbols-outlined text-[14px] fill-amber-500">star</span> ${clinic.rating}
           </div>
         </div>
-        <div class="clinic-item-footer" style="margin-top: 0.5rem;">
-          <span class="badge ${statusClass}">${clinic.statusText}</span>
-          <div class="next-slot-pill">Next: ${clinic.nextSlot}</div>
-          <button class="btn btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; border-radius: var(--radius-sm);" onclick="event.stopPropagation(); window.location.href='clinic.html?id=${clinic.id}'">Book</button>
+        <div class="flex justify-between items-center mt-2 pt-2 border-t border-slate-200/50 dark:border-white/10 flex-wrap gap-2">
+          <span class="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider ${statusClass}">${clinic.statusText}</span>
+          <div class="text-[11px] font-bold text-primary bg-primary/10 px-2.5 py-1 rounded-full">Next: ${clinic.nextSlot}</div>
+          <button class="px-4 py-1.5 rounded-full font-label-sm text-label-sm bg-primary text-on-primary shadow-md hover:scale-105 active:scale-95 transition-all" onclick="event.stopPropagation(); window.location.href='clinic.html?id=${clinic.id}'">Book</button>
         </div>
       </div>
     `;
@@ -408,7 +414,7 @@ function renderMarkers(clinics) {
 
   clinics.forEach(clinic => {
     const markerHtml = `
-      <div class="custom-leaflet-marker status-${clinic.status} type-${clinic.isPet ? 'pet' : 'human'} ${clinic.type === 'emergency' ? 'type-emergency' : ''}" id="leaflet-marker-${clinic.id}">
+      <div class="custom-leaflet-marker marker-${clinic.status} marker-${clinic.isPet ? 'pet' : 'human'} ${clinic.type === 'emergency' ? 'marker-emergency' : ''}" id="leaflet-marker-${clinic.id}">
         <i class="fa-solid ${getMarkerIcon(clinic.type, clinic.isPet)}"></i>
       </div>
     `;
@@ -457,12 +463,13 @@ window.selectClinic = function(clinicId, triggerMapPan = true) {
   if (!clinic) return;
 
   // 1. Highlight sidebar card
-  const listItems = document.querySelectorAll('.sidebar-clinic-item');
-  listItems.forEach(item => item.classList.remove('highlighted'));
+  document.querySelectorAll('#sidebar-clinic-list [id^="item-"]').forEach(item => {
+    item.classList.remove('border-primary/60', 'bg-primary/5', 'shadow-lg', 'scale-[1.01]');
+  });
 
   const item = document.getElementById(`item-${clinicId}`);
   if (item) {
-    item.classList.add('highlighted');
+    item.classList.add('border-primary/60', 'bg-primary/5', 'shadow-lg', 'scale-[1.01]');
     item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 

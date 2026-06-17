@@ -1111,14 +1111,38 @@
   font-size: 0.95rem;
   color: var(--text-dark);
   background-color: var(--light-grey);
-  transition: var(--transition-fast);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-field input:hover, .form-field select:hover, .form-field textarea:hover {
+  border-color: var(--primary-teal);
+  background-color: var(--white);
+  transform: scale(1.015);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+body.pet-mode-active .form-field input:hover, 
+body.pet-mode-active .form-field select:hover, 
+body.pet-mode-active .form-field textarea:hover {
+  border-color: #8B5CF6;
 }
 
 .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
   border-color: var(--primary-teal);
   background-color: var(--white);
   box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
-  transform: translateY(-1px);
+  transform: translateY(-1px) scale(1.015);
+}
+
+body.pet-mode-active .form-field input:focus, 
+body.pet-mode-active .form-field select:focus, 
+body.pet-mode-active .form-field textarea:focus {
+  border-color: #8B5CF6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
+.form-field input:active, .form-field select:active, .form-field textarea:active {
+  transform: scale(0.99);
 }
 
 .checkbox-checklist {
