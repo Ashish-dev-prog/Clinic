@@ -4,18 +4,28 @@
 :root {
   --primary-teal: #0D9488;
   --dark-teal: #0F766E;
-  --light-teal-bg: #F0FDFA;
+  --light-teal-bg: #EFF6FF; /* soft blue background for outline hover */
   --accent-green: #22C55E;
   --emergency-red: #EF4444;
   --warning-yellow: #F59E0B;
-  --white: #FFFFFF;
+  
+  /* White glass cards style variables */
+  --white: rgba(255, 255, 255, 0.7); 
   --light-grey: #F8FAFC;
-  --border-color: #E2E8F0;
+  --border-color: rgba(226, 232, 240, 0.8);
   --text-dark: #0F172A;
   --text-grey: #64748B;
   
-  --body-bg: #FFFFFF;
-  --navbar-bg: rgba(255, 255, 255, 0.85);
+  /* Soft white gradient background */
+  --body-bg: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 50%, #EFF6FF 100%);
+  --navbar-bg: rgba(255, 255, 255, 0.75);
+  --card-backdrop: blur(12px);
+  
+  /* Blue CTA buttons for light mode */
+  --primary-btn-bg: #2563EB;
+  --primary-btn-hover: #1D4ED8;
+  --outline-btn-color: #2563EB;
+  --shadow-primary-btn: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
   
   --font-heading: 'Plus Jakarta Sans', sans-serif;
   --font-body: 'Inter', sans-serif;
@@ -37,22 +47,56 @@
 }
 
 [data-theme="dark"] {
-  --white: #1E293B;         /* Slate 800 */
-  --light-grey: #0F172A;     /* Slate 900 */
-  --border-color: #334155;   /* Slate 700 */
-  --text-dark: #F8FAFC;      /* Slate 50 */
-  --text-grey: #94A3B8;      /* Slate 400 */
-  --light-teal-bg: #115E59;  /* Dark Teal accent */
+  /* Dark glass cards slate-800 translucent */
+  --white: rgba(30, 41, 59, 0.7); 
+  --light-grey: #0B0F19; /* Deep navy background sections */
+  --border-color: rgba(255, 255, 255, 0.1);
+  --text-dark: #F8FAFC;
+  --text-grey: #94A3B8;
+  --light-teal-bg: #115E59; /* soft dark teal background */
   
-  --body-bg: #0B0F19;        /* Very dark background */
-  --navbar-bg: rgba(11, 15, 25, 0.85);
+  /* Deep navy background */
+  --body-bg: #0A0E1A; 
+  --navbar-bg: rgba(10, 14, 26, 0.75);
+  --card-backdrop: blur(12px);
+  
+  /* Cyan/teal accents for dark mode */
+  --primary-btn-bg: #0D9488;
+  --primary-btn-hover: #0F766E;
+  --outline-btn-color: #0D9488;
+  --shadow-primary-btn: 0 10px 15px -3px rgba(13, 148, 136, 0.3);
+}
+
+/* Glassmorphism global helpers */
+.clinic-card, 
+.doctor-card, 
+.sticky-sidebar-card, 
+.booking-form-box, 
+.confirmation-card, 
+.dashboard-sidebar, 
+.dashboard-user-card, 
+.pet-profile-card,
+.faq-item,
+.sidebar-clinic-item,
+.queue-tracker-box {
+  background-color: var(--white) !important;
+  backdrop-filter: var(--card-backdrop) !important;
+  -webkit-backdrop-filter: var(--card-backdrop) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.auth-card,
+.overlay-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
 }
 
 [data-theme="dark"] .auth-card,
 [data-theme="dark"] .overlay-card {
-  background: rgba(30, 41, 59, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--text-dark);
+  background: rgba(30, 41, 59, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
 /* CSS Reset */
@@ -69,7 +113,7 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--body-bg);
+  background: var(--body-bg);
   color: var(--text-dark);
   line-height: 1.6;
   overflow-x: hidden;
@@ -202,15 +246,15 @@ ul {
 }
 
 .btn-primary {
-  background-color: var(--primary-teal);
-  color: var(--white);
+  background-color: var(--primary-btn-bg);
+  color: #FFFFFF !important;
   box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover {
-  background-color: var(--dark-teal);
+  background-color: var(--primary-btn-hover);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-primary);
+  box-shadow: var(--shadow-primary-btn);
 }
 
 .btn-secondary {
@@ -226,8 +270,8 @@ ul {
 
 .btn-outline-teal {
   background-color: transparent;
-  border-color: var(--primary-teal);
-  color: var(--primary-teal);
+  border-color: var(--outline-btn-color);
+  color: var(--outline-btn-color);
 }
 
 .btn-outline-teal:hover {
@@ -1405,6 +1449,7 @@ ul {
   opacity: 0.08;
   animation-delay: -15s;
   animation-duration: 35s;
+  display: none; /* Hidden in Light Mode */
 }
 
 .orb-4 {
@@ -1416,6 +1461,7 @@ ul {
   opacity: 0.12;
   animation-delay: -22s;
   animation-duration: 45s;
+  display: none; /* Hidden in Light Mode */
 }
 
 @keyframes float-orb {
@@ -1430,7 +1476,7 @@ ul {
   }
 }
 
-/* Dark mode ambient orb color shifts */
+/* Dark mode ambient orb color shifts and visibility overrides */
 [data-theme="dark"] .orb-1 {
   background: radial-gradient(circle, #0284C7 0%, rgba(2, 132, 199, 0) 70%); /* Deep Sky Blue */
   opacity: 0.16;
@@ -1444,11 +1490,13 @@ ul {
 [data-theme="dark"] .orb-3 {
   background: radial-gradient(circle, #06B6D4 0%, rgba(6, 182, 212, 0) 70%); /* Cyan */
   opacity: 0.12;
+  display: block; /* Shown in Dark Mode */
 }
 
 [data-theme="dark"] .orb-4 {
   background: radial-gradient(circle, #38BDF8 0%, rgba(56, 189, 248, 0) 70%); /* Soft Sky Blue */
   opacity: 0.12;
+  display: block; /* Shown in Dark Mode */
 }
 
 /* Levitating Translucent Anti-Gravity Particles */
@@ -1460,6 +1508,12 @@ ul {
   height: 100%;
   overflow: hidden;
   pointer-events: none;
+  display: none; /* Hidden in Light Mode */
+}
+
+/* Shown in Dark Mode */
+[data-theme="dark"] .particles-wrapper {
+  display: block;
 }
 
 .translucent-particle {
@@ -1492,8 +1546,8 @@ ul {
   box-shadow: 0 0 6px rgba(6, 182, 212, 0.4);
 }
 
-/* Smooth theme transition for elements */
+/* Smooth theme transition for elements - 400ms Switch */
 body, header, section, div, h1, h2, h3, h4, p, span, a, button, input, select, textarea {
-  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, transform 0.2s ease;
+  transition: background-color 400ms ease, border-color 400ms ease, color 400ms ease, box-shadow 400ms ease, transform 400ms ease;
 }
 
